@@ -43,9 +43,16 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
     });
     // Inizializzo i componenti vue dell'applicazione
     // preima che venga istanziato l'oggetto vue padre
+    var customTemplates = this.templateConfig.templates || {};
     Vue.component('sidebar', sidebar.SidebarComponent);
     Vue.component('viewport', viewport.ViewportComponent);
     Vue.component('floatbar', floatbar.FloatbarComponent);
+
+    if (customTemplates.app) {
+      AppUI = AppUI.extend({
+        template: customTemplates.app
+      })
+    }
     Vue.component('app', AppUI);
     //inizializza l'applicazione Vue oggetto vue padre dell'applicazione
     var app = new Vue({
@@ -365,8 +372,8 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
       options.push = options.push || false;
       options.perc = options.perc || 0;
       options.split = options.split || 'h';
-      options.backonclose = options.backonclose || false;
-      options.showtitle = options.showtitle || true;
+      options.backonclose = _.isBoolean(options.backonclose) ? options.backonclose : false;
+      options.showtitle = _.isBoolean(options.showtitle) ? options.showtitle : true;
       // chiamo il metodo showContent del servizio
       // viewport per poter visualizzare il content
       viewport.ViewportService.showContent(options);
