@@ -174,13 +174,15 @@ var ViewportService = function() {
     this._prepareContentView(options);
     this._immediateComponentsLayout = false;
     this._showView('content', options, true);
-    this._components.content.setContent(options)
-      .then(function(){
-        //var data = self._components.content.getCurrentContentData();
-        //self._prepareView(data.options);
-        self._layoutComponents();
-        self._immediateComponentsLayout = true;
-      })
+    Vue.nextTick(function(){
+      self._components.content.setContent(options)
+        .then(function(){
+          //var data = self._components.content.getCurrentContentData();
+          //self._prepareView(data.options);
+          self._layoutComponents();
+          self._immediateComponentsLayout = true;
+        })
+    })
   };
 
   // funzione che toglie l'ultimo content al contentStack
