@@ -365,11 +365,11 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
       // in caso di mancata assegnazione
       options.content = options.content || null;
       options.title = options.title || "";
-      options.push = options.push || false;
+      options.push = _.isBoolean(options.push) ? options.push : false;
       options.perc = options.perc || 0;
       options.split = options.split || 'h';
-      options.backonclose = options.backonclose || false;
-      options.showtitle = options.showtitle || true;
+      options.backonclose = _.isBoolean(options.backonclose) ? options.backonclose : false;
+      options.showtitle = _.isBoolean(options.showtitle) ? options.showtitle : true;
       // chiamo il metodo showContent del servizio
       // viewport per poter visualizzare il content
       viewport.ViewportService.showContent(options);
