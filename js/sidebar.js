@@ -21,15 +21,17 @@ var SidebarItem = Vue.extend({
   },
   methods: {
     onClickItem: function() {
-      var self = this;
-      var sidebarService = this.$options.service;
-      this.component.setOpen(!this.component.state.open);
-      // setto lo stato del componente open
-      _.forEach(sidebarService.state.components, function (component) {
-        if (component != self.component) {
-          component.setOpen(false);
-        }
-      })
+      if (this.component.collapsable) {
+        var self = this;
+        var sidebarService = this.$options.service;
+        this.component.setOpen(!this.component.state.open);
+        // setto lo stato del componente open
+        _.forEach(sidebarService.state.components, function (component) {
+          if(component != self.component) {
+            component.setOpen(false);
+          }
+        })
+      }
     }
   }
 });
@@ -82,6 +84,7 @@ function SidebarService() {
     sidebarItem.open = component.state.open;//(component.open === undefined) ? sidebarItem.open : component.open;
     sidebarItem.icon = component.icon || sidebarItem.icon;
     sidebarItem.state = component.state || true;
+    sidebarItem.collapsable = component.collapsable || true;
     sidebarItem.component = component;
     //lo appendo al g3w-sidebarcomponents (template sidebar.html)
     sidebarItem.$mount().$appendTo('#g3w-sidebarcomponents');
