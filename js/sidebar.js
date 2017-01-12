@@ -21,17 +21,15 @@ var SidebarItem = Vue.extend({
   },
   methods: {
     onClickItem: function() {
-      if (this.component.collapsable) {
-        var self = this;
-        var sidebarService = this.$options.service;
-        this.component.setOpen(!this.component.state.open);
-        // setto lo stato del componente open
-        _.forEach(sidebarService.state.components, function (component) {
-          if(component != self.component) {
-            component.setOpen(false);
-          }
-        })
-      }
+      var self = this;
+      var sidebarService = this.$options.service;
+      this.component.setOpen(!this.component.state.open);
+      // setto lo stato del componente open
+      _.forEach(sidebarService.state.components, function (component) {
+        if (component != self.component && self.component.collapsable) {
+          component.setOpen(false);
+        }
+      })
     }
   }
 });
