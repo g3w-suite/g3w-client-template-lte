@@ -62,9 +62,15 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
   //funzione che server per registrare tutti i servizi legati
   // alle vaie pari dell'appliazione
   this._setUpServices = function() {
+    // registro i servizi dei componenti principali applicazione
+    // sidebar, viewport etc..
     _.forEach(ApplicationTemplate.Services, function(service, element) {
       ApplicationService.registerService(element, service);
     });
+    // registro tutti i servizi del componenti figli
+    _.forEach(GUI.getComponents(), function(component) {
+      ApplicationService.registerService(component.id, component.getService());
+    })
   };
   // funzione che costruice il template
   this._buildTemplate = function() {
