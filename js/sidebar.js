@@ -26,7 +26,7 @@ var SidebarItem = Vue.extend({
       this.component.setOpen(!this.component.state.open);
       // setto lo stato del componente open
       _.forEach(sidebarService.state.components, function (component) {
-        if (component != self.component && self.component.collapsable) {
+        if (component != self.component && self.component.collapsible) {
           component.setOpen(false);
         }
       })
@@ -82,7 +82,7 @@ function SidebarService() {
     sidebarItem.open = component.state.open;//(component.open === undefined) ? sidebarItem.open : component.open;
     sidebarItem.icon = component.icon || sidebarItem.icon;
     sidebarItem.state = component.state || true;
-    sidebarItem.collapsable = component.collapsable || true;
+    sidebarItem.collapsible = component.collapsible || true;
     sidebarItem.component = component;
     //lo appendo al g3w-sidebarcomponents (template sidebar.html)
     sidebarItem.$mount().$appendTo('#g3w-sidebarcomponents');
