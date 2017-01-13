@@ -3,27 +3,29 @@ var ProjectsRegistry = require('core/project/projectsregistry');
 var layout = require('./layout');
 var AppUI = Vue.extend({
   template: require('../html/app.html'),
-  ready: function(){
-    /* start to render LayoutManager layout */
-    layout.loading(false);
-    layout.setup();
-    //Fix the problem with right sidebar and layout boxed
-    layout.pushMenu.expandOnHover();
-    layout.controlSidebar._fix($(".control-sidebar-bg"));
-    layout.controlSidebar._fix($(".control-sidebar"));
-    var controlsidebarEl = layout.options.controlSidebarOptions.selector;
-    function setFloatBarMaxHeight(){
-      $(controlsidebarEl).css('max-height',$(window).innerHeight());
-      $('.g3w-sidebarpanel').css('height',$(window).height() - $(".main-header").height());
-    }
-    setFloatBarMaxHeight();
-    function setModalHeight(){
-      $('#g3w-modal-overlay').css('height',$(window).height());
-    }
-    $(window).resize(function() {
+  mounted: function(){
+    this.$nextTick(function(){
+      /* start to render LayoutManager layout */
+      layout.loading(false);
+      layout.setup();
+      //Fix the problem with right sidebar and layout boxed
+      layout.pushMenu.expandOnHover();
+      layout.controlSidebar._fix($(".control-sidebar-bg"));
+      layout.controlSidebar._fix($(".control-sidebar"));
+      var controlsidebarEl = layout.options.controlSidebarOptions.selector;
+      function setFloatBarMaxHeight(){
+        $(controlsidebarEl).css('max-height',$(window).innerHeight());
+        $('.g3w-sidebarpanel').css('height',$(window).height() - $(".main-header").height());
+      }
       setFloatBarMaxHeight();
-      setModalHeight();
-    });
+      function setModalHeight(){
+        $('#g3w-modal-overlay').css('height',$(window).height());
+      }
+      $(window).resize(function() {
+        setFloatBarMaxHeight();
+        setModalHeight();
+      });
+    })
   },
   computed: {
     logo_url: function() {

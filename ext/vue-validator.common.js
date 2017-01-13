@@ -3,11 +3,7 @@
  * (c) 2016 kazuya kawaguchi
  * Released under the MIT License.
  */
-(function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-  typeof define === 'function' && define.amd ? define(factory) :
-  (global.VueValidator = factory());
-}(this, (function () { 'use strict';
+'use strict';
 
 /*  */
 
@@ -2038,7 +2034,7 @@ function installComponent (Vue) {
 }
 
 plugin.mapValidation = mapValidation; // for standalone
-plugin.version = '3.0.0-alpha.2';
+plugin.version = '__VERSION__';
 
 if (typeof window !== 'undefined' && window.Vue) {
   window.Vue.use(plugin);
@@ -2049,6 +2045,4 @@ var index = {
   mapValidation: mapValidation
 };
 
-return index;
-
-})));
+module.exports = index;

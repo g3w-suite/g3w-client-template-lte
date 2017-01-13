@@ -85,7 +85,8 @@ function SidebarService() {
     sidebarItem.collapsible = component.collapsible || true;
     sidebarItem.component = component;
     //lo appendo al g3w-sidebarcomponents (template sidebar.html)
-    sidebarItem.$mount().$appendTo('#g3w-sidebarcomponents');
+    var itemcomponent = sidebarItem.$mount();
+    $('#g3w-sidebarcomponents').append(itemcomponent.$el);
     //monto il componete nella g3w-sidebarcomponent-placeholder (template sidebar-item.html);
     component.mount("#g3w-sidebarcomponent-placeholder");
     // verifico che il componete abbia l'iniService come metodo
@@ -162,9 +163,6 @@ var SidebarComponent = Vue.extend({
       isMobile: function(){
         return isMobile.any
       }
-    },
-    ready: function() {
-
     }
 });
 

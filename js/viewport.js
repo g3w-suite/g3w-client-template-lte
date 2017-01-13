@@ -477,19 +477,21 @@ var ViewportService = function() {
   // funzione che va a caricare i componenti (della viewport)
   // solo dopo che le size delle view sono state corrette
   this._layoutComponents = function() {
-    var reducesdSizes = this._getReducedSizes();
-    reducedWidth = reducesdSizes.reducedWidth || 0;
-    reducedHeight = reducesdSizes.reducedHeight || 0;
     var self = this;
-    _.forEach(this._components, function(component, name) {
-      // viene chiamato il metodo per il ricacolo delle dimensioni nei componenti figli
-      var width = self.state[name].sizes.width - reducedWidth ;
-      var height = self.state[name].sizes.height - reducedHeight;
-      // ogni componente (mappa e contenuto) qui
-      // ha l'opportunità di ricalcolare il proprio il layout.
-      // Usato per esempio dalla mappa per reagire al resize della viewport
-      component.layout(width, height);
-    })
+    Vue.nextTick(function(){
+      var reducesdSizes = self._getReducedSizes();
+      reducedWidth = reducesdSizes.reducedWidth || 0;
+      reducedHeight = reducesdSizes.reducedHeight || 0;
+      _.forEach(self._components, function(component, name) {
+        // viene chiamato il metodo per il ricacolo delle dimensioni nei componenti figli
+        var width = self.state[name].sizes.width - reducedWidth ;
+        var height = self.state[name].sizes.height - reducedHeight;
+        // ogni componente (mappa e contenuto) qui
+        // ha l'opportunità di ricalcolare il proprio il layout.
+        // Usato per esempio dalla mappa per reagire al resize della viewport
+        component.layout(width, height);
+      })
+    });
   };
 
   // funzione che viene chiamata la prima volta che

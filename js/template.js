@@ -24,9 +24,6 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
   this.templateConfig = templateConfig;
   this.init = function() {
     var config = ApplicationService.getConfig();
-    if (config.debug){
-      Vue.config.debug = true;
-    }
     // fa il setup dell'interfaccia
     // dichiarando i metodi generali dell'applicazione GUI.showForm etc ..
     this._setupInterface();
@@ -49,13 +46,20 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
     Vue.component('app', AppUI);
     //inizializza l'applicazione Vue oggetto vue padre dell'applicazione
     var app = new Vue({
-      el: 'body',
-      ready: function() {
+      el: '#app',
+      mounted: function() {
         //una volta che l'istanza vue è pronta
         // inzio a costruire il template aggiungendo i vari componenti
         self._buildTemplate();
         // faccio il localize
         $(document).localize();
+        this.$nextTick(function(){
+          // setto la viewport passadogli la configurazione del viewport dell'applicazione
+          self._setViewport(self.templateConfig.viewport);
+          // emetto l'evento ready
+          self.emit('ready');
+          GUI.ready();
+        })
       }
     });
   };
@@ -87,11 +91,6 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
     //registro altri componenti che non hanno una collocazione spaziale precisa
     // come da esempio QueryResultsComponent, form  che possono essere montati sulla floatbar o altre parti del template
     this._addOtherComponents();
-    // setto la viewport passadogli la configurazione del viewport dell'applicazione
-    this._setViewport(this.templateConfig.viewport);
-    // emetto l'evento ready
-    this.emit('ready');
-    GUI.ready();
   };
 
   //aggiungere compineti non legati ad un placeholder
