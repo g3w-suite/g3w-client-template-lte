@@ -38,6 +38,16 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
     Vue.filter('t', function (value) {
       return t(value);
     });
+
+    // veramente brutto ma ora non saprei fare diversamente: quando non siamo su mobile definiamo un left per dare spazio al sidebar-aside-toggle
+    if (!isMobile.any) {
+      $("<style type='text/css'> .ol-control-tl {" +
+        "top: 7px;" +
+        "left:43px;" +
+      "}</style>").appendTo("head");
+    }
+
+
     // Inizializzo i componenti vue dell'applicazione
     // prima che venga istanziato l'oggetto vue padre
     Vue.component('sidebar', sidebar.SidebarComponent);
