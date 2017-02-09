@@ -5,7 +5,7 @@
     <div v-if="(showtitle && contentTitle) || previousTitle || (state.content.closable && state.content.aside)" class="close-panel-block">
       <span v-if="showtitle && contentTitle">{{ contentTitle }}</span>
       <div v-else class="g3w_contents_back">
-        <span v-if="previousTitle" @click="gotoPreviousContent()">Torna a {{ previousTitle }}</span>
+        <span v-if="previousTitle" @click="gotoPreviousContent()"><span class="glyphicon glyphicon-chevron-left"></span> Torna a {{ previousTitle }}</span>
       </div>
       <button v-if="state.content.closable && state.content.aside" class="glyphicon glyphicon-remove pull-right close-panel-button" @click="closeContent"></button>
     </div>

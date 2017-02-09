@@ -194,7 +194,7 @@ var ViewportService = function() {
         //self._prepareView(data.options);
         self._layoutComponents();
         self._immediateComponentsLayout = true;
-      })
+      });
   };
 
   // funzione che toglie l'ultimo content al contentStack

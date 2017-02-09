@@ -189,7 +189,6 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
   // per poter interagire con essa attraverso maggiormente con l'oggetto GUI
   this._setupInterface = function() {
     /* DEFINIZIONE INTERFACCIA PUBBLICA */
-
     /* Metodi comuni a tutti i template */
     GUI.layout = layout;
     GUI.addComponent = _.bind(this._addComponent, this);
