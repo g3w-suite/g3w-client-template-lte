@@ -68,9 +68,8 @@ function SidebarService() {
     return true;
   };
   // funzione che aggiunge il singolo componente sulla sidebar
-  this.addComponent = function(component) {
-    //aggiungo componente allo state
-    this.state.components.push(component);
+  // aggiungo anche possibilità di insicare la positione nella sidebar
+  this.addComponent = function(component, position) {
     //faccio montare il sidebar-item che contiene al suo interno il placeholder del componente vero e proprio
     //in questo modo il componente non si dovrà occupare di costruire anche l'elemento li della sidebar
     //ma conterrà solo il contenuto
@@ -86,7 +85,17 @@ function SidebarService() {
     sidebarItem.component = component;
     //lo appendo al g3w-sidebarcomponents (template sidebar.html)
     var itemcomponent = sidebarItem.$mount();
-    $('#g3w-sidebarcomponents').append(itemcomponent.$el);
+    if (_.isNil(position)) {
+      this.state.components.push(component);
+      $('#g3w-sidebarcomponents').append(itemcomponent.$el);
+    } else {
+      this.state.components = this.state.components.splice(0,0,component);
+      $('#g3w-sidebarcomponents').children().each(function(index, element) {
+        if (position == index) {
+          $(itemcomponent.$el).insertBefore(element);
+        }
+      });
+    }
     //monto il componete nella g3w-sidebarcomponent-placeholder (template sidebar-item.html);
     component.mount("#g3w-sidebarcomponent-placeholder");
     // verifico che il componete abbia l'iniService come metodo
