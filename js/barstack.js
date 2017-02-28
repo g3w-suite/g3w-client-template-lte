@@ -67,6 +67,10 @@ proto.clear = function() {
   return d.promise();
 };
 
+proto.getContentData = function() {
+  return this.state.contentsdata
+};
+
 proto.getCurrentContentData = function() {
   return this.state.contentsdata[this.state.contentsdata.length - 1];
 };

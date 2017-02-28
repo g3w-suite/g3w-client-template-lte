@@ -216,7 +216,16 @@ var ViewportService = function() {
     }
   };
 
-  // funzione che rimuove il cont dalla viewport
+  // chiude il content
+  this.closeContent = function() {
+    this._components.content.removeContent();
+    //fa il recover della mappa di default
+    this.recoverDefaultMap();
+    // chido la View secondaria
+    this.closeSecondaryView();
+  };
+
+  // funzione che rimuove il cont dalla viewport o solo una parte
   this.removeContent = function() {
     // verifico che l'attributo backonclose sia true o false
     // per fare in modo che lo stack del contentStack si completamente rimosso
@@ -599,9 +608,12 @@ var ViewportComponent = Vue.extend({
       // prende il titolo del precendete elemento
       var contentsData = this.state.content.contentsdata;
       if (contentsData.length > 1) {
-        return contentsData[contentsData.length - 2].options.title;
+        if (!contentsData[contentsData.length - 2].options.title) {
+          return 'indietro'
+        }
+        return 'a ' + contentsData[contentsData.length - 2].options.title;
       }
-      return null;
+      return false;
     },
     contentSmallerThenPreferred: function() {
       return this.state.secondaryPerc < this.state.content.preferredPerc;

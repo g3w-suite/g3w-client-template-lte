@@ -251,6 +251,11 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
       GUI.setModal(false);
     };
 
+    // chide la colonna di dentra del content
+    GUI.closeContent = function() {
+      viewport.ViewportService.closeContent();
+    };
+
     // funzione per la visuzlizzazione dei risultati
     GUI.showQueryResults = function(title, results) {
       // prendo il componente
@@ -261,12 +266,27 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
       if (results) {
         queryResultService.setQueryResponse(results);
       }
-      GUI.showContextualContent(
-        {
-          content: queryResultsComponent,
-          title: "Risultati "+title
+      var contentsComponent = GUI.getComponent('contents');
+      //vado a verificare se non c'è contentuto oppure se è stato fatta una sola query
+      if (!contentsComponent.getContentData().length || (contentsComponent.getContentData().length == 1 && contentsComponent.getCurrentContentData().content.getId() == 'queryresults')) {
+        GUI.showContextualContent(
+          {
+            content: queryResultsComponent,
+            title: "Risultati " + title
+          }
+        );
+      } else {
+        if (contentsComponent.getCurrentContentData().content.getId() == 'queryresults') {
+          contentsComponent.popContent();
         }
-      );
+        GUI.pushContent({
+          content: queryResultsComponent,
+          backonclose: true,
+          closable:false,
+          perc: 50,
+          title: "Risultati " + title
+        });
+      }
       return queryResultService;
     };
     //temporaneo show panel
@@ -360,7 +380,7 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
     //    il contentComponet viene chiuso totalmente e lo stack resettato o rimosso solo quel componete
     GUI.pushContent = function(options) {
       options =  options || {};
-      options.perc = 100;
+      options.perc = options.perc || 100;
       options.push = true;
       GUI.setContent(options);
     };

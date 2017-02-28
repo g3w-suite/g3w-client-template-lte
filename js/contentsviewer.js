@@ -69,6 +69,7 @@ proto.setContent = function(options) {
       d.resolve();
     })
   }
+  this.setOpen(true);
   return d.promise();
 };
 
@@ -91,7 +92,9 @@ proto.addContent = function(content, options) {
 
 // rimuove il contenuto dallo stack
 proto.removeContent = function() {
+  this.setOpen(false);
   return this.clearContents();
+
 };
 
 // usato da viewport.js
@@ -104,6 +107,36 @@ proto.popContent = function() {
     // aggiorna la visibilità dei vari componenti vue montanti
     self.updateContentVisibility();
   });
+};
+
+// recupera il component attraverso la classe
+proto.getComponentByClass = function(componentClass) {
+  var component;
+  var contentdata = this.stack.getContentData();
+  _.forEach(contentdata, function(content) {
+    if (content.content instanceof componentClass) {
+      component = content.content;
+      return false
+    }
+  });
+  return component
+};
+
+// recupera il component attraverso l'id del componente
+proto.getComponentById = function(id) {
+  var component;
+  var contentdata = this.stack.getContentData();
+  _.forEach(contentdata, function(content) {
+    if (content.content.id == id) {
+      component = content.content;
+      return false
+    }
+  });
+  return component
+};
+
+proto.getContentData = function() {
+  return this.stack.getContentData();
 };
 
 // restituisce il current contentdata
