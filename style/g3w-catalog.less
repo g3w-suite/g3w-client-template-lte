@@ -117,13 +117,24 @@ Licensed under MIT
 }
 
 .catalog .tree-item, .catalog #legend div{
-  padding: 1px 0px 1px 0.8em;
+
   &.selected {
     background-color: @light-blue;
   }
   span#tree-node-title {
     cursor: pointer;
   }
+}
+
+.catalog .tree-item {
+  cursor: pointer
+}
+
+.catalog .root {
+  padding: 1px 3px 1px 0.8em;
+}
+.catalog .child {
+  padding: 5px 3px 1px 1.6em;
 }
 
 .catalog .tree-root{
