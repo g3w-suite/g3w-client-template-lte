@@ -94,7 +94,6 @@ proto.addContent = function(content, options) {
 proto.removeContent = function() {
   this.setOpen(false);
   return this.clearContents();
-
 };
 
 // usato da viewport.js

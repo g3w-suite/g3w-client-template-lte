@@ -1,5 +1,7 @@
 var ApplicationService = require('core/applicationservice');
 var ProjectsRegistry = require('core/project/projectsregistry');
+var ProjectsMenuComponent = require('./projectsmenu');
+var GUI = require('sdk/gui/gui');
 var layout = require('./layout');
 var AppUI = Vue.extend({
   template: require('../html/app.html'),
@@ -66,6 +68,13 @@ var AppUI = Vue.extend({
         logo_link = ApplicationService.getConfig().logo_link;
       }
       return logo_link;
+    },
+    openProjectsMenu: function() {
+      GUI.setContent({
+        content: new ProjectsMenuComponent(),
+        title: '',
+        perc:100
+      });
     }
   }
 });

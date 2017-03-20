@@ -3,19 +3,28 @@ var inherit = require('core/utils/utils').inherit;
 var base = require('core/utils/utils').base;
 var merge = require('core/utils/utils').merge;
 var Component = require('gui/vue/component');
-var GUI = require('sdk').gui.GUI;
+var ProjectsRegistry = require('core/project/projectsregistry');
 
 var InternalComponent = Vue.extend({
   template: require('../html/menu.html'),
   data: function() {
     return {
-      state: null
+      state: null,
+      loading: false
     }
+
   },
   methods: {
     trigger: function(item) {
+      var self = this;
       if (item.cbk) {
-        item.cbk.apply(item);
+        $('#full-screen-modal').modal('show');
+        this.loading = true;
+        item.cbk.apply(item).
+          then(function(){
+            self.loading = false;
+            $('#full-screen-modal').modal('hide');
+        })
       }
       else if (item.href) {
         window.open(item.href, '_blank');
@@ -26,23 +35,35 @@ var InternalComponent = Vue.extend({
       else {
         console.log("Nessuna azione per "+item.title);
       }
+    },
+    logoSrc: function(src) {
+      if (src.indexOf('./') > -1) {
+        return ProjectsRegistry.config.mediaurl + src;
+      } else {
+        return src;
+      }
     }
+  },
+  mounted: function() {
+    Vue.nextTick(function () {
+      $("#menu-projects.nano").nanoScroller();
+    })
   }
 });
 
 function MenuComponent(options){
+  options = options || {};
   base(this,options);
   //this.id = "menu_"+Date.now();
   this.title = options.title || "menu";
   this.state.visible = true;
-  this.state.menuitems = options.menuitems
-
+  this.state.menuitems = options.menuitems;
   merge(this, options);
   this.internalComponent = new InternalComponent({
     service: this
   });
   this.internalComponent.state = this.state;
-};
+}
 inherit(MenuComponent, Component);
 
 var proto = MenuComponent.prototype;

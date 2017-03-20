@@ -221,8 +221,8 @@ var ViewportService = function() {
     this._components.content.removeContent();
     //fa il recover della mappa di default
     this.recoverDefaultMap();
-    // chido la View secondaria
-    this.closeSecondaryView();
+    // chiudo la View secondaria ritornando una promise
+    return this.closeSecondaryView();
   };
 
   // funzione che rimuove il cont dalla viewport o solo una parte
@@ -237,7 +237,7 @@ var ViewportService = function() {
       //fa il recover della mappa di default
       this.recoverDefaultMap();
       // chido la View secondaria
-      this.closeSecondaryView();
+      return this.closeSecondaryView();
     }
   };
 
@@ -275,6 +275,7 @@ var ViewportService = function() {
 
   // chiudo la view secondaria
   this.closeSecondaryView = function(componentId) {
+    var d = $.Deferred();
     var self = this;
     var secondaryViewComponent = this._components[this._otherView(this.state.primaryView)];
     if (secondaryViewComponent.clearContents) {
@@ -282,6 +283,9 @@ var ViewportService = function() {
         .then(function(){
           self.state.secondaryVisible = false;
           self._layout();
+          Vue.nextTick(function() {
+            d.resolve();
+          })
         });
     }
     else {
@@ -289,7 +293,11 @@ var ViewportService = function() {
       // questo è il metodo che esegue il layout delle viste,
       // e dà ad ogni componente l'opportunità di ricalcolare il proprio layout
       this._layout();
+      Vue.nextTick(function() {
+        d.resolve();
+      })
     }
+    return d.promise();
   };
 
   //ritorna il valore di default della percentuale della view a sconda del tipo
@@ -349,7 +357,7 @@ var ViewportService = function() {
       this.showSecondaryView(split, secondaryPerc);
     } else {
       // vado a chidere la view secondaria
-      this.closeSecondaryView();
+      return this.closeSecondaryView();
     }
   };
 

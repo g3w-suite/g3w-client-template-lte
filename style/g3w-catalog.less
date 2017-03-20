@@ -122,26 +122,33 @@ Licensed under MIT
   &.selected {
     background-color: @light-blue;
   }
-  span#tree-node-title {
+  span.tree-node-title {
     cursor: pointer;
+    white-space: pre-line;
+    display:inline-block;
+    width: 85%;
   }
 }
 
 .catalog .tree-item {
   cursor: pointer
 }
-.catalog .tree-item:hover {
-  font-weight: bold;
+
+.catalog .itemmarginbottom {
+  margin-bottom: 5px;
 }
 
 .catalog .root {
-  padding: 1px 3px 1px 0.8em;
+  padding: 4px 3px 1px 0.8em;
+  vertical-align: top;
+
 }
 .catalog .child {
   padding: 5px 3px 1px 1.6em;
+  vertical-align: top;
 }
 
-.catalog .tree-root{
+.catalog .tree-root {
   padding-left: 0px;
 }
 

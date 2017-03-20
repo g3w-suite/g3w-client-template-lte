@@ -105,9 +105,48 @@ function SidebarService() {
     }
     return true;
   };
+
+  // restituisce il component in base all'id
+  this.getComponent = function(id) {
+    var Component;
+    _.forEach(this.state.components, function(component) {
+      if (component.getId() == id) {
+        Component = component;
+        return false;
+      }
+    });
+    return Component;
+  };
+
+  // restiuisce tutti i componenti
+  this.getComponents = function() {
+    return this.state.components;
+  };
+
+  this.reloadComponent = function(id) {
+    var component = this.getComponent(id);
+    component.reload();
+  };
+
+  this.reloadComponents = function() {
+    _.forEach(this.state.components, function(component) {
+      if (component.collapsible && component.state.open) {
+        $(component.getInternalComponent().$el).siblings().click();
+        component.setOpen(false);
+      }
+      component.reload();
+    })
+  };
   //rimuove il component
-  this.removeComponent = function(){
-    //TODO
+  this.removeComponent = function(component) {
+    var self = this;
+    _.forEach(this.state.components, function(sidebarComponent, index) {
+      if (component == sidebarComponent) {
+        component.unmount();
+        self.state.components.splice(index, 1);
+        return false;
+      }
+    })
   };
   // visualizzazione pannello sullo stack
   this.showPanel = function(panel) {

@@ -69,7 +69,7 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
           // emetto l'evento ready
           self.emit('ready');
           GUI.ready();
-        })
+        });
       }
     });
   };
@@ -252,8 +252,9 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
     };
 
     // chide la colonna di dentra del content
+    // ritorna una promise
     GUI.closeContent = function() {
-      viewport.ViewportService.closeContent();
+      return viewport.ViewportService.closeContent();
     };
 
     // funzione per la visuzlizzazione dei risultati
@@ -417,14 +418,15 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
 };
 
 inherit(ApplicationTemplate,G3WObject);
-// questi sono i plceholder previsti ne standard dell'applicazione
 
+// questi sono i plceholder previsti ne standard dell'applicazione
 ApplicationTemplate.PLACEHOLDERS = [
   'navbar',
   'sidebar',
   'viewport',
   'floatbar'
 ];
+
 // questi sono i servizi dei contenitori di componenti
 ApplicationTemplate.Services = {
   navbar: null,
