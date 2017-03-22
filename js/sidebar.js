@@ -129,6 +129,8 @@ function SidebarService() {
   };
 
   this.reloadComponents = function() {
+    // vado a forzare la chisura del panel
+    this.closePanel();
     _.forEach(this.state.components, function(component) {
       if (component.collapsible && component.state.open) {
         $(component.getInternalComponent().$el).siblings().click();
