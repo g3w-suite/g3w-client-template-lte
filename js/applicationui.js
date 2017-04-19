@@ -70,11 +70,17 @@ var AppUI = Vue.extend({
       return logo_link;
     },
     openProjectsMenu: function() {
-      GUI.setContent({
-        content: new ProjectsMenuComponent(),
-        title: '',
-        perc:100
-      });
+      var contentsComponent = GUI.getComponent('contents');
+      // verifico che il content è il projectsmenu
+      if (contentsComponent.getComponentById('projectsmenu')) {
+        GUI.closeContent();
+      } else {
+        GUI.setContent({
+          content: new ProjectsMenuComponent(),
+          title: '',
+          perc:100
+        });
+      }
     }
   }
 });

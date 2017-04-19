@@ -774,7 +774,8 @@ $.LayoutManager.listCustomPlugin = function () {
 	  	.listCustomPlugin();
 	};
 
-$.LayoutManager.loading = function(start){
+$.LayoutManager.loading = function(start) {
+  $('#initerror').remove();
   var start = _.isBoolean(start) ? start : true;
   if (start) {
     $('body').append('<div id="loadspinner" class="loading"></div>');
@@ -782,6 +783,16 @@ $.LayoutManager.loading = function(start){
   else {
     $('#loadspinner').remove();
   }
+};
+
+$.LayoutManager.reload = function(errorMsg) {
+  $('body').append('<div id="initerror"><h2>Oops!!! Si è verificato un errore</h2>' +
+    '<h4>Causa:  '+ errorMsg+'</h4>' +
+    '<h5>Al momento non è possibile caricare la mappa</h5>' +
+    '<button id="reload" type="button" class="btn btn-primary center-block" onclick="$.LayoutManager.loading();$.LayoutManager.bootstrap()">' +
+    '<span class="glyphicon glyphicon-refresh"></span> <strong>Riprova</strong></button>' +
+    '</div>'
+  );
 };
 
 module.exports = $.LayoutManager;

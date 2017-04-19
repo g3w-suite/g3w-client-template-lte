@@ -5,11 +5,12 @@ var ProjectsRegistry = require('core/project/projectsregistry');
 var PluginsRegistry = require('core/plugin/pluginsregistry');
 var MenuComponent = require('./menu');
 var SidebarService = require('./sidebar').SidebarService;
-var ViewportService = require('./viewport').ViewportService;
 var GUI = require('sdk').gui.GUI;
 
-function ProjectsMenuComponent(options){
-  base(this,options);
+function ProjectsMenuComponent(options) {
+  options = options || {};
+  options.id = 'projectsmenu';
+  base(this, options);
   var menuitems = [];
   var projects = ProjectsRegistry.getListableProjects();
   _.forEach(projects, function(project){
@@ -44,6 +45,9 @@ function ProjectsMenuComponent(options){
               SidebarService.reloadComponents();
               d.resolve();
             })
+        })
+        .fail(function() {
+          d.reject();
         });
         return d.promise();
       }

@@ -17,7 +17,7 @@ var AppUI = require('./applicationui');
 var layout = require('./layout');
 
 // forse da trovare un posto migliore per attivare lo spinner iniziale...
-layout.loading();
+layout.loading(true);
 // classe che serve per instaziare e settare il template dell'applicazione
 var ApplicationTemplate = function(templateConfig, ApplicationService) {
   self = this;
@@ -32,6 +32,7 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
     //vado a registrare tutti i servizi dell'appilazione
     this._setUpServices();
   };
+
   // setup layout
   // funzione che registra i componenti vue dell'applicazione
   this._setupLayout = function(){
@@ -46,8 +47,6 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
         "left:43px;" +
       "}</style>").appendTo("head");
     }
-
-
     // Inizializzo i componenti vue dell'applicazione
     // prima che venga istanziato l'oggetto vue padre
     Vue.component('sidebar', sidebar.SidebarComponent);
@@ -418,6 +417,13 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
 };
 
 inherit(ApplicationTemplate,G3WObject);
+
+// funzione di classe
+ApplicationTemplate.fail = function(bootstrap, errorMsg) {
+  layout.loading(false);
+  if (!layout.bootstrap) layout.bootstrap = bootstrap;
+  layout.reload(errorMsg);
+};
 
 // questi sono i plceholder previsti ne standard dell'applicazione
 ApplicationTemplate.PLACEHOLDERS = [
