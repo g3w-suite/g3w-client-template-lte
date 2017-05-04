@@ -55,6 +55,9 @@ var AppUI = Vue.extend({
       // verifico nel caso fosse un oggetto vuoto
       if (_.isEmpty(user)) {user = null}
       return user;
+    },
+    numberOfProjectsInGroup: function() {
+      return ProjectsRegistry.getProjects().length;
     }
   },
   methods: {
