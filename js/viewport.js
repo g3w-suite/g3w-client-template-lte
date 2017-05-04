@@ -377,7 +377,7 @@ var ViewportService = function() {
       }
     }
     else {
-      contentEl.css('padding-left',15);
+      contentEl.css('padding-left', 15);
     }
     return {
       reducedWidth: reducedWidth,
