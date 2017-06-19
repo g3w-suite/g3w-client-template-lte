@@ -1,5 +1,5 @@
 var ApplicationService = require('core/applicationservice');
-var ProjectsRegistry = require('core/project/projectsregistry');
+var ProjectsStore = require('core/project/projectsstore');
 var ProjectsMenuComponent = require('./projectsmenu');
 var GUI = require('sdk/gui/gui');
 var layout = require('./layout');
@@ -47,7 +47,7 @@ var AppUI = Vue.extend({
       return logo_link ? "_blank" : "";
     },
     project_title: function() {
-      var currentProject = ProjectsRegistry.getCurrentProject();
+      var currentProject = ProjectsStore.getCurrentProject();
       return currentProject.state.name;
     },
     user: function() {
@@ -57,7 +57,7 @@ var AppUI = Vue.extend({
       return user;
     },
     numberOfProjectsInGroup: function() {
-      return ProjectsRegistry.getProjects().length;
+      return ProjectsStore.getProjects().length;
     }
   },
   methods: {
