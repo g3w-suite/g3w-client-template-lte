@@ -4,7 +4,7 @@ var base = require('core/utils/utils').base;
 var merge = require('core/utils/utils').merge;
 var Component = require('gui/vue/component');
 var GUI = require('gui/gui');
-var ProjectsStore = require('core/project/projectsstore');
+var ProjectsRegistry = require('core/project/projectsregistry');
 
 var InternalComponent = Vue.extend({
   template: require('../html/menu.html'),
@@ -47,7 +47,7 @@ var InternalComponent = Vue.extend({
     },
     logoSrc: function(src) {
       if (src.indexOf('./') > -1) {
-        return ProjectsStore.config.mediaurl + src;
+        return ProjectsRegistry.config.mediaurl + src;
       } else {
         return src;
       }
