@@ -38,9 +38,10 @@ function ProjectsMenuComponent(options) {
               //window.location = paths.join('/');
               // cambio la url
               history.pushState(null, null, paths.join('/'));
+              // vado a cambiiare il set currentProject
+              ProjectRegistry.setCurrentProject(currentProject);
               // vado a afre il reload dei plugins
               PluginsRegistry.reloadPlugins(project);
-              ProjectRegistry.setCurrentProject(currentProject);
               // vado a fare il reloads dei component
               SidebarService.reloadComponents();
               d.resolve();
