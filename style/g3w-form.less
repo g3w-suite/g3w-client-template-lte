@@ -8,16 +8,35 @@
   }
 }
 .g3w-form-component_body {
-  overflow-y: auto;
-  overflow-x: hidden;
-  clear: both;
+  overflow: hidden;
+  clear:both;
+  margin-bottom: 10px;
 }
 
-.g3w-form{
+.input-error-validation {
+  border: 2px solid red!important;
+}
+.error-input-message {
+  color: red;
+}
+
+.g3w-form-component_footer {
+  overflow: hidden;
+  position:absolute;
+  bottom:15px;
+  width:100%;
+}
+
+.g3w-form-component_relations {
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.g3w-form, .g3w-form-component_footer{
   button{
     margin: 0px 5px 0px 5px
   }
-  .g3w-relationname{
+  .g3w-relationname {
     color: @light-blue;
     font-size: 1.2em;
     border-top: 1px solid darken(@gray,10%);

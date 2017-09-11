@@ -225,19 +225,15 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
       var FormComponent = require('sdk').gui.vue.FormComponent;
       // verifico che sia stato definito un formcomponent dall'editor custom del plugin
       // Istanzio sempre un componente nuovo
-      var formComponent = options.formComponent ? new options.formComponent :  new FormComponent({
-        id: 'form'
-      });
+      var formComponent = options.formComponent ? new options.formComponent(options) :  new FormComponent(options);
       //recupero il servizio (che darà sempre una nuova istanza)
       var formService = formComponent.getService();
-      // inizializzo il form con le opzioni ad esempio passate dall'editor (fields, relations etc..)
-      formService.setInitForm(options);
       // agggiunto un ulteriore parametro closable che di default è true
       // e quindi sarà possibile chidere il pannello con la x
       // parametri : [content, title, push, perc, split, closable]
       GUI.setContent({
         content: formComponent,
-        push: false, //significa che ci deve essere solo lui( cancellando eventuali precedenti form)
+        push: !!options.push, //significa che ci deve essere solo lui( cancellando eventuali precedenti form)
         closable: false
       });
       //ritorno il formService
