@@ -234,6 +234,7 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
       GUI.setContent({
         content: formComponent,
         push: !!options.push, //significa che ci deve essere solo lui( cancellando eventuali precedenti form)
+        showgoback: !!options.showgoback,
         closable: false
       });
       //ritorno il formService
@@ -246,6 +247,10 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
       GUI.setModal(false);
     };
 
+    // funzione che nasconde il content
+    GUI.hideContent = function(bool, perc) {
+      return viewport.ViewportService.hideContent(bool, perc);
+    };
     // chide la colonna di dentra del content
     // ritorna una promise
     GUI.closeContent = function() {
@@ -386,6 +391,10 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
       options.perc = options.perc || 50;
       options.push = true;
       GUI.setContent(options);
+    };
+    // rimuove l'ultimo content
+    GUI.popContent = function() {
+      viewport.ViewportService.popContent()
     };
     // funzione che setta i parametri del contenuto del content
     // come il componete etc..

@@ -27,6 +27,7 @@ var ViewportService = function() {
         height: 0
       },
       aside: true,
+      showgoback: true,
       stack: [], // array contentente gli elementi nello stack del contents
       closable: true, // specifica se chiudibile o meno (presenza della x)
       backonclose: false, // se al click della x deve essere chiso il contenuto tutto o toglierer l'ultomo contenuto dalla stack
@@ -161,6 +162,7 @@ var ViewportService = function() {
     mapComponent.internalComponent.$el.style.display = toggle ? 'block' : 'none';
   };
 
+
   // chiude la mappa
   this.closeMap = function() {
     this.state.secondaryPerc = (this.state.primaryView == 'map') ? 100 : 0;
@@ -188,13 +190,23 @@ var ViewportService = function() {
     // setto immediateComponentsLayout a false
     this._immediateComponentsLayout = false;
     this._showView('content', options, true);
-    self._components.content.setContent(options)
+    this._components.content.setContent(options)
       .then(function(){
         //var data = self._components.content.getCurrentContentData();
         //self._prepareView(data.options);
         self._layoutComponents();
         self._immediateComponentsLayout = true;
       });
+  };
+
+  // nasconde il content
+  this.hideContent = function(bool, perc) {
+    var prevContentPerc = this.state.secondaryPerc;
+    this.state.secondaryPerc = !!bool ? 0: perc;
+    this.state.secondaryVisible = !bool;
+    this._layout();
+    // restituisce la percentuale precedente
+    return prevContentPerc;
   };
 
   // funzione che toglie l'ultimo content al contentStack
@@ -205,7 +217,7 @@ var ViewportService = function() {
       this.recoverDefaultMap();
       // recupero il precedente content dallo stack
       var data = this._components.content.getPreviousContentData();
-      self._prepareContentView(data.options);
+      this._prepareContentView(data.options);
       this._immediateComponentsLayout = false;
       this._showView('content');
       this._components.content.popContent()
@@ -329,6 +341,7 @@ var ViewportService = function() {
     this.state.content.closable =  _.isNil(options.closable) ? true : options.closable;
     this.state.content.backonclose = _.isNil(options.backonclose) ? true : options.backonclose;
     this.state.content.contentsdata = this._components.content.contentsdata;
+    this.state.content.showgoback = _.isNil(options.showgoback) ? true : options.showgoback;
   };
 
   // metodo che si occupa delle gestione di tutta la logica di visualizzazione delle due viste (mappa e contenuti)
@@ -605,6 +618,9 @@ var ViewportComponent = Vue.extend({
       }
       return showtitle;
     },
+    showContent: function() {
+      return this.state.content.show;
+    },
     contentTitle: function() {
       // cambia il titolo prendendo l'ultimo elemento aggiunto alla stack
       var contentsData = this.state.content.contentsdata;
@@ -615,7 +631,7 @@ var ViewportComponent = Vue.extend({
     previousTitle: function() {
       // prende il titolo del precendete elemento
       var contentsData = this.state.content.contentsdata;
-      if (contentsData.length > 1) {
+      if (contentsData.length > 1 && this.state.content.showgoback) {
         if (!contentsData[contentsData.length - 2].options.title) {
           return 'indietro'
         }

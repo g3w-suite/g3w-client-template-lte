@@ -30,6 +30,26 @@
 .g3w-form-component_relations {
   margin-bottom: 10px;
   overflow: hidden;
+  .editbtn {
+    padding: 3px 3px 3px 3px;
+    margin: 0px 5px 0px 5px;
+    border: 1px solid darken(grey, 15%);
+    .border-radius( 5px );
+    .box-shadow();
+    display: inline-block;
+    opacity: .4;
+    cursor: not-allowed;
+    &.enabled {
+      opacity: 1;
+      cursor: pointer;
+      &:hover {
+        //.box-shadow(0px,0px,1px);
+      }
+      &.toggled {
+        background-color: #dddddd;
+      }
+    }
+  }
 }
 
 .g3w-form, .g3w-form-component_footer{
