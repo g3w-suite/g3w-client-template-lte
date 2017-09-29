@@ -5,6 +5,18 @@
   .toolboxselected {
     border-left: 5px solid #88d8ea;
   }
+  .toolbox .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  /* Show the dropdown menu on hover */
+  .toolbox .dropdown:hover .dropdown-content {
+    display: block;
+  }
   .editbtn {
     padding: 3px 3px 3px 3px;
     margin: 0px 5px 0px 5px;
