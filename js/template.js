@@ -396,6 +396,10 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
     GUI.popContent = function() {
       viewport.ViewportService.popContent()
     };
+    //ritorna il numero dei componenti sul content
+    GUI.getContentLength = function() {
+      return viewport.ViewportService.contentLength();
+    };
     // funzione che setta i parametri del contenuto del content
     // come il componete etc..
     GUI.setContent = function(options) {

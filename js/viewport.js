@@ -209,8 +209,13 @@ var ViewportService = function() {
     return prevContentPerc;
   };
 
+  this.contentLength = function() {
+    return this.state.content.contentsdata.length;
+  };
+
   // funzione che toglie l'ultimo content al contentStack
   this.popContent = function() {
+    var d = $.Deferred();
     var self = this;
     // verifica che ci sia il conentuto nel compontentStack
     if (this.state.content.contentsdata.length) {
@@ -221,11 +226,16 @@ var ViewportService = function() {
       this._immediateComponentsLayout = false;
       this._showView('content');
       this._components.content.popContent()
-        .then(function(){
+        .then(function() {
           self._layoutComponents();
           self._immediateComponentsLayout = true;
+          self.state.secondaryPerc = data.options.perc;
+          self._layout();
+          d.resolve(self._components.contentgetCurrentContentData)
         })
-    }
+    } else
+      d.reject();
+    return d.promise();
   };
 
   // chiude il content
