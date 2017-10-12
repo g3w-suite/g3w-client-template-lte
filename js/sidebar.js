@@ -13,7 +13,7 @@ var SidebarItem = Vue.extend({
         main: true,
         component: null,
         active: false,
-        title: 'component',
+        title: '',
         open: false,
         icon: null,
         state: null
@@ -49,7 +49,8 @@ function SidebarService() {
   };
   //stato del servizio
   this.state = {
-    components: []
+    components: [],
+    title: ''
   };
   //inizializzazione del servizio (non sembra chaimato mai)
   this.init = function(layout) {
@@ -152,6 +153,7 @@ function SidebarService() {
   };
   // visualizzazione pannello sullo stack
   this.showPanel = function(panel) {
+    this.state.title = panel.title;
     var parent = "#g3w-sidebarpanel-placeholder";
     // utilizzo il metodo push dello stack per montare il panel sul sidebar
     this.stack.push(panel, {
@@ -180,7 +182,8 @@ var SidebarComponent = Vue.extend({
         panels: sidebarService.stack.state.contentsdata,
         bOpen: true,
     		bPageMode: false,
-    		header: t('main navigation')
+    		header: t('main navigation'),
+        title: sidebarService.state || ''
         };
     },
     computed: {
