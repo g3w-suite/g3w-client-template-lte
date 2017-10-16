@@ -50,7 +50,9 @@ function SidebarService() {
   //stato del servizio
   this.state = {
     components: [],
-    title: ''
+    gui: {
+      title: ''
+    }
   };
   //inizializzazione del servizio (non sembra chaimato mai)
   this.init = function(layout) {
@@ -153,7 +155,7 @@ function SidebarService() {
   };
   // visualizzazione pannello sullo stack
   this.showPanel = function(panel) {
-    this.state.title = panel.title;
+    this.state.gui.title = panel.title;
     var parent = "#g3w-sidebarpanel-placeholder";
     // utilizzo il metodo push dello stack per montare il panel sul sidebar
     this.stack.push(panel, {
@@ -181,10 +183,10 @@ var SidebarComponent = Vue.extend({
         components: sidebarService.state.components,
         panels: sidebarService.stack.state.contentsdata,
         bOpen: true,
-    		bPageMode: false,
-    		header: t('main navigation'),
-        title: sidebarService.state || ''
-        };
+        bPageMode: false,
+        header: t('main navigation'),
+        gui: sidebarService.state.gui
+      }
     },
     computed: {
       // quanti pannelli sono attivi nello stack
