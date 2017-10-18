@@ -1,3 +1,5 @@
+
+
 @font-face {
   font-family: 'icomoon';
   src:  url('../fonts/icomoon.eot?cvqof');
@@ -470,4 +472,29 @@
 }
 .mtooltip-static:before {
   border-top-color: #ffcc33;
+}
+
+.controls-toggle {
+  position: absolute;
+  z-index: 10000;
+  left:0 !important;
+  top: 50px;
+  cursor: pointer;
+  background-color: @light-blue;
+  color: white;
+  border-bottom: 1px solid @light-blue;
+  background-image: none;
+  padding: 12.5px;
+  //Add the fontawesome bars icon
+  font-family: fontAwesome;
+  &:before {
+    content: "";
+  }
+  &:focus,
+  &:hover {
+    color: #fff;
+  }
+  @media (max-width: @screen-xs-max) {
+    left: @sidebar-width-small;
+  }
 }
