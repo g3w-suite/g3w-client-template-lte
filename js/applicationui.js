@@ -1,5 +1,6 @@
 var ApplicationService = require('core/applicationservice');
 var ProjectsRegistry = require('core/project/projectsregistry');
+var i18nService = require('core/i18n/i18n.service');
 var ProjectsMenuComponent = require('./projectsmenu');
 var GUI = require('sdk/gui/gui');
 var layout = require('./layout');

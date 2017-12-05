@@ -189,7 +189,7 @@ $.LayoutManager._init = function() {
       else {
          $(".sidebar").css({'height': ($(window).height() - $(".main-header").height()) + "px"})
       }
-      
+
       /*$(".sidebar li a").each(function(){
         var $this = $(this);
         var checkElement = $this.next();
@@ -212,9 +212,9 @@ $.LayoutManager._init = function() {
           });
         }
       });*/
-      
+
     }
-    
+
   };
 
   /* PushMenu()
@@ -355,7 +355,7 @@ $.LayoutManager._init = function() {
       if (checkElement.is('.treeview-menu')) {
         e.preventDefault();
       }
-      
+
       //$.LayoutManager.layout.fix();
       //$.LayoutManager.layout.fixSidebar();
     });
@@ -515,7 +515,7 @@ $.LayoutManager._init = function() {
       box.slideUp(this.animationSpeed);
     }
   };
-  
+
   return $.LayoutManager;
 };
 
@@ -617,7 +617,7 @@ $.LayoutManager.activateBox = function () {
   $.fn.activateBox = function () {
     $.LayoutManager.boxWidget.activate(this);
   };
-  
+
   return $.LayoutManager;
 };
 
@@ -676,7 +676,7 @@ $.LayoutManager.listCustomPlugin = function () {
 	  };
 	  return $.LayoutManager;
 	};
-	
+
 	/* ------------------
 	 * - Implementation -
 	 * ------------------
@@ -767,7 +767,7 @@ $.LayoutManager.listCustomPlugin = function () {
 	    });
 
 	  });
-	  
+
 	  return $.LayoutManager
 	  	.addRefreshButton()
 	  	.activateBox()

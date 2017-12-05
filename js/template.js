@@ -13,6 +13,9 @@ var config = {
 var sidebar = require('./sidebar');
 var floatbar = require('./floatbar');
 var viewport = require('./viewport');
+
+var navbaritems = require('./navbaritems');
+// server per aggiunta di elementi navbar
 var AppUI = require('./applicationui');
 var layout = require('./layout');
 
@@ -31,6 +34,31 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
     this._setupLayout();
     //vado a registrare tutti i servizi dell'appilazione
     this._setUpServices();
+    this._createApp();
+  };
+
+  //crea l'app vue
+  this._createApp = function() {
+    this.emit('ready');
+    //inizializza l'applicazione Vue oggetto vue padre dell'applicazione
+    var app = new Vue({
+      el: '#app',
+      mounted: function() {
+        //una volta che l'istanza vue è pronta
+        // inzio a costruire il template aggiungendo i vari componenti
+        self._buildTemplate();
+        // faccio il localize
+        $(document).localize();
+        this.$nextTick(function(){
+          // setto la viewport passadogli la configurazione del viewport dell'applicazione
+          self._setViewport(self.templateConfig.viewport);
+          // vado a registrare l'eventuali rooute di inzio
+          //self._addRoutes();
+          self.emit('ready');
+          GUI.ready();
+        });
+      }
+    });
   };
 
   // setup layout
@@ -50,28 +78,32 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
     // Inizializzo i componenti vue dell'applicazione
     // prima che venga istanziato l'oggetto vue padre
     Vue.component('sidebar', sidebar.SidebarComponent);
+    //Navbar custom items
+    Vue.component('navbarleftitems', navbaritems.components.left);
+    Vue.component('navbarrightitems', navbaritems.components.right);
+    ///
     Vue.component('viewport', viewport.ViewportComponent);
     Vue.component('floatbar', floatbar.FloatbarComponent);
     Vue.component('app', AppUI);
-    //inizializza l'applicazione Vue oggetto vue padre dell'applicazione
-    var app = new Vue({
-      el: '#app',
-      mounted: function() {
-        //una volta che l'istanza vue è pronta
-        // inzio a costruire il template aggiungendo i vari componenti
-        self._buildTemplate();
-        // faccio il localize
-        $(document).localize();
-        this.$nextTick(function(){
-          // setto la viewport passadogli la configurazione del viewport dell'applicazione
-          self._setViewport(self.templateConfig.viewport);
-          // emetto l'evento ready
-          self.emit('ready');
-          GUI.ready();
-        });
-      }
-    });
   };
+
+  // funzine che setta i route di inzio
+  this._addRoutes = function() {
+    var RouterService = ApplicationService.getRouterService();
+    var mapService = GUI.getComponent('map').getService();
+    RouterService.addRoute('map/zoomto/{coordinate}/:zoom:', function(coordinate, zoom) {
+      coordinate = _.map(coordinate.split(','), function(xy) {
+        return Number(xy)
+      });
+      zoom = zoom ? Number(zoom): null;
+      if (coordinate.length) {
+        mapService.on('ready', function() {
+          this.zoomTo(coordinate, zoom);
+        })
+      }
+    })
+  };
+
   //funzione che server per registrare tutti i servizi legati
   // alle vaie pari dell'appliazione
   this._setUpServices = function() {
@@ -290,6 +322,17 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
       }
       return queryResultService;
     };
+
+    //funzione per l'inserimento di un navbaritem
+    GUI.addNavbarItem = function(item) {
+
+      navbaritems.NavbarItemsService.addItem(item)
+    };
+
+    GUI.removeNavBarItem = function() {
+
+    };
+
     //temporaneo show panel
     GUI.showPanel = _.bind(sidebar.SidebarService.showPanel, sidebar.SidebarService);
     GUI.closePanel = _.bind(sidebar.SidebarService.closePanel, sidebar.SidebarService);
@@ -409,7 +452,7 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
       options.content = options.content || null;
       options.title = options.title || "";
       options.push = _.isBoolean(options.push) ? options.push : false;
-      options.perc = options.perc || 0;
+      options.perc = options.perc || 50;
       options.split = options.split || 'h';
       options.backonclose = _.isBoolean(options.backonclose) ? options.backonclose : false;
       options.showtitle = _.isBoolean(options.showtitle) ? options.showtitle : true;

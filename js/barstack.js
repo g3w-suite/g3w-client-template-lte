@@ -132,7 +132,7 @@ proto._setVueContent = function(content, options) {
   var d = $.Deferred();
   var append = options.append || false;
   content.mount(this._parent, append)
-  .then(function(){
+  .then(function() {
     $(parent).localize();
     // inserisco nell'array del content data un oggetto avente attributi:
     // content: oggetto component

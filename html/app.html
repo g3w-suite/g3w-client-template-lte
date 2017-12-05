@@ -2,50 +2,61 @@
   <header class="main-header">
     <!-- Logo -->
     <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top" role="navigation">
-      <!-- Toggle button on navbar only for mobile -->
-      <a v-if="isMobile()" href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-        <span class="sr-only">Expand</span>
-      </a>
-      <div class="logo-wrapper">
-        <a v-if="logo_url" :href="logo_link" :target="logo_link_target" class=""><img :src="logo_url" style="height:40px"></a>
-        <span class="">{{project_title}}</span>
-      </div>
-      <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
-          <li class="dropdown user" v-if="numberOfProjectsInGroup > 1">
-            <a href="#" @click="openProjectsMenu" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-th" aria-hidden="true"></i>
-              <span> Cambia Mappa</span>
-            </a>
-          </li>
-          <li v-if="user" class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-user"></i>
-              <span class="hidden-xs">{{ user.username }}</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="user-header">
-                <p>
-                  {{ user.first_name }} {{ user.last_name }}
-                </p>
-              </li>
-              <li class="user-footer">
-                <div class="pull-left">
-                  <a :href="user.admin_url" class="btn btn-default btn-flat"><i class="fa fa-folder"></i> Admin</a>
-                </div>
-                <div class="pull-right">
-                  <a :href="user.logout_url" class="btn btn-default btn-flat"><i class="fa fa-sign-out"></i>Sign out</a>
-                </div>
-              </li>
-            </ul>
-          </li>
-          <li class="dropdown user user-menu">
-            <a href="#" data-toggle="modal" data-target="#credits" class="dropdown-toggle">
-              <span>Credits</span>
-            </a>
-          </li>
-        </ul>
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <!-- Toggle button on navbar only for mobile -->
+          <a v-if="isMobile()" href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Expand</span>
+          </a>
+          <div class="logo-wrapper">
+            <a v-if="logo_url" :href="logo_link" :target="logo_link_target" class=""><img :src="logo_url" style="height:40px"></a>
+            <span v-if="!isMobile()">{{project_title}}</span>
+          </div>
+        </div>
+        <div class="collapse navbar-collapse" id="main-navbar">
+          <navbarleftitems></navbarleftitems>
+          <navbarrightitems></navbarrightitems>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown user" v-if="numberOfProjectsInGroup > 1">
+              <a href="#" @click="openProjectsMenu" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-th" aria-hidden="true"></i>
+                <span> Cambia Mappa</span>
+              </a>
+            </li>
+            <li v-if="user" class="dropdown user user-menu">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-user"></i>
+                <span class="hidden-xs">{{ user.username }}</span>
+              </a>
+              <ul class="dropdown-menu">
+                <li class="user-header">
+                  <p>
+                    {{ user.first_name }} {{ user.last_name }}
+                  </p>
+                </li>
+                <li class="user-footer">
+                  <div class="pull-left">
+                    <a :href="user.admin_url" class="btn btn-default btn-flat"><i class="fa fa-folder"></i> Admin</a>
+                  </div>
+                  <div class="pull-right">
+                    <a :href="user.logout_url" class="btn btn-default btn-flat"><i class="fa fa-sign-out"></i>Sign out</a>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li class="dropdown user user-menu">
+              <a href="#" data-toggle="modal" data-target="#credits" class="dropdown-toggle">
+                <span>Credits</span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
   </header>

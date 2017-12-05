@@ -387,7 +387,7 @@ var ViewportService = function() {
   // funzione che restituisce le misure in alterzza e larghezza per cui
   // il contentuo deve essere spostato per evitare che venga messo sotto
   //sidebar-aside-toggle nel caso di un content al 100% a tutta viewport
-  this._getReducedSizes = function(){
+  this._getReducedSizes = function() {
     var contentEl = $('.content');
     var reducedWidth = 0;
     var reducedHeight = 0;
