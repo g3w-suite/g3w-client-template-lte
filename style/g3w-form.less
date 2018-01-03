@@ -11,6 +11,20 @@
   overflow: hidden;
   clear:both;
   margin-bottom: 10px;
+  .divider {
+    display: block;
+    position: relative;
+    padding: 0px;
+    margin: 10px auto;
+    height: 0;
+    width: 100%;
+    max-height: 0;
+    font-size: 1px;
+    line-height: 0;
+    clear: both;
+    border: none;
+    border-bottom: 1px solid rgba(122, 122, 122, 0.2);
+  }
 }
 
 .input-error-validation {
@@ -37,10 +51,17 @@
   .attr-value {
     font-weight: bold
   }
+  .tooltip.bottom .tooltip-inner {
+    background-color:@light-blue;
+    font-weight:bold;
+  }
+  .tooltip.bottom .tooltip-arrow {
+    border-bottom-color: @light-blue;
+  }
   .relation-editbtn {
     padding: 3px 3px 3px 3px;
     margin: 0px 5px 0px 5px;
-    border: 2px solid #3c8dbc;
+    border: 2px solid @light-blue;
     border-radius: 5px;
     font-size: 15px !important;
     color: #3c8dbc;

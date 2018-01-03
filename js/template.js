@@ -26,7 +26,6 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
   self = this;
   this.templateConfig = templateConfig;
   this.init = function() {
-    var config = ApplicationService.getConfig();
     // fa il setup dell'interfaccia
     // dichiarando i metodi generali dell'applicazione GUI.showForm etc ..
     this._setupInterface();
@@ -305,7 +304,7 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
         GUI.showContextualContent(
           {
             content: queryResultsComponent,
-            title: "Risultati " + title
+            title: [t("info.title"), title].join(' ')
           }
         );
       } else {
@@ -468,7 +467,7 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
   base(this);
 };
 
-inherit(ApplicationTemplate,G3WObject);
+inherit(ApplicationTemplate, G3WObject);
 
 // funzione di classe
 ApplicationTemplate.fail = function(bootstrap, errorMsg) {
