@@ -13,7 +13,7 @@ function ProjectsMenuComponent(options) {
   base(this, options);
   var menuitems = [];
   var projects = ProjectRegistry.getListableProjects();
-  _.forEach(projects, function(project){
+  _.forEach(projects, function(project) {
     menuitems.push({
       title: project.title,
       description: project.description,

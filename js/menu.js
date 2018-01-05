@@ -46,7 +46,7 @@ var InternalComponent = Vue.extend({
       }
     },
     logoSrc: function(src) {
-      if (src.indexOf('./') > -1) {
+      if (src && src.indexOf('./') > -1) {
         return ProjectsRegistry.config.mediaurl + src;
       } else {
         return src;
