@@ -291,14 +291,14 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
     // funzione per la visuzlizzazione dei risultati
     GUI.showQueryResults = function(title, results) {
       // prendo il componente
-      var queryResultsComponent = GUI.getComponent('queryresults');
+      const queryResultsComponent = GUI.getComponent('queryresults');
       // prendo il servizio del componente
-      var queryResultService = queryResultsComponent.getService();
+      const queryResultService = queryResultsComponent.getService();
       queryResultService.reset();
       if (results) {
         queryResultService.setQueryResponse(results);
       }
-      var contentsComponent = GUI.getComponent('contents');
+      const contentsComponent = GUI.getComponent('contents');
       //vado a verificare se non c'è contentuto oppure se è stato fatta una sola query
       if (!contentsComponent.getContentData().length || (contentsComponent.getContentData().length == 1 && contentsComponent.getCurrentContentData().content.getId() == 'queryresults')) {
         GUI.showContextualContent(
@@ -308,13 +308,12 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
           }
         );
       } else {
-        if (contentsComponent.getCurrentContentData().content.getId() == 'queryresults') {
+        if (['queryresults', 'openattributetable'].find((element) => element == contentsComponent.getCurrentContentData().content.getId())) {
           contentsComponent.popContent();
         }
         GUI.pushContent({
           content: queryResultsComponent,
           backonclose: true,
-          closable:false,
           perc: 50,
           title: "Risultati " + title
         });
@@ -405,7 +404,7 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
     // Mostra il contenuto (100%)
     GUI.showContent = function(options) {
       options =  options || {};
-      options.perc = 100;
+      options.perc = options.perc || 100;
       GUI.setContent(options);
     };
     // Mostra il contenuto. Il contenuto può essere una string HTML,
@@ -429,7 +428,7 @@ var ApplicationTemplate = function(templateConfig, ApplicationService) {
     };
     // Aggiunge contenuto allo stack
     GUI.pushContextualContent = function(options) {
-      options =  options || {};
+      options = options || {};
       options.perc = options.perc || 50;
       options.push = true;
       GUI.setContent(options);

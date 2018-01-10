@@ -28,7 +28,7 @@
     }
     .tooltip.top .tooltip-inner {
       background-color:#3c8dbc;
-      margin-left: 60px;
+      margin-left: 100px;
       font-weight:bold;
     }
     .tooltip.top .tooltip-arrow {
@@ -92,19 +92,29 @@
         margin-bottom: 0px;
       }
     }
-
-    .table-striped>tbody>tr:nth-of-type(odd) {
-      background-color: #f3f3f3;
-    }
-
     .viewer-container {
       top: 50px;
+    }
+    .action-button {
+      display:inline-block;
+      text-align: center;
+      padding: 2px;
+      cursor: pointer;
+      &:hover {
+        background-color: #ffffff;
+      }
+    }
+    .action-button-icon {
+      padding-top: 2px;
+      color: @light-blue;
+      font-weight: bold;
+      text-decoration: none;
     }
 
     .featurebox-header {
       cursor: pointer;
       &:hover td {
-        background-color: darken(#f3f3f3,5%);
+        background-color:  lighten(@light-blue, 30%);
       }
       .action-cell {
         text-align: center;
@@ -114,6 +124,12 @@
             color: darken(@light-blue,10%)
           }
         }
+      }
+    }
+
+    .featurebox-header-open {
+      td {
+        background-color:  lighten(@light-blue, 30%) !important;
       }
     }
 
