@@ -18,18 +18,18 @@ const InternalComponent = Vue.extend({
   methods: {
     trigger: function(item) {
       if (item.cbk) {
-        //setto il modale a schermo intero
+        //set full screen modal
         $('#full-screen-modal').modal('show');
         this.loading = true;
         item.cbk.apply(item)
           .then(() => {
             this.loading = false;
-            // tyolgo il modale a schermo intero
+            // hide full screen modal
             $('#full-screen-modal').modal('hide');
           })
           .fail(() => {
-            GUI.notify.error("<h4>Errore di caricamento della nuova mappa.</h4>" +
-              "<h5>Controllare la connessione internet o contattare l'amministratore</h5>");
+            GUI.notify.error("<h4>" + t("error_map_loading") + "</h4>" +
+              "<h5>"+ t("check_internet_connection_or_server_admin") + "</h5>");
             $('#full-screen-modal').modal('hide');
             this.loading = false;
           })

@@ -74,8 +74,8 @@ const ApplicationTemplate = function(templateConfig, ApplicationService) {
 
   // route setting att beginning (is an example)
   this._addRoutes = function() {
-    var RouterService = ApplicationService.getRouterService();
-    var mapService = GUI.getComponent('map').getService();
+    const RouterService = ApplicationService.getRouterService();
+    const mapService = GUI.getComponent('map').getService();
     RouterService.addRoute('map/zoomto/{coordinate}/:zoom:', function(coordinate, zoom) {
       coordinate = _.map(coordinate.split(','), function(xy) {
         return Number(xy)

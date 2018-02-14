@@ -480,7 +480,7 @@ const ViewportService = function() {
       } else {
         drawing = false;
       }
-    }
+    };
     // resister on readyy GUI
     GUI.on('ready',() => {
       const primaryView = this.state.primaryView;

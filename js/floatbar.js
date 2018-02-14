@@ -76,7 +76,7 @@ const FloatbarComponent = Vue.extend({
       };
     },
     computed: {
-      // quanti pannelli sono attivi nello stack
+      // active panels on stack
       panelsinstack: function(){
         return this.stack.contentsdata.length>0;
       },

@@ -41,10 +41,10 @@ proto.setContent = function(options) {
   const d = $.Deferred();
   const push = options.push || false;
   const content = options.content;
-  // svuoto sempre lo stack, così ho sempre un solo elemento (la gestione dello stack è delegata alla viewport).
-  // Uso comunque barstack perché implementa già la logica di montaggio dei contenuti nel DOM
+  // clean the stack every time, sure to have just one component.
+  // Use barstack because it handle the logic og mounting component on DOM
   if (!push) {
-    // elemino tutto lo stack content
+    // clear stack
     this.clearContents()
     .then(() => {
       this.addContent(content, options)
@@ -92,7 +92,7 @@ proto.popContent = function() {
   });
 };
 
-// get component through cclass
+// get component through class
 proto.getComponentByClass = function(componentClass) {
   let component;
   const contentdata = this.stack.getContentData();
