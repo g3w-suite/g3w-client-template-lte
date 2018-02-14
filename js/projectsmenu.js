@@ -1,33 +1,33 @@
-var t = require('core/i18n/i18n.service').t;
-var inherit = require('core/utils/utils').inherit;
-var base = require('core/utils/utils').base;
-var ProjectRegistry = require('core/project/projectsregistry');
-var PluginsRegistry = require('core/plugin/pluginsregistry');
-var MenuComponent = require('./menu');
-var SidebarService = require('./sidebar').SidebarService;
-var GUI = require('sdk').gui.GUI;
+const t = require('core/i18n/i18n.service').t;
+const inherit = require('core/utils/utils').inherit;
+const base = require('core/utils/utils').base;
+const ProjectRegistry = require('core/project/projectsregistry');
+const PluginsRegistry = require('core/plugin/pluginsregistry');
+const MenuComponent = require('./menu');
+const SidebarService = require('./sidebar').SidebarService;
+const GUI = require('sdk').gui.GUI;
 
 function ProjectsMenuComponent(options) {
   options = options || {};
   options.id = 'projectsmenu';
   base(this, options);
-  var menuitems = [];
-  var projects = ProjectRegistry.getListableProjects();
-  _.forEach(projects, function(project) {
+  const menuitems = [];
+  const projects = ProjectRegistry.getListableProjects();
+  projects.forEach((project) => {
     menuitems.push({
       title: project.title,
       description: project.description,
       thumbnail: project.thumbnail,
       cbk: function() {
-        var d = $.Deferred();
-        var currentProject;
+        const d = $.Deferred();
+        let currentProject;
         ProjectRegistry.getProject(project.gid)
-        .then(function(project) {
+        .then((project) => {
           GUI.closeContent()
-            .then(function() {
+            .then(() => {
               currentProject = project;
-              var currentUrl = window.location.href;
-              var paths = currentUrl.split('/');
+              const currentUrl = window.location.href;
+              const paths = currentUrl.split('/');
               if (!paths[ paths.length-1 ]) {
                 paths[ paths.length-2 ] = project.getId();
                 paths[ paths.length-3 ] = project.getType();
@@ -35,19 +35,18 @@ function ProjectsMenuComponent(options) {
                 paths[ paths.length-1 ] = project.getId();
                 paths[ paths.length-2 ] = project.getType();
               }
-              //window.location = paths.join('/');
-              // cambio la url
+              // change url using history
               history.pushState(null, null, paths.join('/'));
-              // vado a cambiiare il set currentProject
+              // change current project currentProject
               ProjectRegistry.setCurrentProject(currentProject);
-              // vado a afre il reload dei plugins
+              // reload plugins
               PluginsRegistry.reloadPlugins(project);
-              // vado a fare il reloads dei component
+              // reload components
               SidebarService.reloadComponents();
               d.resolve();
             })
         })
-        .fail(function() {
+        .fail(() => {
           d.reject();
         });
         return d.promise();

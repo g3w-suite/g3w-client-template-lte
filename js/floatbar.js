@@ -1,6 +1,6 @@
-var t = require('sdk/core/i18n/i18n.service').t;
-var Stack = require('./barstack.js');
-var GUI = require('sdk/gui/gui');
+const t = require('sdk/core/i18n/i18n.service').t;
+const Stack = require('./barstack.js');
+const GUI = require('sdk/gui/gui');
 
 function FloatbarService(){
   this.stack = new Stack();
@@ -27,17 +27,17 @@ function FloatbarService(){
     this._isopen = false;
   };
 
-  this.showPanel = function(panel,options){
-    var options = options || {};
-    var append = options.append || false;
-    var modal = options.modal || false;
+  this.showPanel = function(panel, options){
+    options = options || {};
+    const append = options.append || false;
+    const modal = options.modal || false;
     options.parent = "#g3w-floatbarpanel-placeholder";
     this.stack.push(panel, options);
     if (!this._isopen) {
       this.open();
-    };
+    }
   };
-  
+
   this.closePanel = function(panel){
     if (panel) {
       this.stack.remove(panel);
@@ -60,15 +60,15 @@ function FloatbarService(){
       }
     }
   };
-  
+
   this.hidePanel = function(){
     this.close();
   };
 }
 
-var floatbarService = new FloatbarService();
+const floatbarService = new FloatbarService();
 
-var FloatbarComponent = Vue.extend({
+const FloatbarComponent = Vue.extend({
     template: require('../html/floatbar.html'),
     data: function() {
     	return {
@@ -81,7 +81,7 @@ var FloatbarComponent = Vue.extend({
         return this.stack.contentsdata.length>0;
       },
       panelname: function(){
-        var name;
+        let name;
         if (this.stack.contentsdata.length){
           name = this.stack.contentsdata.slice(-1)[0].content.getTitle();
         }
@@ -92,11 +92,10 @@ var FloatbarComponent = Vue.extend({
       }
     },
     watch: {
-      // TODO: Brutto, ma è l'unico (per ora) modo flessibile che ho trovato per implementare il concetto di stack... 
-      "stack.contentsdata": function(){
-        var children = $("#g3w-floatbarpanel-placeholder").children();
-        _.forEach(children,function(child,index){
-          if (index == children.length-1){
+      "stack.contentsdata": function() {
+        const children = $("#g3w-floatbarpanel-placeholder").children();
+        children.forEach((child, index) => {
+          if (index == children.length-1) {
             $(child).show();
           }
           else {

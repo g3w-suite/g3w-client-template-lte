@@ -1,7 +1,7 @@
-var t = require('sdk/core/i18n/i18n.service').t;
-var inherit = require('sdk/core/utils/utils').inherit;
-var G3WObject = require('sdk/core/g3wobject');
-var base = require('sdk/core/utils/utils').base;
+const t = require('sdk/core/i18n/i18n.service').t;
+const inherit = require('sdk/core/utils/utils').inherit;
+const G3WObject = require('sdk/core/g3wobject');
+const base = require('sdk/core/utils/utils').base;
 
 // service sidebar
 function navbaritemsService() {
@@ -20,27 +20,26 @@ function navbaritemsService() {
   base(this)
 }
 
-// eredito da G3Wobject così posso agire su onafter etc ..
 inherit(navbaritemsService, G3WObject);
 
-var navbaritemsService = new navbaritemsService();
+const navbaritemsservice = new navbaritemsService();
 
-var NavbarLeftItemsComponent = Vue.extend({
+const NavbarLeftItemsComponent = Vue.extend({
   template: require('../html/navbarleftitems.html'),
   data: function() {
     return {
-      items: navbaritemsService.state.items.left
+      items: navbaritemsservice.state.items.left
     }
   },
   computed: {},
   methods: {}
 });
 
-var NavbarRightItemsComponent = Vue.extend({
+const NavbarRightItemsComponent = Vue.extend({
   template: require('../html/navbarrightitems.html'),
   data: function() {
     return {
-      items: navbaritemsService.state.items.right
+      items: navbaritemsservice.state.items.right
     }
   },
   computed: {},
@@ -49,7 +48,7 @@ var NavbarRightItemsComponent = Vue.extend({
 
 
 module.exports = {
-  NavbarItemsService: navbaritemsService,
+  NavbarItemsService: navbaritemsservice,
   components: {
     left: NavbarLeftItemsComponent,
     right: NavbarRightItemsComponent

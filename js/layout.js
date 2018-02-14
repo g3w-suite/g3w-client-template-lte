@@ -127,7 +127,7 @@ $.LayoutManager._init = function() {
    */
   $.LayoutManager.layout = {
     activate: function () {
-      var _this = this;
+      const _this = this;
       _this.fix();
       _this.fixSidebar();
       $(window, ".wrapper").resize(function () {
@@ -137,16 +137,16 @@ $.LayoutManager._init = function() {
     },
     fix: function () {
       //Get window height and the wrapper height
-      var neg = $('.main-header').outerHeight() + $('.main-footer').outerHeight();
-      var window_height = $(window).height();
-      var sidebar_height = $(".sidebar").height();
+      const neg = $('.main-header').outerHeight() + $('.main-footer').outerHeight();
+      const window_height = $(window).height();
+      const sidebar_height = $(".sidebar").height();
       //Set the min-height of the content and sidebar based on the
       //the height of the document.
       if ($("body").hasClass("fixed")) {
         $(".content-wrapper, .right-side").css('min-height', window_height - $('.main-footer').outerHeight());
         $(".content-wrapper, .right-side").css('height', window_height - $('.main-footer').outerHeight());
       } else {
-        var postSetWidth;
+        let postSetWidth;
         if (window_height >= sidebar_height) {
           $(".content-wrapper, .right-side").css('min-height', window_height - neg);
           postSetWidth = window_height - neg;
@@ -155,7 +155,7 @@ $.LayoutManager._init = function() {
           postSetWidth = sidebar_height;
         }
         //Fix for the control sidebar height
-        var controlSidebar = $($.LayoutManager.options.controlSidebarOptions.selector);
+        const controlSidebar = $($.LayoutManager.options.controlSidebarOptions.selector);
         if (typeof controlSidebar !== "undefined") {
           if (controlSidebar.height() > postSetWidth)
             $(".content-wrapper, .right-side").css('min-height', controlSidebar.height());
@@ -189,30 +189,6 @@ $.LayoutManager._init = function() {
       else {
          $(".sidebar").css({'height': ($(window).height() - $(".main-header").height()) + "px"})
       }
-
-      /*$(".sidebar li a").each(function(){
-        var $this = $(this);
-        var checkElement = $this.next();
-        if ((checkElement.is('.treeview-menu')) && (!checkElement.is(':visible'))) {
-          //Get the parent menu
-          var parent = $this.parents('ul').first();
-          var parent_li = $this.parent("li");
-          var li_siblings = parent_li.siblings();
-          var parent_find_active;
-          var sidebar_content_height = parent.height() - parent.find('li.header').outerHeight();
-          var treeviewHeight = parent_li.outerHeight();
-          li_siblings.not('.header').each(function(index, el) {
-                  treeviewHeight+=$(el).find('a').outerHeight();
-          });
-          var section_height = (sidebar_content_height - treeviewHeight);
-          checkElement.css({
-            'height': section_height + 'px',
-            'max-height':section_height + 'px',
-            'overflow-y': 'auto'
-          });
-        }
-      });*/
-
     }
 
   };
@@ -264,8 +240,8 @@ $.LayoutManager._init = function() {
       }
     },
     expandOnHover: function () {
-      var _this = this;
-      var screenWidth = $.LayoutManager.options.screenSizes.sm - 1;
+      const _this = this;
+      const screenWidth = $.LayoutManager.options.screenSizes.sm - 1;
       //Expand sidebar on hover
       $('.main-sidebar').hover(function () {
         if ($('body').hasClass('sidebar-mini') && $("body").hasClass('sidebar-collapse') && $(window).width() > screenWidth) {
@@ -296,15 +272,15 @@ $.LayoutManager._init = function() {
    * @Usage: $.LayoutManager.tree('.sidebar')
    */
   $.LayoutManager.tree = function (menu) {
-    var _this = this;
-    var animationSpeed = $.LayoutManager.options.animationSpeed;
+    const _this = this;
+    const animationSpeed = $.LayoutManager.options.animationSpeed;
     //click event //
     $(document).on('click', menu + ' li a', function (e) {
 
       //Get the clicked link and the next element
-      var $this = $(this);
+      const $this = $(this);
       //is the content of the "accordion" ul //
-      var checkElement = $this.next();
+      const checkElement = $this.next();
 
       //Check if the next element is a menu and is visible
       if ((checkElement.is('.treeview-menu')) && (checkElement.is(':visible'))) {
@@ -785,13 +761,23 @@ $.LayoutManager.loading = function(start) {
   }
 };
 
-$.LayoutManager.reload = function(errorMsg) {
-  $('body').append('<div id="initerror"><h2>Oops!!! Si è verificato un errore</h2>' +
-    '<h4>Causa:  '+ errorMsg+'</h4>' +
-    '<h5>Al momento non è possibile caricare la mappa</h5>' +
-    '<button id="reload" type="button" class="btn btn-primary center-block" onclick="$.LayoutManager.loading();$.LayoutManager.bootstrap()">' +
-    '<span class="glyphicon glyphicon-refresh"></span> <strong>Riprova</strong></button>' +
-    '</div>'
+$.LayoutManager.reload = function(errorMsg, background_image) {
+  $('body').css({
+    'background-image': 'url('+background_image+')',
+    'background-position': 'center',
+    'background-repeat': 'no-repeat',
+    'background-size': 'cover'
+  });
+  $('body').append(
+    '<div class="container">' +
+    '<div class="row" style="margin-top:40%">' +
+    '<div class="col-12 text-center initial_error_text" ><h1>Oops!!! Si è verificato un errore</h1></div>' +
+    '<div class="col-12 text-center initial_error_text"><h3>Causa:  '+ errorMsg+'</h4></div>' +
+    '<div class="col-12 text-center initial_error_text"><h4>Al momento non è possibile caricare la mappa</h5></div>' +
+    '<div class="col-12 text-center initial_error_text"><h1>Premi Ctrl+F5</h5></div>' +
+    // '<button id="reload" type="button" class="btn btn-primary center-block" onclick="$.LayoutManager.loading();$.LayoutManager.bootstrap()">' +
+    // '<span class="glyphicon glyphicon-refresh"></span> <strong>Riprova</strong></button>' +
+    '</div></div>'
   );
 };
 

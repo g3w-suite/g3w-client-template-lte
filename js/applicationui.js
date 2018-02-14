@@ -56,7 +56,7 @@ const AppUI = Vue.extend({
     },
     user: function() {
       let user = ApplicationService.getConfig().user;
-      // verifico nel caso fosse un oggetto vuoto
+      // check if user is empty object
       if (_.isEmpty(user) || !user.username) {user = null}
       return user;
     },
@@ -78,7 +78,7 @@ const AppUI = Vue.extend({
     },
     openProjectsMenu: function() {
       const contentsComponent = GUI.getComponent('contents');
-      // verifico che il content è il projectsmenu
+      // check if is projectmenucomponent
       if (contentsComponent.getComponentById('projectsmenu')) {
         GUI.closeContent();
       } else {

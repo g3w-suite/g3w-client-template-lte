@@ -1,12 +1,12 @@
-var t = require('core/i18n/i18n.service').t;
-var inherit = require('core/utils/utils').inherit;
-var base = require('core/utils/utils').base;
-var merge = require('core/utils/utils').merge;
-var Component = require('gui/vue/component');
-var GUI = require('gui/gui');
-var ProjectsRegistry = require('core/project/projectsregistry');
+const t = require('core/i18n/i18n.service').t;
+const inherit = require('core/utils/utils').inherit;
+const base = require('core/utils/utils').base;
+const merge = require('core/utils/utils').merge;
+const Component = require('gui/vue/component');
+const GUI = require('gui/gui');
+const ProjectsRegistry = require('core/project/projectsregistry');
 
-var InternalComponent = Vue.extend({
+const InternalComponent = Vue.extend({
   template: require('../html/menu.html'),
   data: function() {
     return {
@@ -17,22 +17,21 @@ var InternalComponent = Vue.extend({
   },
   methods: {
     trigger: function(item) {
-      var self = this;
       if (item.cbk) {
         //setto il modale a schermo intero
         $('#full-screen-modal').modal('show');
         this.loading = true;
         item.cbk.apply(item)
-          .then(function(){
-            self.loading = false;
+          .then(() => {
+            this.loading = false;
             // tyolgo il modale a schermo intero
             $('#full-screen-modal').modal('hide');
           })
-          .fail(function() {
+          .fail(() => {
             GUI.notify.error("<h4>Errore di caricamento della nuova mappa.</h4>" +
               "<h5>Controllare la connessione internet o contattare l'amministratore</h5>");
             $('#full-screen-modal').modal('hide');
-            self.loading = false;
+            this.loading = false;
           })
       }
       else if (item.href) {
@@ -42,7 +41,7 @@ var InternalComponent = Vue.extend({
         GUI.goto(item.route);
       }
       else {
-        console.log("Nessuna azione per "+item.title);
+        console.log("No action for "+item.title);
       }
     },
     logoSrc: function(src) {
@@ -63,7 +62,6 @@ var InternalComponent = Vue.extend({
 function MenuComponent(options){
   options = options || {};
   base(this,options);
-  //this.id = "menu_"+Date.now();
   this.title = options.title || "menu";
   this.state.visible = true;
   this.state.menuitems = options.menuitems;
@@ -75,7 +73,7 @@ function MenuComponent(options){
 }
 inherit(MenuComponent, Component);
 
-var proto = MenuComponent.prototype;
+const proto = MenuComponent.prototype;
 
 proto.trigger = function(item) {
 
