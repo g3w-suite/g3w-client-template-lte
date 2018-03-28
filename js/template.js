@@ -389,6 +389,14 @@ const ApplicationTemplate = function(templateConfig, ApplicationService) {
       viewport.ViewportService.showContent(options);
     };
 
+    GUI.hideClientMenu = function() {
+      ApplicationService.getConfig().user = null;
+    };
+
+    GUI.hideChangeMaps = function() {
+      ApplicationService.getConfig().projects = [];
+    };
+
     /* FINE VIEWPORT */
     /*  */
     /* END PUBLIC INTERFACE */
@@ -400,8 +408,7 @@ inherit(ApplicationTemplate, G3WObject);
 
 ApplicationTemplate.fail = function(bootstrap, errorMsg) {
   layout.loading(false);
-  const background_image = require('../../images/error_backgroung.png')
-  console.log(background_image)
+  const background_image = require('../../images/error_backgroung.png');
   if (!layout.bootstrap) layout.bootstrap = bootstrap;
   layout.reload(errorMsg, background_image);
 };

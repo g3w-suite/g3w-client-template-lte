@@ -45,11 +45,13 @@ const InternalComponent = Vue.extend({
       }
     },
     logoSrc: function(src) {
-      if (src && src.indexOf('./') > -1) {
-        return ProjectsRegistry.config.mediaurl + src;
+      if (src) {
+        if (src.indexOf('static') == -1 && src.indexOf('media') == -1)
+          src = ProjectsRegistry.config.mediaurl + src;
       } else {
-        return src;
+        src = '/static/client/images/FakeProjectThumb.png';
       }
+      return src
     }
   },
   mounted: function() {

@@ -2,6 +2,7 @@ const t = require('sdk/core/i18n/i18n.service').t;
 const inherit = require('sdk/core/utils/utils').inherit;
 const Stack = require('./barstack.js');
 const G3WObject = require('sdk/core/g3wobject');
+const GUI = require('sdk/gui/gui');
 const base = require('sdk/core/utils/utils').base;
 
 //sidebar item is a <li> dom element of the sidebar . Where is possible set
@@ -16,19 +17,26 @@ const SidebarItem = Vue.extend({
         title: '',
         open: false,
         icon: null,
-        state: null
+        state: null,
+        collapsible: null
       };
   },
   methods: {
     onClickItem: function() {
       const sidebarService = this.$options.service;
+      // force to close
+      if (!this.component.state.open) {
+        // set state of opened component
+        sidebarService.state.components.forEach((component) => {
+          if (component != this.component && (this.component.collapsible || !this.component.context)) {
+            if (component.state.open) {
+              !this.component.context ? $(component.getInternalComponent().$el).siblings('a').click() : null;
+              component.setOpen(false);
+            }
+          }
+        });
+      }
       this.component.setOpen(!this.component.state.open);
-      // set state of opened component
-      sidebarService.state.components.forEach((component) => {
-        if (component != this.component && this.component.collapsible) {
-          component.setOpen(false);
-        }
-      })
     }
   }
 });
@@ -54,7 +62,7 @@ function SidebarService() {
     this.layout = layout;
   };
   // add component to sidebar
-  this.addComponents = function(components){
+  this.addComponents = function(components) {
     //for each component of the sidebar it is call addComponent method
     components.forEach((component) => {
       this.addComponent(component);
@@ -71,7 +79,8 @@ function SidebarService() {
     sidebarItem.open = component.state.open;//(component.open === undefined) ? sidebarItem.open : component.open;
     sidebarItem.icon = component.icon || sidebarItem.icon;
     sidebarItem.state = component.state || true;
-    sidebarItem.collapsible = component.collapsible || true;
+    sidebarItem.collapsible = (typeof component.collapsible === 'boolean') ? component.collapsible : true;
+    sidebarItem.context = (typeof component.context === 'boolean') ? component.context: true;
     sidebarItem.component = component;
     //append component to  g3w-sidebarcomponents (template sidebar.html)
     const itemcomponent = sidebarItem.$mount();

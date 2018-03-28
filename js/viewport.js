@@ -122,6 +122,7 @@ const ViewportService = function() {
       this._toggleMapComponentVisibility(this._contextualMapComponent,false);
       this._toggleMapComponentVisibility(this._defaultMapComponent,true);
     }
+    return this._components['map']
   };
 
   this.setContextualMapComponent = function(mapComponent) {
@@ -216,11 +217,16 @@ const ViewportService = function() {
 
   // close  content
   this.closeContent = function() {
+    const d = $.Deferred();
     this._components.content.removeContent();
-    //recover default map
-    this.recoverDefaultMap();
-    // close secondari view( returna a promise)
-    return this.closeSecondaryView();
+    // close secondari view( return a promise)
+    this.closeSecondaryView()
+      .then(() => {
+        //recover default map
+        const mapComponent = this.recoverDefaultMap();
+        d.resolve(mapComponent);
+      });
+    return d.promise()
   };
 
   this.removeContent = function() {
@@ -413,8 +419,8 @@ const ViewportService = function() {
     const viewportHeight = this._viewportHeight();
     let primaryWidth = viewportWidth;
     let primaryHeight = viewportHeight;
-    let secondaryWidth
-    let secondaryHeight
+    let secondaryWidth;
+    let secondaryHeight;
     const scale = this.state.secondaryPerc / 100;
 
     if (this.state.split == 'h') {

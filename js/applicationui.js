@@ -1,6 +1,5 @@
 const ApplicationService = require('core/applicationservice');
 const ProjectsRegistry = require('core/project/projectsregistry');
-const t = require('core/i18n/i18n.service').t;
 const ProjectsMenuComponent = require('./projectsmenu');
 const GUI = require('sdk/gui/gui');
 const layout = require('./layout');
@@ -61,7 +60,7 @@ const AppUI = Vue.extend({
       return user;
     },
     numberOfProjectsInGroup: function() {
-      return ProjectsRegistry.getProjects().length;
+      return ApplicationService.getConfig().projects.length;
     }
   },
   methods: {
