@@ -126,24 +126,29 @@
   right: 0px;
   padding: .5em;
   color: @light-blue;
-  background-color: white;
+  background-color: transparent;
+
   &.blue {
     color: white;
     background-color: @light-blue;
   }
   .spinner {
-    width: 25px;
-    height: 25px;
+    width: 80px;
+    height: 80px;
 
     -webkit-animation: circle infinite .75s linear;
        -moz-animation: circle infinite .75s linear;
          -o-animation: circle infinite .75s linear;
             animation: circle infinite .75s linear;
 
-    border: 2px solid @light-blue;
+    border: 8px solid @light-blue;
     border-top-color: transparent;
+    &.transparent {
+      border: 8px solid @light-blue;
+      border-top-color: transparent;
+    }
     &.blue {
-      border: 2px solid #fff;
+      border: 8px solid #fff;
       border-top-color: transparent;
     }
     border-radius: 100%;

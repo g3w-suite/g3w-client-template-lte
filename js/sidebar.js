@@ -2,7 +2,6 @@ const t = require('sdk/core/i18n/i18n.service').t;
 const inherit = require('sdk/core/utils/utils').inherit;
 const Stack = require('./barstack.js');
 const G3WObject = require('sdk/core/g3wobject');
-const GUI = require('sdk/gui/gui');
 const base = require('sdk/core/utils/utils').base;
 
 //sidebar item is a <li> dom element of the sidebar . Where is possible set
@@ -149,12 +148,15 @@ function SidebarService() {
   };
   // show panel on stack
   this.showPanel = function(panel) {
-    this.state.gui.title = panel.title;
-    const parent = "#g3w-sidebarpanel-placeholder";
-    // utilizzo il metodo push dello stack per montare il panel sul sidebar
-    this.stack.push(panel, {
-      parent: parent
-    });
+    return new Promise((resolve, reject) => {
+      this.state.gui.title = panel.title;
+      const parent = "#g3w-sidebarpanel-placeholder";
+      this.stack.push(panel, {
+        parent: parent
+      }).then((content) => {
+        resolve(content)
+      })
+    })
   };
   // close panel
   this.closePanel = function() {

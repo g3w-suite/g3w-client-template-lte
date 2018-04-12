@@ -11,7 +11,7 @@
     <!--<button class="btn btn-default btn-circle-medium glyphicon glyphicon-print"></button>-->
     <!--<button class="btn btn-default btn-circle-medium glyphicon glyphicon-search"></button>-->
   <!--</div>-->
-	<section class="sidebar">
+	<div id="g3w-sidebar" class="sidebar">
     <div v-show="panelsinstack" class="g3w-sidebarpanel">
       <div style="overflow: hidden;line-height: 14px;margin-top: 4px; font-size:1.5em">
           <h4 style="display: inline-block; font-weight: bold">{{ gui.title }}</h4>
@@ -19,7 +19,9 @@
       </div>
       <div id="g3w-sidebarpanel-placeholder" class="g3w-sidebarpanel-placeholder"></div>
     </div>
-	  <ul id="g3w-sidebarcomponents" v-show="showmainpanel" class="sidebar-menu"></ul>
-	</section>
+    <div id="g3w-sidebarcomponents-content">
+      <ul id="g3w-sidebarcomponents" v-show="showmainpanel" class="sidebar-menu"></ul>
+    </div>
+	</div>
 	<!-- /.sidebar -->
 </aside>

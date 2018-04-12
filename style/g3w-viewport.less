@@ -1,20 +1,23 @@
 @base_padding: 10px;
 .g3w-viewport {
   overflow:hidden;
+  line-height: 0px;
   .g3w-view {
     &.map {
+      line-height: normal;
       display:inline-block;
-      height:0px;
-      width:0px;
+      height:0;
+      width:0;
       position: relative;
       //-webkit-transition: width 0.3s;
       //transition: width 0.3s;
     }
     &.content {
+      line-height: normal;
       float:right;
       overflow-wrap: break-word;
-      height:0px;
-      width:0px;
+      height:0;
+      width:0;
       background-color: @gray-lighter;
       overflow:hidden;
       position: relative;
@@ -25,7 +28,7 @@
         border-left: 4px solid darken(@gray-lighter,10%);
       }
       &.split-v {
-        border-top: 2px solid @light-blue;
+        border-top: 2px solid darken(@gray-lighter,10%);
       }
       .g3w_contents_back {
         display: inline-block;
@@ -40,7 +43,7 @@
     }
     .close-panel-block {
       line-height: 1.5;
-      margin: 0px;
+      margin: 0;
       button {
         color: #b0b0b0;
       }

@@ -173,21 +173,21 @@ $.LayoutManager._init = function() {
       } else if (typeof $.fn.slimScroll == 'undefined' && window.console) {
         window.console.error("Error: the fixed layout requires the slimscroll plugin!");
       }
-      //Enable slimscroll for fixed layout
+      //Enable slimscroll for fixed layout (sidebar)
       if ($.LayoutManager.options.sidebarSlimScroll) {
         if (typeof $.fn.slimScroll != 'undefined') {
           //Destroy if it exists
-          $(".sidebar").slimScroll({destroy: true}).height("auto");
+          $("#g3w-sidebar").slimScroll({destroy: true}).height("auto");
           //Add slimscroll
-          $(".sidebar").slimscroll({
-            height: ($(window).height() - $(".main-header").height()) + "px",
+          $("#g3w-sidebar").slimScroll({
+            height: ($(window).height() - $("#main-navbar").height()) + "px",
             color: "rgba(255,255,255,0.7)",
             size: "3px"
           });
         }
       }
       else {
-         $(".sidebar").css({'height': ($(window).height() - $(".main-header").height()) + "px"})
+         $(".sidebar").css({'height': ($(window).height() - $("#main-navbar").height()) + "px"})
       }
     }
 
@@ -752,7 +752,7 @@ $.LayoutManager.listCustomPlugin = function () {
 
 $.LayoutManager.loading = function(start) {
   $('#initerror').remove();
-  var start = _.isBoolean(start) ? start : true;
+  start = _.isBoolean(start) ? start : true;
   if (start) {
     $('body').append('<div id="loadspinner" class="loading"></div>');
   }

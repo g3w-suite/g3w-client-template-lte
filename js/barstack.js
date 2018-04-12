@@ -136,7 +136,7 @@ proto._setVueContent = function(content, options) {
       content: content,
       options: options
     });
-    d.resolve();
+    d.resolve(content);
   });
   return d.promise();
 };

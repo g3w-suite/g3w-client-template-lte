@@ -17,7 +17,7 @@ const AppUI = Vue.extend({
       const controlsidebarEl = layout.options.controlSidebarOptions.selector;
       function setFloatBarMaxHeight() {
         $(controlsidebarEl).css('max-height',$(window).innerHeight());
-        $('.g3w-sidebarpanel').css('height',$(window).height() - $(".main-header").height());
+        $('.g3w-sidebarpanel').css('height',$(window).height() - $("#main-navbar").height());
       }
       setFloatBarMaxHeight();
       function setModalHeight(){

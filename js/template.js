@@ -35,9 +35,10 @@ const ApplicationTemplate = function(templateConfig, ApplicationService) {
 
   //Vue app
   this._createApp = function() {
+    const store = ApplicationService.getStore();
     const self = this;
-    this.emit('ready');
     const app = new Vue({
+      store,
       el: '#app',
       mounted: function() {
         self._buildTemplate();
