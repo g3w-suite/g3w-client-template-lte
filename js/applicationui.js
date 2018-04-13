@@ -61,6 +61,9 @@ const AppUI = Vue.extend({
     },
     numberOfProjectsInGroup: function() {
       return ApplicationService.getConfig().projects.length;
+    },
+    frontendurl: function() {
+      return ApplicationService.getConfig().urls.frontendurl;
     }
   },
   methods: {

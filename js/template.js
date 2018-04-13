@@ -4,12 +4,13 @@ const base = require('core/utils/utils').base;
 const G3WObject = require('core/g3wobject');
 const ComponentsRegistry = require('sdk/gui/componentsregistry');
 const GUI = require('sdk/gui/gui');
+const GlobalComponents = require('gui/vue/vue.globalcomponents');
+const GlobalDirective = require('sdk/gui/vue/vue.directives');
 
-// get other global directive
-require('sdk/gui/vue/vue.directives');
-const config = {
-  client: {}
-};
+Vue.use(GlobalComponents);
+Vue.use(GlobalDirective);
+
+
 // get all items needed by application
 const sidebar = require('./sidebar');
 const floatbar = require('./floatbar');
