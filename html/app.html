@@ -14,9 +14,16 @@
           <a v-if="isMobile()" href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Expand</span>
           </a>
-          <div class="logo-wrapper">
-            <a v-if="logo_url" :href="logo_link" :target="logo_link_target" class=""><img :src="logo_url" style="height:40px"></a>
-            <span v-if="!isMobile()">{{project_title}}</span>
+          <div class="logo-wrapper" style="max-height: 30px">
+            <a v-if="logo_url" :href="logo_link" :target="logo_link_target" class="">
+              <img :src="logo_url" style="height:40px">
+            </a>
+            <div v-if="!isMobile()" style="display: inline-block; position: relative; top: -12px;">
+              <div style="display: flex; flex-direction: column; line-height: 80%;">
+                <span style="font-size: 24px;">{{ main_title }}</span>
+                <span style="font-size: 20px;">{{project_title}}</span>
+              </div>
+            </div>
           </div>
         </div>
         <div class="collapse navbar-collapse" id="main-navbar">

@@ -64,7 +64,13 @@ const AppUI = Vue.extend({
     },
     frontendurl: function() {
       return ApplicationService.getConfig().urls.frontendurl;
-    }
+    },
+    main_title() {
+      const config = ApplicationService.getConfig();
+      const main_title = config.main_map_title;
+      const group_name = config.group.name;
+      return main_title ? `${main_title} - ${group_name}` : group_name;
+    },
   },
   methods: {
     closePanel: function(){
