@@ -125,7 +125,6 @@ Licensed under MIT
   span.tree-node-title {
     cursor: pointer;
     white-space: pre-line;
-    display:inline-block;
     width: 85%;
   }
 }
@@ -139,13 +138,14 @@ Licensed under MIT
 }
 
 .catalog .root {
-  padding: 4px 3px 1px 0.8em;
-  vertical-align: top;
+  padding: 4px 4px 1px 0.8em;
+}
 
+.catalog .root.fa-chevron-right {
+  padding-right: 8px;
 }
 .catalog .child {
-  padding: 5px 3px 1px 1.6em;
-  vertical-align: top;
+  padding: 5px 3px 1px 30px;
 }
 
 .catalog .tree-root {
