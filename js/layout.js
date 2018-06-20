@@ -768,17 +768,7 @@ $.LayoutManager.reload = function(errorMsg, background_image) {
     'background-repeat': 'no-repeat',
     'background-size': 'cover'
   });
-  $('body').append(
-    '<div class="container">' +
-    '<div class="row" style="margin-top:40%">' +
-    '<div class="col-12 text-center initial_error_text" ><h1>Oops!!! Si è verificato un errore</h1></div>' +
-    '<div class="col-12 text-center initial_error_text"><h3>Causa:  '+ errorMsg+'</h4></div>' +
-    '<div class="col-12 text-center initial_error_text"><h4>Al momento non è possibile caricare la mappa</h5></div>' +
-    '<div class="col-12 text-center initial_error_text"><h1>Premi Ctrl+F5</h5></div>' +
-    // '<button id="reload" type="button" class="btn btn-primary center-block" onclick="$.LayoutManager.loading();$.LayoutManager.bootstrap()">' +
-    // '<span class="glyphicon glyphicon-refresh"></span> <strong>Riprova</strong></button>' +
-    '</div></div>'
-  );
+  $('body').append(`<div class="container"><div class="row" style="margin-top:40%">${errorMsg}</div></div>`)
 };
 
 module.exports = $.LayoutManager;

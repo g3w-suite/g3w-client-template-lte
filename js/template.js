@@ -59,6 +59,7 @@ const ApplicationTemplate = function(templateConfig, ApplicationService) {
     });
 
     if (!isMobile.any) {
+      // setup map controls
       $("<style type='text/css'> .ol-control-tl {" +
         "top: 7px;" +
         "left:43px;" +
@@ -408,11 +409,27 @@ const ApplicationTemplate = function(templateConfig, ApplicationService) {
 
 inherit(ApplicationTemplate, G3WObject);
 
-ApplicationTemplate.fail = function(bootstrap, errorMsg) {
+ApplicationTemplate.fail = function(bootstrap, lng, error) {
+  const connectionErrorMsg = (lng == 'it') ? 'Errore di connessione': 'Connection error';
+  const errorMsg = error ? error : connectionErrorMsg;
+  ERRORSMESSAGES = {
+    'it': `
+        <div class="col-12 text-center initial_error_text" ><h1>Oops!!! Si è verificato un errore</h1></div>
+        <div class="col-12 text-center initial_error_text"><h3>Causa:  ${errorMsg}</h3></div>
+        <div class="col-12 text-center initial_error_text"><h4>Al momento non è possibile caricare la mappa</h5></div>
+        <div class="col-12 text-center initial_error_text"><h1>Premi Ctrl+F5</h5></div>`,
+    'en': `
+        <div class="col-12 text-center initial_error_text" ><h1>Oops!!!An error occurs</h1></div>
+        <div class="col-12 text-center initial_error_text"><h3>Cause: ${errorMsg}</h3></div>
+        <div class="col-12 text-center initial_error_text"><h4>At the moment is not possible show map</h5></div>
+        <div class="col-12 text-center initial_error_text"><h1>Press Ctrl+F5</h5></div>`
+  };
   layout.loading(false);
   const background_image = require('../../images/error_backgroung.png');
   if (!layout.bootstrap) layout.bootstrap = bootstrap;
-  layout.reload(errorMsg, background_image);
+  // object to add i18n traslations
+  const showMessageError = ERRORSMESSAGES[lng];
+  layout.reload(showMessageError, background_image);
 };
 
 // Placeholder knowed by application
@@ -430,6 +447,7 @@ ApplicationTemplate.Services = {
   viewport: viewport.ViewportService,
   floatbar: sidebar.FloatbarService
 };
+
 
 module.exports =  ApplicationTemplate;
 
