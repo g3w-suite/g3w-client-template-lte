@@ -30,6 +30,10 @@ const AppUI = Vue.extend({
     })
   },
   computed: {
+    credits_logo: function() {
+      const client_url = ApplicationService.getConfig().urls.clienturl;
+      return `${client_url}images/logo_gis3w_156_85.png`;
+    },
     logo_url: function() {
       const config = ApplicationService.getConfig();
       let logo_url;
