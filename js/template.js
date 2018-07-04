@@ -425,7 +425,7 @@ ApplicationTemplate.fail = function(bootstrap, lng, error) {
         <div class="col-12 text-center initial_error_text"><h1>Press Ctrl+F5</h5></div>`
   };
   layout.loading(false);
-  const background_image = require('../../images/error_backgroung.png');
+  const background_image = require('../images/error_backgroung.png');
   if (!layout.bootstrap) layout.bootstrap = bootstrap;
   // object to add i18n traslations
   const showMessageError = ERRORSMESSAGES[lng];
