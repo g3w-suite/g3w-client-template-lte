@@ -1,12 +1,11 @@
 const t = require('sdk/core/i18n/i18n.service').t;
-const inherit = require('core/utils/utils').inherit;
-const base = require('core/utils/utils').base;
-const G3WObject = require('core/g3wobject');
+const inherit = require('sdk/core/utils/utils').inherit;
+const base = require('sdk/core/utils/utils').base;
+const G3WObject = require('sdk/core/g3wobject');
 const ComponentsRegistry = require('sdk/gui/componentsregistry');
 const GUI = require('sdk/gui/gui');
-const GlobalComponents = require('gui/vue/vue.globalcomponents');
+const GlobalComponents = require('sdk/gui/vue/vue.globalcomponents');
 const GlobalDirective = require('sdk/gui/vue/vue.directives');
-
 Vue.use(GlobalComponents);
 Vue.use(GlobalDirective);
 
@@ -22,9 +21,10 @@ const layout = require('./layout');
 // loading spinner at beginning
 layout.loading(true);
 
-const ApplicationTemplate = function(templateConfig, ApplicationService) {
-  this.templateConfig = templateConfig;
+const ApplicationTemplate = function({ApplicationService}) {
   this.init = function() {
+    // create templateConfig
+    this.templateConfig = this._createTemplateConfig();
     // set general metods for the application as  GUI.showForm etc ..
     this._setupInterface();
     // setup layout
@@ -32,6 +32,82 @@ const ApplicationTemplate = function(templateConfig, ApplicationService) {
     //register all services fro the application
     this._setUpServices();
     this._createApp();
+  };
+  // create application config
+  this._createTemplateConfig = function() {
+    const appTitle = ApplicationService.getConfig().apptitle || 'G3W Suite';
+    // get sdk componets
+    const ContentsComponent = require('./contentsviewer');
+    const CatalogComponent = require('sdk/gui/catalog/vue/catalog');
+    const SearchComponent = require('sdk/gui/search/vue/search');
+    const PrintComponent = require('sdk/gui/print/vue/print');
+    const MetadataComponent = require('sdk/gui/metadata/vue/metadata');
+    const ToolsComponent = require('sdk/gui/tools/vue/tools');
+    const MapComponent = require('sdk/gui/map/vue/map');
+    const QueryResultsComponent = require('sdk/gui/queryresults/vue/queryresults');
+    return {
+      title: appTitle,
+      placeholders: {
+        navbar: {
+          components: []
+        },
+        sidebar: {
+          components: [
+            new MetadataComponent({
+              id: 'metadata',
+              open: false,
+              collapsible: false,
+              context: false,
+              icon: "fa fa-file-code-o"
+            }),
+            new PrintComponent({
+              id: 'print',
+              open: false,
+              collapsible: true, //  it used to manage click event if can run setOpen component method
+              icon: "fa fa-print"
+            }),
+            new SearchComponent({
+              id: 'search',
+              open: false,
+              collapsible: true,
+              icon: "fa fa-search"
+            }),
+            new CatalogComponent({
+              id: 'catalog',
+              open: false,
+              collapsible: false,
+              icon: "fa fa-map-o"
+            }),
+            // Component that store plugins
+            new ToolsComponent({
+              id: 'tools',
+              open: false,
+              collapsible: true,
+              icon: "fa fa-gears"
+            })
+          ]
+        },
+        floatbar:{
+          components: []
+        }
+      },
+      othercomponents: [
+        new QueryResultsComponent({
+          id: 'queryresults'
+        })
+      ],
+      viewport: {
+        // placeholder of the content (view content). Secodary view (hidden)
+        components: {
+          map: new MapComponent({
+            id: 'map'
+          }),
+          content: new ContentsComponent({
+            id: 'contents'
+          })
+        }
+      }
+    }
   };
 
   //Vue app
@@ -409,29 +485,6 @@ const ApplicationTemplate = function(templateConfig, ApplicationService) {
 
 inherit(ApplicationTemplate, G3WObject);
 
-ApplicationTemplate.fail = function(bootstrap, lng, error) {
-  const connectionErrorMsg = (lng == 'it') ? 'Errore di connessione': 'Connection error';
-  const errorMsg = error ? error : connectionErrorMsg;
-  ERRORSMESSAGES = {
-    'it': `
-        <div class="col-12 text-center initial_error_text" ><h1>Oops!!! Si è verificato un errore</h1></div>
-        <div class="col-12 text-center initial_error_text"><h3>Causa:  ${errorMsg}</h3></div>
-        <div class="col-12 text-center initial_error_text"><h4>Al momento non è possibile caricare la mappa</h5></div>
-        <div class="col-12 text-center initial_error_text"><h1>Premi Ctrl+F5</h5></div>`,
-    'en': `
-        <div class="col-12 text-center initial_error_text" ><h1>Oops!!!An error occurs</h1></div>
-        <div class="col-12 text-center initial_error_text"><h3>Cause: ${errorMsg}</h3></div>
-        <div class="col-12 text-center initial_error_text"><h4>At the moment is not possible show map</h5></div>
-        <div class="col-12 text-center initial_error_text"><h1>Press Ctrl+F5</h5></div>`
-  };
-  layout.loading(false);
-  const background_image = require('../images/error_backgroung.png');
-  if (!layout.bootstrap) layout.bootstrap = bootstrap;
-  // object to add i18n traslations
-  const showMessageError = ERRORSMESSAGES[lng];
-  layout.reload(showMessageError, background_image);
-};
-
 // Placeholder knowed by application
 ApplicationTemplate.PLACEHOLDERS = [
   'navbar',
@@ -446,6 +499,28 @@ ApplicationTemplate.Services = {
   sidebar: sidebar.SidebarService,
   viewport: viewport.ViewportService,
   floatbar: sidebar.FloatbarService
+};
+
+ApplicationTemplate.fail = function({language='en', error }) {
+  const background_image = require('../images/error_backgroung.png');
+  const connectionErrorMsg = (language == 'it') ? 'Errore di connessione': 'Connection error';
+  const errorMsg = error ? error : connectionErrorMsg;
+  ERRORSMESSAGES = {
+    'it': `
+        <div class="col-12 text-center initial_error_text" ><h1>Oops!!! Si è verificato un errore</h1></div>
+        <div class="col-12 text-center initial_error_text"><h3>Causa:  ${errorMsg}</h3></div>
+        <div class="col-12 text-center initial_error_text"><h4>Al momento non è possibile caricare la mappa</h5></div>
+        <div class="col-12 text-center initial_error_text"><h1>Premi Ctrl+F5</h5></div>`,
+    'en': `
+        <div class="col-12 text-center initial_error_text" ><h1>Oops!!!An error occurs</h1></div>
+        <div class="col-12 text-center initial_error_text"><h3>Cause: ${errorMsg}</h3></div>
+        <div class="col-12 text-center initial_error_text"><h4>At the moment is not possible show map</h5></div>
+        <div class="col-12 text-center initial_error_text"><h1>Press Ctrl+F5</h5></div>`
+  };
+  layout.loading(false);
+  // object to add i18n traslations
+  const showMessageError = ERRORSMESSAGES[language];
+  layout.reload(showMessageError, background_image);
 };
 
 
