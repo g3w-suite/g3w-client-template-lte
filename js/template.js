@@ -6,9 +6,14 @@ const ComponentsRegistry = require('sdk/gui/componentsregistry');
 const GUI = require('sdk/gui/gui');
 const GlobalComponents = require('sdk/gui/vue/vue.globalcomponents');
 const GlobalDirective = require('sdk/gui/vue/vue.directives');
-Vue.use(GlobalComponents);
-Vue.use(GlobalDirective);
+const VueTemplatePlugin = require('./vuetemplateplugin');
 
+// install global components
+Vue.use(GlobalComponents);
+// install gloabl directive
+Vue.use(GlobalDirective);
+// install template information library (es. classes etc..)
+Vue.use(VueTemplatePlugin);
 
 // get all items needed by application
 const sidebar = require('./sidebar');
@@ -22,6 +27,8 @@ const layout = require('./layout');
 layout.loading(true);
 
 const ApplicationTemplate = function({ApplicationService}) {
+  // useful to build a difference layout/compoìnent based on mobile or not
+  this._isMobile = isMobile.any;
   this.init = function() {
     // create templateConfig
     this.templateConfig = this._createTemplateConfig();
@@ -31,7 +38,11 @@ const ApplicationTemplate = function({ApplicationService}) {
     this._setupLayout();
     //register all services fro the application
     this._setUpServices();
-    this._createApp();
+    const VueApp = this._createApp();
+    // method that return Template Info
+    GUI.getTemplateInfo = function() {
+      return VueApp.g3wtemplate.getInfo();
+    }
   };
   // create application config
   this._createTemplateConfig = function() {
@@ -114,7 +125,7 @@ const ApplicationTemplate = function({ApplicationService}) {
   this._createApp = function() {
     const store = ApplicationService.getStore();
     const self = this;
-    const app = new Vue({
+    const App = new Vue({
       store,
       el: '#app',
       mounted: function() {
@@ -127,6 +138,7 @@ const ApplicationTemplate = function({ApplicationService}) {
         });
       }
     });
+    return App;
   };
 
   this._setupLayout = function(){
@@ -474,6 +486,15 @@ const ApplicationTemplate = function({ApplicationService}) {
 
     GUI.hideChangeMaps = function() {
       ApplicationService.getConfig().projects = [];
+    };
+
+    // return specific classes
+    GUI.getTemplateClasses = function() {
+      return BootstrapVersionClasses
+    };
+
+    GUI.getTemplateClass = function({element, type}) {
+      return BootstrapVersionClasses[element][type];
     };
 
     /* FINE VIEWPORT */

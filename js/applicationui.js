@@ -60,7 +60,8 @@ const AppUI = Vue.extend({
     user: function() {
       let user = ApplicationService.getConfig().user;
       // check if user is empty object
-      if (_.isEmpty(user) || !user.username) {user = null}
+      if (!user || !user.username)
+        user = null;
       return user;
     },
     numberOfProjectsInGroup: function() {
