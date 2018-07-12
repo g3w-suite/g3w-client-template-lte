@@ -1,82 +1,33 @@
+const CssLibraries = require('../config/csslibraries');
+const Fonts = require('../config/fonts');
 const VueTemplatePlugin = {
-  install: function(Vue, {library='bootstrap', version='3'} = {}) {
-    const libraries = {
-      bootstrap: {
-        versions: {
-          '3': {
-            classes: {
-              column: 'col-',
-              row: 'row',
-              image: {
-                responsive: 'img-responsive',
-                rounded: 'img-rounded',
-                circe: 'img-circle'
-              },
-              panel: {},
-              navbar: {
-                default: 'navbar-default',
-                toggle: 'navbar-toggle',
-                form: 'navbar-form',
-                btn: 'navbar-btn',
-                right: 'navbar-right',
-                left: 'navbar-left',
-                fixed: 'navbar-fixed-top'
-              },
-              tables: {}
-            },
-            icons: {},
-            templates: {},
-
-          },
-          '4': {
-            classes: {
-              column: 'col-',
-              row: 'row',
-              image: {
-                responsive: 'img-fluid',
-                rounded: 'rounded',
-                circe: 'rounded-circle'
-              },
-              panel: {},
-              navbar: {
-                default: 'navbar-light',
-                toggle: 'navbar-toggler',
-                form: 'form-inline',
-                btn: 'nav-item',
-                right: 'ml-auto',
-                left: 'ml-auto',
-                fixed: 'fixed-top'
-              },
-              tables: {}
-            },
-            icons: {},
-            templates: {},
-          }
-        }
-      },
-    };
+  install: function(Vue, {font={name:'fontawsome', version:'5'}, css={name:'bootstrap', version:'3'}} = {}) {
    Vue.prototype.g3wtemplate = {
      info: {
-       library,
-       version
+       font,
+       css
      },
-     data: libraries[library].versions[version],
+     css: CssLibraries[css.name].versions[css.version],
+     font:Fonts[font.name].versions[font.version],
      get() {},
      getInfo(){
        return this.info
      },
      getInfoString() {
-       return `${this.info.library} version ${this.info.version}`;
+       return `${this.info.library.name} version ${this.info.library.version}`;
+     },
+     getFontClass(type){
+       return this.font[type];
      },
      getClass({type='column', options={}}={}){
-       console.log(this.data[type])
+       console.log(this.css[type])
      },
      getColumnClass({width='12', breakpoint='sm', offset=null}={}) {
-       const prefix = this.data.classes.column;
+       const prefix = this.css.classes.column;
        // funxtion to create offsetclass
        const createOffsetClass = (index) => {
          let offsetClass = '';
-         if (offset && this.info.library === 'bootstrap') {
+         if (offset && this.info.css.name === 'bootstrap') {
            switch(this.info.version) {
              case '3':
              default:
@@ -103,10 +54,13 @@ const VueTemplatePlugin = {
 
      },
      getRowClass() {
-       return this.data.classes.row;
+       return this.css.classes.row;
      },
      getImageClass({type='default'} = {}) {
-       return this.data.classes.image[type]
+       return this.css.classes.image[type]
+     },
+     getIcon(type) {
+       return this.font[type];
      }
    };
   }

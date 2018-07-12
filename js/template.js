@@ -30,19 +30,18 @@ const ApplicationTemplate = function({ApplicationService}) {
   // useful to build a difference layout/compoìnent based on mobile or not
   this._isMobile = isMobile.any;
   this.init = function() {
-    // create templateConfig
-    this.templateConfig = this._createTemplateConfig();
     // set general metods for the application as  GUI.showForm etc ..
     this._setupInterface();
     // setup layout
     this._setupLayout();
     //register all services fro the application
     this._setUpServices();
+    // create templateConfig
+    this.templateConfig = this._createTemplateConfig();
+    // create Vue App
     const VueApp = this._createApp();
-    // method that return Template Info
-    GUI.getTemplateInfo = function() {
-      return VueApp.g3wtemplate.getInfo();
-    }
+    // setup Font, Css class methods
+    this._setUpTemplateDependencies(VueApp);
   };
   // create application config
   this._createTemplateConfig = function() {
@@ -265,6 +264,21 @@ const ApplicationTemplate = function({ApplicationService}) {
   this._hideSidebar = function() {
     //TODO
   };
+
+  // setup Fonts Css dependencies methods
+  this._setUpTemplateDependencies = function(VueApp) {
+    // method that return Template Info
+    GUI.getTemplateInfo = function() {
+      return VueApp.g3wtemplate.getInfo();
+    };
+    GUI.getTemplateInfo = function() {
+      return VueApp.g3wtemplate.getInfo();
+    };
+    GUI.getFontClass = function(type) {
+      return VueApp.g3wtemplate.getFontClass(type);
+    }
+  };
+  // setup Interaces
   this._setupInterface = function() {
     /* PLUBLIC INTERFACE */
     /* Common methods */

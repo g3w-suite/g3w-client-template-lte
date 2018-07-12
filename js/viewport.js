@@ -83,7 +83,10 @@ const ViewportService = function() {
               // sset de fefault component to map
               this._defaultMapComponent = component;
             }
-          });
+          })
+          .fail((err) => {
+            console.log(err)
+          })
       }
     })
   };
@@ -487,7 +490,7 @@ const ViewportService = function() {
         drawing = false;
       }
     };
-    // resister on readyy GUI
+    // GUI ready event
     GUI.on('ready',() => {
       const primaryView = this.state.primaryView;
       const secondaryView = this._otherView(primaryView);
