@@ -13,7 +13,16 @@ Vue.use(GlobalComponents);
 // install gloabl directive
 Vue.use(GlobalDirective);
 // install template information library (es. classes etc..)
-Vue.use(VueTemplatePlugin);
+Vue.use(VueTemplatePlugin, {
+  font:{
+    name: 'fontawsome',
+    version: '3'
+  },
+  css: {
+    name: 'bootstrap',
+    version: '3'
+  }
+});
 
 // get all items needed by application
 const sidebar = require('./sidebar');
@@ -45,6 +54,7 @@ const ApplicationTemplate = function({ApplicationService}) {
   };
   // create application config
   this._createTemplateConfig = function() {
+    const G3WTemplate = Vue.prototype.g3wtemplate;
     const appTitle = ApplicationService.getConfig().apptitle || 'G3W Suite';
     // get sdk componets
     const ContentsComponent = require('./contentsviewer');
@@ -68,32 +78,32 @@ const ApplicationTemplate = function({ApplicationService}) {
               open: false,
               collapsible: false,
               context: false,
-              icon: "fa fa-file-code-o"
+              icon: G3WTemplate.getFontClass('file')
             }),
             new PrintComponent({
               id: 'print',
               open: false,
               collapsible: true, //  it used to manage click event if can run setOpen component method
-              icon: "fa fa-print"
+              icon: G3WTemplate.getFontClass('print')
             }),
             new SearchComponent({
               id: 'search',
               open: false,
               collapsible: true,
-              icon: "fa fa-search"
+              icon: G3WTemplate.getFontClass('search')
             }),
             new CatalogComponent({
               id: 'catalog',
               open: false,
               collapsible: false,
-              icon: "fa fa-map-o"
+              icon: G3WTemplate.getFontClass('map')
             }),
             // Component that store plugins
             new ToolsComponent({
               id: 'tools',
               open: false,
               collapsible: true,
-              icon: "fa fa-gears"
+              icon: G3WTemplate.getFontClass('tools')
             })
           ]
         },

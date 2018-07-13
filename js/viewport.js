@@ -388,7 +388,7 @@ const ViewportService = function() {
         z-index:1000;\
         height: 39px;\
         width: 39px">\
-          <button class="glyphicon glyphicon-remove pull-right close-panel-button" style="background-color: transparent;border: 0px;"></button>\
+          <button :class="g3wtemplate.getFontClass(\'close\')" class="pull-right close-panel-button" style="background-color: transparent;border: 0px;"></button>\
         </div>');
       closeMapBtn.on('click', () => {
         this.closeMap();

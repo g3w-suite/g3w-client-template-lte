@@ -755,8 +755,7 @@ $.LayoutManager.loading = function(start) {
   start = _.isBoolean(start) ? start : true;
   if (start) {
     $('body').append('<div id="loadspinner" class="loading"></div>');
-  }
-  else {
+  } else {
     $('#loadspinner').remove();
   }
 };

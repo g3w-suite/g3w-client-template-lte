@@ -6,7 +6,7 @@
   <div v-show="panelsinstack" class="g3w-sidebarpanel">
     <div v-if="closable" class="row">
       <div class="col-xs-12 col-sm-12 col-md-12">
-        <button class="glyphicon glyphicon-remove pull-right close-panel-button" @click="closePanel"></button>
+        <button :class="g3wtemplate.getFontClass('close')" class="pull-right close-panel-button" @click="closePanel"></button>
       </div>
     </div>
     <div v-if="panelname">

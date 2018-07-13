@@ -3,7 +3,7 @@
   <!-- Sidebar toggle button-->
   <!-- Toggle button on the left side of main sidebar only if not mobile -->
   <a v-if="!isMobile()" href="#" class="sidebar-aside-toggle" data-toggle="offcanvas" role="button">
-    <span class="sr-only">Expand</span>
+    <i :class="g3wtemplate.getFontClass('bars')"></i>
   </a>
   <!--<div class="quick-actions-menu">-->
     <!--<button class="btn btn-default btn-circle-medium glyphicon glyphicon-share-alt"></button>-->
@@ -15,7 +15,7 @@
     <div v-show="panelsinstack" class="g3w-sidebarpanel">
       <div style="overflow: hidden;line-height: 14px;margin-top: 4px; font-size:1.5em">
           <h4 style="display: inline-block; font-weight: bold">{{ gui.title }}</h4>
-          <button class="glyphicon glyphicon-remove pull-right close-panel-button"  @click="closePanel"></button>
+          <button :class="g3wtemplate.getFontClass('close')" class="pull-right close-panel-button"  @click="closePanel"></button>
       </div>
       <div id="g3w-sidebarpanel-placeholder" class="g3w-sidebarpanel-placeholder"></div>
     </div>

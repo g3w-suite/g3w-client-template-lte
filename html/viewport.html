@@ -4,9 +4,9 @@
   <div id="g3w-view-content" class="g3w-view content" :style="{width:state.content.sizes.width+'px',height:state.content.sizes.height+'px'}">
     <div v-if="(showtitle && contentTitle) || previousTitle || (state.content.closable && state.content.aside)" class="close-panel-block">
       <div v-if="previousTitle" class="g3w_contents_back">
-        <span  @click="gotoPreviousContent()"><span class="glyphicon glyphicon-chevron-left"></span> Torna  {{ previousTitle }}</span>
+        <span  @click="gotoPreviousContent()"><span :class="g3wtemplate.getFontClass('arrow-left')"></span> Torna  {{ previousTitle }}</span>
       </div>
-      <button v-if="state.content.closable && state.content.aside" class="glyphicon glyphicon-remove pull-right close-panel-button" @click="closeContent"></button>
+      <button v-if="state.content.closable && state.content.aside" :class="g3wtemplate.getFontClass('close')" class="pull-right close-panel-button" @click="closeContent"></button>
       <div v-if="showtitle && contentTitle">
         <span>{{ contentTitle }}</span>
       </div>
