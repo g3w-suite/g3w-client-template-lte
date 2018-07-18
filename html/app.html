@@ -12,7 +12,7 @@
           </button>
           <!-- Toggle button on navbar only for mobile -->
           <a v-if="isMobile()" href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-            <i class="sr-only">Expand</i>
+            <i :class="g3wtemplate.getFontClass('bars')"></i>
           </a>
           <div class="logo-wrapper" style="max-height: 30px">
             <a v-if="logo_url" :href="logo_link" :target="logo_link_target" class="">

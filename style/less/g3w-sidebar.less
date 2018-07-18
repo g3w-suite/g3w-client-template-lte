@@ -1,3 +1,8 @@
+@sidebar-width-mobile: 100%;
+@sidebar-width-small: 300px;
+@sidebar-width: 350px;
+@control-sidebar-width: 450px;
+
 .sidebar {
   color: white;
   .g3w-sidebarpanel {
@@ -60,12 +65,13 @@
 }
 
 .main-sidebar,
+.main-sidebar-mobile,
 .left-side {
   @media (max-width: @screen-xs-max) {
-      width: @sidebar-width-small;
+      width: @sidebar-width-mobile;
   }
   @media (max-width: @screen-xs-max) {
-    .translate(-@sidebar-width-small, 0);
+    .translate(-@sidebar-width-mobile, 0);
   }
   .btn {
     &.quick-action {
@@ -80,3 +86,4 @@
     }
   }
 }
+

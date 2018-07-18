@@ -26,6 +26,7 @@ const ViewportService = function() {
         width: 0,
         height: 0
       },
+      collapsed: false,
       aside: true,
       showgoback: true,
       stack: [], // array elements of  stack contents
@@ -57,6 +58,18 @@ const ViewportService = function() {
     this.state.split = options.split ? options.split : 'h';
     // add component (map and content)
     this._addComponents(options.components);
+  };
+
+  this.getState = function() {
+    return this.state;
+  };
+
+  this.getMapState = function() {
+    return this.state.map;
+  };
+
+  this.getContentState = function() {
+    return this.state.content;
   };
 
   this._addComponents = function(components) {
@@ -232,6 +245,19 @@ const ViewportService = function() {
     return d.promise()
   };
 
+  this.collapseContent = function() {
+    if (this.state.content.collapsed) {
+      this.closeMap()
+    } else {
+      const options = {
+        split: 'v',
+        perc: 25
+      };
+      this._showView('content', options, true);
+    }
+    this.state.content.collapsed = !this.state.content.collapsed;
+  };
+
   this.removeContent = function() {
     // check if backonclose proprerty is  true o false
     // to remove all content stack or just last component
@@ -399,7 +425,7 @@ const ViewportService = function() {
 
     if (this.state.secondaryVisible) {
       if (this._isSecondary('content') && (this.state.secondaryPerc < this.state.content.preferredPerc)) {
-        closeMapBtn.show()
+        isMobile.any ? closeMapBtn.hide() : closeMapBtn.show()
       }
       else {
         closeMapBtn.hide();
@@ -551,6 +577,9 @@ const ViewportComponent = Vue.extend({
     showContent: function() {
       return this.state.content.show;
     },
+    collapsedContent: function() {
+      return this.state.content.collapsed;
+    },
     contentTitle: function() {
       const contentsData = this.state.content.contentsdata;
       if (contentsData.length) {
@@ -574,6 +603,9 @@ const ViewportComponent = Vue.extend({
   methods: {
     closeContent: function() {
       viewportService.removeContent();
+    },
+    collapseContent: function() {
+      viewportService.collapseContent();
     },
     closeMap: function() {
       viewportService.closeMap();

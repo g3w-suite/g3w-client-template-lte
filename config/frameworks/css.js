@@ -1,4 +1,4 @@
-const Csslibraries = {
+const Css = {
   bootstrap: {
     versions: {
       '3': {
@@ -22,9 +22,7 @@ const Csslibraries = {
           },
           tables: {}
         },
-        icons: {},
         templates: {},
-
       },
       '4': {
         classes: {
@@ -47,11 +45,10 @@ const Csslibraries = {
           },
           tables: {}
         },
-        icons: {},
         templates: {},
       }
     }
   }
 };
 
-module.exports = Csslibraries;
+module.exports = Css;

@@ -16,7 +16,7 @@ Vue.use(GlobalDirective);
 Vue.use(VueTemplatePlugin, {
   font:{
     name: 'fontawsome',
-    version: '3'
+    version: '5'
   },
   css: {
     name: 'bootstrap',
@@ -455,15 +455,15 @@ const ApplicationTemplate = function({ApplicationService}) {
       viewport.ViewportService.resetContextualMapComponent();
     };
     //  (100%) content
-    GUI.showContent = function(options) {
+    GUI.showContent = (options) => {
       options =  options || {};
-      options.perc = options.perc || 100;
+      options.perc = !this._isMobile ? options.perc || 100 : 100;
       GUI.setContent(options);
     };
 
-    GUI.showContextualContent = function(options) {
+    GUI.showContextualContent = (options) => {
       options =  options || {};
-      options.perc = options.perc || 50;
+      options.perc =
       GUI.setContent(options)
     };
     // add component to stack (append)
@@ -471,16 +471,16 @@ const ApplicationTemplate = function({ApplicationService}) {
     //  - push every componet is added, set is refreshed
     //  - pushContent has a new parameter (backonclose) when is cliccked x
     //  - the contentComponet is close all stack is closed
-    GUI.pushContent = function(options) {
+    GUI.pushContent = (options) => {
       options =  options || {};
-      options.perc = options.perc || 100;
+      options.perc = !this._isMobile ? options.perc || 100  : 100;
       options.push = true;
       GUI.setContent(options);
     };
     // add content to stack
-    GUI.pushContextualContent = function(options) {
+    GUI.pushContextualContent = (options) => {
       options = options || {};
-      options.perc = options.perc || 50;
+      options.perc = !this._isMobile ? options.perc || 50  : 100;
       options.push = true;
       GUI.setContent(options);
     };
@@ -492,12 +492,21 @@ const ApplicationTemplate = function({ApplicationService}) {
     GUI.getContentLength = function() {
       return viewport.ViewportService.contentLength();
     };
-    GUI.setContent = function(options) {
+
+    GUI.isContentCollapsed = function() {
+      return viewport.ViewportService.getContentState().collapsed;
+    };
+
+    GUI.collapseContent = function() {
+      viewport.ViewportService.collapseContent();
+    };
+
+    GUI.setContent = (options) => {
       options = options || {};
       options.content = options.content || null;
       options.title = options.title || "";
       options.push = _.isBoolean(options.push) ? options.push : false;
-      options.perc = options.perc || 50;
+      options.perc = !this._isMobile? options.perc || 50 : 100;
       options.split = options.split || 'h';
       options.backonclose = _.isBoolean(options.backonclose) ? options.backonclose : false;
       options.showtitle = _.isBoolean(options.showtitle) ? options.showtitle : true;
