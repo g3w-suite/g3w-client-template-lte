@@ -81,21 +81,25 @@
   background-color: transparent;
 }
 
+// top left
 .ol-control-tl {
   top: 7px;
   left:7px;
 }
 
+//botton left
 .ol-control-bl {
   bottom: 25px;
   left:7px;
 }
 
+// top right
 .ol-control-tr {
   top: 7px;
   right:7px;
 }
 
+// botton right
 .ol-control-br {
   bottom: 7px;
   right:7px;
@@ -105,9 +109,11 @@
 .ol-zoom {
   .ol-zoom-in {
     border-radius: 4px;
+    display: block;
   }
   .ol-zoom-out {
     border-radius: 4px;
+    display: block;
   }
 }
 
@@ -260,9 +266,30 @@
   position: absolute;
   width: 25em;
   height: 4.375em;
-  top: .5em;
-  left: calc(50% - 12.5em);
+  top: 7px;
+  left: 40px;
+  @media (max-width: @screen-xs-max) {
+    left: 0;
+  }
   box-sizing: border-box;
+}
+
+.ol-geocoder.gcd-txt-container {
+  width: 300px;
+  height: 6px;
+  @media (max-width: @screen-xs-max) {
+    width:200px;
+  }
+  box-sizing: border-box;
+}
+
+.ol-geocoder .gcd-txt-control {
+  position: relative;
+  height: 40px;
+  background-color: #fff;
+  overflow: hidden;
+  border-radius: 5px;
+  margin-left: 2px;
 }
 
 .ol-geocoder.gcd-txt-container *,
@@ -331,6 +358,9 @@
   position: absolute;
   left: 0;
   width: 296px;
+  @media (max-width: @screen-xs-max) {
+    width:200px;
+  }
   max-height: 200px;
   white-space: normal;
   list-style: none;
@@ -425,21 +455,6 @@
   color: #3c8dbc;
 }
 
-.ol-geocoder.gcd-txt-container {
-  width: 300px;
-  height: 6px;
-  box-sizing: border-box;
-}
-
-.ol-geocoder .gcd-txt-control {
-  position: relative;
-  height: 40px;
-  background-color: #fff;
-  overflow: hidden;
-  border-radius: 5px;
-  margin-left: 2px;
-}
-
 /* qui messo i css del tooltip */
 
 .mtooltip {
@@ -520,5 +535,63 @@
 
 .ol-attribution.ol-uncollapsible {
   height: 1.3em !important;
+}
+
+.g3w-map-controls {
+  position:absolute;
+  flex-wrap: wrap;
+  z-index: 100;
+  display: flex;
+  .ol-zoom-extent {
+    top:0;
+    left:0;
+  }
+  .ol-control {
+    position:relative;
+  }
+  .ol-zoom {
+    top:0;
+    left:0;
+  }
+}
+
+.g3w-map-controls.lh {
+  top:60px;
+  left: 0;
+  flex-direction: row;
+}
+
+.g3w-map-controls.rh {
+  top:8px;
+  right: 0;
+  flex-direction: row;
+}
+
+.controls-inside-v {
+  flex-direction: column;
+  max-height: 300px;
+  min-width: 100px;
+  align-items: flex-end;
+  .ol-control {
+    padding: 3px;
+  }
+  .ol-zoom {
+    .ol-zoom-in {
+      float: none;
+      margin-bottom: 6px;
+    }
+  }
+}
+
+.g3w-map-controls.lv {
+  top:60px;
+  left: 0;
+  .controls-inside-v;
+}
+
+.g3w-map-controls.rv {
+  top: 8px;
+  right: 5px;
+  .controls-inside-v;
 }
 

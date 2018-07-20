@@ -346,6 +346,7 @@ const ApplicationTemplate = function({ApplicationService}) {
     };
 
     GUI.closeContent = function() {
+      GUI.emit('closecontent');
       return viewport.ViewportService.closeContent();
     };
 
@@ -501,7 +502,7 @@ const ApplicationTemplate = function({ApplicationService}) {
       viewport.ViewportService.collapseContent();
     };
 
-    GUI.setContent = (options) => {
+    GUI._setContent = (options) => {
       options = options || {};
       options.content = options.content || null;
       options.title = options.title || "";
