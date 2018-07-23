@@ -53,27 +53,38 @@
   button {
     display: inline-block;
     span {
-      font-size: 20px
+      font-size: 15px;
+      font-weight: bold;
+      position: absolute;
+      margin: -6px;
     }
   }
 }
 
-.ol-custom-overviewmap:not(.ol-collapsed)  {
-  border: 1px solid black;
+.ol-custom-overviewmap  {
+  border: 1px solid @light-blue;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.5);
+  border-radius: 10px;
   button {
-    left: -1px;
-    bottom: 0px;
+    left: 3px;
+    bottom: 8px;
+    width: 30px;
+    height: 30px;
   }
 }
 
 .ol-custom-overviewmap .ol-overviewmap-map {
   border: none;
-  height: 200px;
-  width: 300px;
+  height: 150px;
+  width: 200px;
 }
 
 .ol-custom-overviewmap .ol-overviewmap-box {
   border: 2px solid @light-blue;
+}
+
+.ol-custom-overviewmap.ol-collapsed {
+  border: 0px;
 }
 
 
@@ -89,7 +100,7 @@
 
 //botton left
 .ol-control-bl {
-  bottom: 25px;
+  bottom: 30px;
   left:7px;
 }
 
@@ -120,6 +131,8 @@
 .ol-scale-line {
   background: @light-blue;
   left: auto;
+  font-weight: bold;
+  box-shadow: 0 3px 5px rgba(0,0,0,0.4);
 }
 
 .ol-rotate {
@@ -266,7 +279,7 @@
   position: absolute;
   width: 25em;
   height: 4.375em;
-  top: 7px;
+  top: 6px;
   left: 40px;
   @media (max-width: @screen-xs-max) {
     left: 0;
@@ -275,7 +288,7 @@
 }
 
 .ol-geocoder.gcd-txt-container {
-  width: 300px;
+  min-width: 250px;
   height: 6px;
   @media (max-width: @screen-xs-max) {
     width:200px;
@@ -290,6 +303,7 @@
   overflow: hidden;
   border-radius: 5px;
   margin-left: 2px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
 .ol-geocoder.gcd-txt-container *,
@@ -517,7 +531,7 @@
 }
 
 .ol-attribution {
-  left: 10px;
+  left: 0;
   background-color: transparent !important;
   position: absolute !important;
   text-align: left !important;
@@ -548,6 +562,9 @@
   }
   .ol-control {
     position:relative;
+    button {
+      box-shadow: 0 3px 5px rgba(0,0,0,0.5);
+    }
   }
   .ol-zoom {
     top:0;
@@ -569,9 +586,6 @@
 
 .controls-inside-v {
   flex-direction: column;
-  max-height: 300px;
-  min-width: 100px;
-  align-items: flex-end;
   .ol-control {
     padding: 3px;
   }
@@ -586,12 +600,14 @@
 .g3w-map-controls.lv {
   top:60px;
   left: 0;
+  align-items: flex-start;
   .controls-inside-v;
 }
 
 .g3w-map-controls.rv {
   top: 8px;
   right: 5px;
+  align-items: flex-end;
   .controls-inside-v;
 }
 

@@ -16,7 +16,7 @@ Vue.use(GlobalDirective);
 Vue.use(VueTemplatePlugin, {
   font:{
     name: 'fontawsome',
-    version: '5'
+    version: '3'
   },
   css: {
     name: 'bootstrap',
@@ -345,8 +345,7 @@ const ApplicationTemplate = function({ApplicationService}) {
       return viewport.ViewportService.hideContent(bool, perc);
     };
 
-    GUI.closeContent = function() {
-      GUI.emit('closecontent');
+    GUI._closeContent = function() {
       return viewport.ViewportService.closeContent();
     };
 

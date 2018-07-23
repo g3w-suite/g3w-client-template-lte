@@ -602,7 +602,7 @@ const ViewportComponent = Vue.extend({
   },
   methods: {
     closeContent: function() {
-      viewportService.removeContent();
+      GUI.closeContent();
     },
     collapseContent: function() {
       viewportService.collapseContent();

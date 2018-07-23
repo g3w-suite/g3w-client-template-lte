@@ -44,7 +44,7 @@ const Fonts = {
         home: "fa fa-home",
         folder: "fa fa-folder",
         'sign-out': "fa fa-sign-out",
-        close: "fa fa-remove",
+        close: "fa fa-times",
         time: "fa fa-clock-o",
         calendar: "fa fa-calendar",
         list: "fa fa-list-alt",
