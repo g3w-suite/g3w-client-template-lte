@@ -1,7 +1,8 @@
 const Fonts = {
   fontawsome: {
     versions:{
-      '3': {
+      '4': {
+        'change-map': "fa fa-map-signs",
         map: "fa fa-map-o",
         file: "fa fa-file-code-o",
         marker: "fa fa-map-marker",
@@ -53,6 +54,7 @@ const Fonts = {
         'eye-close': "fa fa-eye-slash"
       },
       '5': {
+        'change-map': "fas fa-map-sign",
         map: "fas fa-map",
         file: "fas fa-file-code",
         marker: "fas fa-map-marker-alt",

@@ -1,7 +1,7 @@
 const CssLibraries = require('../config/frameworks/css');
 const Fonts = require('../config/frameworks/fonts');
 const VueTemplatePlugin = {
-  install: function(Vue, {font={name:'fontawsome', version:'5'}, css={name:'bootstrap', version:'3'}} = {}) {
+  install: function(Vue, {font={name:'fontawsome', version:'4'}, css={name:'bootstrap', version:'3'}} = {}) {
     // set g3wtemplate property to all instances
     Vue.prototype.g3wtemplate = {
       css: CssLibraries[css.name].versions[css.version],
@@ -63,9 +63,13 @@ const VueTemplatePlugin = {
     };
 
     // set isMobile method to all Vue instances
-    Vue.prototype.isMobile = function () {
-      return isMobile.any
-    }
+    Vue.mixin({
+      methods: {
+        isMobile: function () {
+          return isMobile.any
+        }
+      }
+    })
   }
 };
 

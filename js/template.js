@@ -16,7 +16,7 @@ Vue.use(GlobalDirective);
 Vue.use(VueTemplatePlugin, {
   font:{
     name: 'fontawsome',
-    version: '3'
+    version: '4'
   },
   css: {
     name: 'bootstrap',
@@ -78,32 +78,37 @@ const ApplicationTemplate = function({ApplicationService}) {
               open: false,
               collapsible: false,
               context: false,
-              icon: G3WTemplate.getFontClass('file')
+              icon: G3WTemplate.getFontClass('file'),
+              mobile: true
             }),
             new PrintComponent({
               id: 'print',
               open: false,
               collapsible: true, //  it used to manage click event if can run setOpen component method
-              icon: G3WTemplate.getFontClass('print')
+              icon: G3WTemplate.getFontClass('print'),
+              mobile: false
             }),
             new SearchComponent({
               id: 'search',
               open: false,
               collapsible: true,
-              icon: G3WTemplate.getFontClass('search')
+              icon: G3WTemplate.getFontClass('search'),
+              mobile: true
             }),
             new CatalogComponent({
               id: 'catalog',
               open: false,
               collapsible: false,
-              icon: G3WTemplate.getFontClass('map')
+              icon: G3WTemplate.getFontClass('map'),
+              mobile: true
             }),
             // Component that store plugins
             new ToolsComponent({
               id: 'tools',
               open: false,
               collapsible: true,
-              icon: G3WTemplate.getFontClass('tools')
+              icon: G3WTemplate.getFontClass('tools'),
+              mobile: false
             })
           ]
         },
@@ -345,7 +350,7 @@ const ApplicationTemplate = function({ApplicationService}) {
       return viewport.ViewportService.hideContent(bool, perc);
     };
 
-    GUI._closeContent = function() {
+    GUI.closeContent = function() {
       return viewport.ViewportService.closeContent();
     };
 

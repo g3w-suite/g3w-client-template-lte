@@ -15,7 +15,7 @@
     line-height: 1.42857143;
     background-color: @light-blue;
     border: none;
-    border-radius: 5px;
+    border-radius: 3px;
     font-size: 25px;
     font-family: icomoon;
     font-weight: 300;
@@ -33,6 +33,10 @@
       background-color: @light-blue;
     }
   }
+}
+
+.ol-overviewmap:not(.ol-collapsed) button {
+  bottom: 5px;
 }
 
 .ol-mouse-position {
@@ -63,8 +67,8 @@
 
 .ol-custom-overviewmap  {
   border: 1px solid @light-blue;
-  box-shadow: 0 2px 20px rgba(0,0,0,0.5);
-  border-radius: 10px;
+  box-shadow: 0 3px 5px rgba(0,0,0,0.5);
+  border-radius: 5px;
   button {
     left: 3px;
     bottom: 8px;
@@ -128,6 +132,13 @@
   }
 }
 
+.ol-scale-control {
+  span.select2-selection {
+   border: 1px solid #3c8dbc;
+    border-radius: 2px;
+  }
+}
+
 .ol-scale-line {
   background: @light-blue;
   left: auto;
@@ -157,7 +168,6 @@
 }
 
 /// nominatim
-
 .ol-geocoder.gcd-gl-container {
   position: absolute;
   top: 4.875em;
@@ -278,6 +288,7 @@
 .ol-geocoder.gcd-txt-container {
   position: absolute;
   width: 25em;
+  max-width: 300px;
   height: 4.375em;
   top: 6px;
   left: 40px;
@@ -301,7 +312,7 @@
   height: 40px;
   background-color: #fff;
   overflow: hidden;
-  border-radius: 5px;
+  border-radius: 2px;
   margin-left: 2px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
@@ -320,7 +331,7 @@
   width: 100%;
   height: 100%;
   padding: 5px 5px 5px 5px;
-  border: 1px solid rgba(60, 141, 188, 0.3);
+  border: 1px solid @light-blue;
   text-indent: 6px;
   background-color: transparent;
   font-family: inherit;
@@ -353,7 +364,7 @@
   content: "\d7";
   display: inline-block;
   font-weight: bold;
-  color: #3c8dbc;
+  color: @light-blue;
   font-size: 2em;
   cursor: pointer;
 }
@@ -364,7 +375,7 @@
   z-index: 100;
   width: 2.5em;
   height: 100%;
-  background-color: #3c8dbc ;
+  background-color: @light-blue ;
   border-radius: 0px;
 }
 
@@ -395,12 +406,12 @@
 .ol-geocoder ul.gcd-txt-result > li {
   width: 100%;
   overflow: hidden;
-  border-bottom: 1px solid #3c8dbc;
+  border-bottom: 1px solid @light-blue;
   line-height: 1rem;
   color: #ffffff;
   min-height: 40px;
   padding-left: 3px;
-  color: #3c8dbc
+  color: @light-blue
 }
 
 .ol-geocoder ul.gcd-txt-result > li > a {
@@ -455,18 +466,18 @@
 .gcd-road {
   font-size: 0.875em;
   font-weight: 500;
-  color: #3c8dbc;
+  color: @light-blue;
 }
 
 .gcd-city {
   font-size: 1em;
   font-weight: bold;
-  color: #3c8dbc;
+  color: @light-blue;
 }
 
 .gcd-country {
   font-size: 0.75em;
-  color: #3c8dbc;
+  color: @light-blue;
 }
 
 /* qui messo i css del tooltip */

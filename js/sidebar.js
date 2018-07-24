@@ -71,6 +71,9 @@ function SidebarService() {
   // add each component to the sidebar
   // add also position insiede the sidebar
   this.addComponent = function(component, position) {
+    if (isMobile.any && !component.mobile) {
+      return false
+    }
     const sidebarItem = new SidebarItem({
       service: this
     });
