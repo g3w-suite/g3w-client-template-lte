@@ -381,8 +381,7 @@ const ViewportService = function() {
         contentEl.css('padding-left',toggleWidth + 5);
         reducedWidth = (toggleWidth - 5);
       }
-    }
-    else {
+    } else {
       contentEl.css('padding-left', 15);
     }
     return {
@@ -426,12 +425,10 @@ const ViewportService = function() {
     if (this.state.secondaryVisible) {
       if (this._isSecondary('content') && (this.state.secondaryPerc < this.state.content.preferredPerc)) {
         isMobile.any ? closeMapBtn.hide() : closeMapBtn.show()
-      }
-      else {
+      } else {
         closeMapBtn.hide();
       }
-    }
-    else {
+    } else {
       closeMapBtn.hide();
     }
 
@@ -457,14 +454,13 @@ const ViewportService = function() {
       secondaryHeight = viewportHeight;
       primaryWidth = viewportWidth - secondaryWidth;
       primaryHeight = viewportHeight;
-    }
-    else {
+    } else {
       secondaryWidth = viewportWidth;
       secondaryHeight = this.state.secondaryVisible ? Math.max((viewportHeight * scale),this._secondaryViewMinHeight) : 0;
       primaryWidth = viewportWidth;
       primaryHeight = viewportHeight - secondaryHeight;
     }
-    this.state[primaryView].sizes.width = primaryWidth;
+    this.state[primaryView].sizes.width = primaryWidth + 0.5;
     this.state[primaryView].sizes.height = primaryHeight;
     this.state[secondaryView].sizes.width = secondaryWidth;
     this.state[secondaryView].sizes.height = secondaryHeight;

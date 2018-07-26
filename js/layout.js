@@ -754,9 +754,13 @@ $.LayoutManager.loading = function(start) {
   $('#initerror').remove();
   start = _.isBoolean(start) ? start : true;
   if (start) {
-    $('body').append('<div id="loadspinner" class="loading"></div>');
+    //$('body').append('<div id="loadspinner" class="loading"></div>');
+    $('body').append(`<div id="startingspinner">
+                        <div class="double-bounce1"></div>
+                        <div class="double-bounce2"></div>
+                      </div>`)
   } else {
-    $('#loadspinner').remove();
+    $('#startingspinner').remove();
   }
 };
 

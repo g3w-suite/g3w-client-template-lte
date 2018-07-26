@@ -13,14 +13,14 @@
           margin-top: 25px;
         }
         span.key {
-          color: darken(@light-blue,20%);
+          color: @light-blue;
           font-weight: bold;
           font-size: 1.2em;
           margin-bottom: 10px;
           display: block;
         }
         .box-title {
-          color: darken(@light-blue,20%);
+          color: @light-blue;
           font-weight: bold;
           font-size: 1.2em;
         }
@@ -198,4 +198,12 @@
       font-size:1.5em;
     }
   }
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.25s ease-out;
 }

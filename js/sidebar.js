@@ -210,11 +210,8 @@ const SidebarComponent = Vue.extend({
       }
     },
     methods: {
-      closePanel: function(){
+      closePanel: function() {
         sidebarService.closePanel();
-      },
-      isMobile: function(){
-        return isMobile.any
       }
     }
 });

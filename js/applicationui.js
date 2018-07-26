@@ -81,7 +81,6 @@ const AppUI = Vue.extend({
     closePanel: function(){
       sidebarService.closePanel();
     },
-    isMobile: function(){return isMobile.any},
     getLogoLink: function() {
       let logo_link = null;
       if (ApplicationService.getConfig().logo_link) {
