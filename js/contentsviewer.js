@@ -49,14 +49,13 @@ proto.setContent = function(options) {
     .then(() => {
       this.addContent(content, options)
       .then(() => {
-        d.resolve();
+        d.resolve(options);
       })
     })
-  }
-  else {
+  } else {
     this.addContent(content,options)
     .then(() => {
-      d.resolve();
+      d.resolve(options);
     })
   }
   this.setOpen(true);

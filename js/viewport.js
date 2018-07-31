@@ -1,4 +1,5 @@
 const inherit = require('sdk').core.utils.inherit;
+const t = require('sdk').core.i18n.t;
 const base = require('sdk').core.utils.base;
 const G3WObject = require('sdk').core.G3WObject;
 const GUI = require('sdk').gui.GUI;
@@ -586,9 +587,9 @@ const ViewportComponent = Vue.extend({
       const contentsData = this.state.content.contentsdata;
       if (contentsData.length > 1 && this.state.content.showgoback) {
         if (!contentsData[contentsData.length - 2].options.title) {
-          return 'indietro'
+          return t('back');
         }
-        return 'a ' + contentsData[contentsData.length - 2].options.title;
+        return ` ${t('backto')} ${contentsData[contentsData.length - 2].options.title}`;
       }
       return false;
     },

@@ -265,7 +265,7 @@ const ApplicationTemplate = function({ApplicationService}) {
   this._removeComponent = function(componentId) {
     ComponentsRegistry.unregisterComponent(componentId);
   };
-  this._showModalOverlay = function(bool) {
+  this._showModalOverlay = function(bool=false) {
     const mapService = GUI.getComponent('map').getService();
     if (bool) {
       mapService.startDrawGreyCover();
@@ -466,9 +466,8 @@ const ApplicationTemplate = function({ApplicationService}) {
       GUI.setContent(options);
     };
 
-    GUI.showContextualContent = (options) => {
-      options =  options || {};
-      options.perc =
+    GUI.showContextualContent = (options = {}) => {
+      options.perc = !this._isMobile ? options.perc || 50  : 100;
       GUI.setContent(options)
     };
     // add component to stack (append)
@@ -506,12 +505,11 @@ const ApplicationTemplate = function({ApplicationService}) {
       viewport.ViewportService.collapseContent();
     };
 
-    GUI._setContent = (options) => {
-      options = options || {};
+    GUI._setContent = (options={}) => {
       options.content = options.content || null;
       options.title = options.title || "";
       options.push = _.isBoolean(options.push) ? options.push : false;
-      options.perc = !this._isMobile? options.perc || 50 : 100;
+      options.perc = !this._isMobile ? options.perc || 50 : 100;
       options.split = options.split || 'h';
       options.backonclose = _.isBoolean(options.backonclose) ? options.backonclose : false;
       options.showtitle = _.isBoolean(options.showtitle) ? options.showtitle : true;

@@ -113,7 +113,7 @@ proto._setJqueryContent = function(content, options) {
 };
 
 //Append DOM element
-proto._setDOMContent = function(content,options) {
+proto._setDOMContent = function(content, options) {
   this._parent.appendChild(content);
   this.state.contentsdata.push({
     content: content,
