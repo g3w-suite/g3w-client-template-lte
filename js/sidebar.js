@@ -4,6 +4,8 @@ const Stack = require('./barstack.js');
 const G3WObject = require('sdk/core/g3wobject');
 const base = require('sdk/core/utils/utils').base;
 
+const SIDEBAREVENTBUS = new Vue();
+
 //sidebar item is a <li> dom element of the sidebar . Where is possible set
 //title, icon type etc ..  is possible to customize component
 const SidebarItem = Vue.extend({
@@ -36,6 +38,9 @@ const SidebarItem = Vue.extend({
         });
       }
       this.component.setOpen(!this.component.state.open);
+      if (!this.component.collapsible && isMobile.any) {
+        SIDEBAREVENTBUS.$emit('sidebaritemclick');
+      }
     }
   }
 });
@@ -213,6 +218,11 @@ const SidebarComponent = Vue.extend({
       closePanel: function() {
         sidebarService.closePanel();
       }
+    },
+    created() {
+      SIDEBAREVENTBUS.$on('sidebaritemclick', ()=> {
+        $('.sidebar-toggle').click();
+      })
     }
 });
 

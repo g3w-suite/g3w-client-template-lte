@@ -124,10 +124,9 @@ const ViewportService = function() {
         .then(() => {
           this._components['map'] = contextualMapComponent;
         });
-    }
-    else {
+    } else {
       this._components['map'] = this._contextualMapComponent;
-      this._toggleMapComponentVisibility(this._contextualMapComponent,true);
+      this._toggleMapComponentVisibility(this._contextualMapComponent, true);
     }
     this._showView('map',options);
   };
@@ -136,8 +135,8 @@ const ViewportService = function() {
   this.recoverDefaultMap = function() {
     if (this._components['map'] != this._defaultMapComponent) {
       this._components['map'] = this._defaultMapComponent;
-      this._toggleMapComponentVisibility(this._contextualMapComponent,false);
-      this._toggleMapComponentVisibility(this._defaultMapComponent,true);
+      this._toggleMapComponentVisibility(this._contextualMapComponent, false);
+      this._toggleMapComponentVisibility(this._defaultMapComponent, true);
     }
     return this._components['map']
   };
@@ -187,7 +186,7 @@ const ViewportService = function() {
     // set all pcontenty parameters
     this._prepareContentView(options);
     this._immediateComponentsLayout = false;
-    this._showView('content', options, true);
+    this._showView('content', options);
     this._components.content.setContent(options)
       .then(() => {
         this._layoutComponents();
@@ -218,7 +217,7 @@ const ViewportService = function() {
       const data = this._components.content.getPreviousContentData();
       this._prepareContentView(data.options);
       this._immediateComponentsLayout = false;
-      this._showView('content');
+      this._showView('content', data.options);
       this._components.content.popContent()
         .then(() => {
           this._layoutComponents();
@@ -246,16 +245,12 @@ const ViewportService = function() {
     return d.promise()
   };
 
-  this.collapseContent = function() {
-    if (this.state.content.collapsed) {
-      this.closeMap()
-    } else {
-      const options = {
-        split: 'v',
-        perc: 25
-      };
-      this._showView('content', options, true);
-    }
+  this.collapseContent = function({perc = 50} = {}) {
+    const options = this.state.content.collapsed ? {split: 'h', perc: 100} : { split: 'v', perc};
+    const contentData = this.state.content.contentsdata[0];
+    contentData.options.split = options.split;
+    contentData.options.perc = options.perc;
+    this._showView('content', options);
     this.state.content.collapsed = !this.state.content.collapsed;
   };
 
@@ -342,6 +337,7 @@ const ViewportService = function() {
   this._prepareContentView = function(options) {
     this.state.content.preferredPerc = options.perc || this.getDefaultViewPerc('content');
     this.state.content.title = options.title;
+    this.state.content.split =  options.split ? options.split : null;
     this.state.content.closable =  _.isNil(options.closable) ? true : options.closable;
     this.state.content.backonclose = _.isNil(options.backonclose) ? true : options.backonclose;
     this.state.content.contentsdata = this._components.content.contentsdata;
@@ -351,15 +347,13 @@ const ViewportService = function() {
   // manage all layout logic
   // viewName: map or content
   //options.  percentage , splitting title etc ..
-  this._showView = function(viewName, options) {
-    options = options || {};
+  this._showView = function(viewName, options={}) {
     const perc = options.perc || this.getDefaultViewPerc(viewName);
     const split = options.split || 'h';
     let aside;
     if (this.isPrimaryView(viewName)) {
       aside = (typeof(options.aside) == 'undefined') ? false : options.aside;
-    }
-    else {
+    } else {
       aside = true;
     }
     this.state[viewName].aside = aside;
@@ -461,7 +455,7 @@ const ViewportService = function() {
       primaryWidth = viewportWidth;
       primaryHeight = viewportHeight - secondaryHeight;
     }
-    this.state[primaryView].sizes.width = primaryWidth + 0.5;
+    this.state[primaryView].sizes.width = primaryWidth + 0.1;
     this.state[primaryView].sizes.height = primaryHeight;
     this.state[secondaryView].sizes.width = secondaryWidth;
     this.state[secondaryView].sizes.height = secondaryHeight;
@@ -576,6 +570,9 @@ const ViewportComponent = Vue.extend({
     },
     collapsedContent: function() {
       return this.state.content.collapsed;
+    },
+    showCollapseButton() {
+      return this.isMobile() && this.state.content.contentsdata.length < 2;
     },
     contentTitle: function() {
       const contentsData = this.state.content.contentsdata;

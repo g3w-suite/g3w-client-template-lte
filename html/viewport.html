@@ -9,7 +9,7 @@
         </span>
       </div>
       <button v-if="state.content.closable && state.content.aside" :class="g3wtemplate.getFontClass('close')" class="pull-right close-panel-button" @click="closeContent"></button>
-      <button v-if="isMobile()" :class="[collapsedContent ? g3wtemplate.getFontClass('arrow-up'): g3wtemplate.getFontClass('arrow-down')]" class="pull-right collapse-panel-button" @click="collapseContent"></button>
+      <button v-if="showCollapseButton" :class="[collapsedContent ? g3wtemplate.getFontClass('arrow-up'): g3wtemplate.getFontClass('arrow-down')]" class="pull-right collapse-panel-button" @click="collapseContent"></button>
       <div v-if="showtitle && contentTitle">
         <span id="contenttitle">{{ contentTitle }}</span>
       </div>
