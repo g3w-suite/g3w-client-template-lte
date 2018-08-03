@@ -31,9 +31,7 @@ Licensed under MIT
 .tabbable-line > .nav-tabs > li > a > i {
   color: #a6a6a6;
 }
-.tabbable-line > .nav-tabs > li.open, .tabbable-line > .nav-tabs > li:hover {
-  border-bottom: 4px solid #6abbea;
-}
+
 .tabbable-line > .nav-tabs > li.open > a, .tabbable-line > .nav-tabs > li:hover > a {
   border: 0;
   background: none !important;
@@ -44,11 +42,12 @@ Licensed under MIT
 .tabbable-line > .nav-tabs > li.open .dropdown-menu, .tabbable-line > .nav-tabs > li:hover .dropdown-menu {
   margin-top: 0px;
 }
+
 .tabbable-line > .nav-tabs > li.active {
-  border-bottom: 4px solid #3c8dbc;
   position: relative;
   font-weight: bold;
 }
+
 .tabbable-line > .nav-tabs > li.active > a {
   border: 0;
   color: @color-white;
@@ -79,14 +78,14 @@ Licensed under MIT
 }
 .tabbable-line.tabs-below > .nav-tabs > li:hover {
   border-bottom: 0;
-  border-top: 4px solid #6abbea;
   color:@color-white;
 }
+
 .tabbable-line.tabs-below > .nav-tabs > li.active {
   margin-bottom: -2px;
   border-bottom: 0;
-  border-top: 4px solid #f3565d;
 }
+
 .tabbable-line.tabs-below > .tab-content {
   margin-top: -10px;
   border-top: 0;
@@ -119,9 +118,6 @@ Licensed under MIT
 
 .catalog .tree-item, .catalog #legend div{
 
-  &.selected {
-    background-color: @light-blue;
-  }
   span.tree-node-title {
     cursor: pointer;
     white-space: pre-line;
@@ -200,7 +196,6 @@ Licensed under MIT
       border-bottom: none;
     }
     &:hover {
-      background: #1E88E5;
       color: #FAFAFA;
       cursor:pointer;
     }
