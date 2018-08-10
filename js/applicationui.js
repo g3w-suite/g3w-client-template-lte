@@ -94,7 +94,10 @@ const AppUI = Vue.extend({
       if (contentsComponent.getComponentById('projectsmenu')) {
         GUI.closeContent();
       } else {
-        this.isMobile() ? $('#main-navbar.navbar-collapse').removeClass('in') : null;
+        if (this.isMobile()) {
+          GUI.hideSidebar();
+          $('#main-navbar.navbar-collapse').removeClass('in');
+        }
         GUI.setContent({
           content: new ProjectsMenuComponent(),
           title: '',

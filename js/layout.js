@@ -180,14 +180,14 @@ $.LayoutManager._init = function() {
           $("#g3w-sidebar").slimScroll({destroy: true}).height("auto");
           //Add slimscroll
           $("#g3w-sidebar").slimScroll({
-            height: ($(window).height() - $("#main-navbar").height()) + "px",
+            touchScrollStep: 50,
+            height: ($(window).height() - $(".navbar-header").height() - 10) + "px",
             color: "rgba(255,255,255,0.7)",
             size: "3px"
           });
         }
-      }
-      else {
-         $(".sidebar").css({'height': ($(window).height() - $("#main-navbar").height()) + "px"})
+      } else {
+         $(".sidebar").css({'height': ($(window).height() - $(".navbar-header").height()) + "px"})
       }
     }
 

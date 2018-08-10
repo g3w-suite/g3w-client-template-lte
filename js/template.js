@@ -17,10 +17,6 @@ Vue.use(VueTemplatePlugin, {
   font:{
     name: 'fontawsome',
     version: '4'
-  },
-  css: {
-    name: 'bootstrap',
-    version: '3'
   }
 });
 
@@ -274,10 +270,10 @@ const ApplicationTemplate = function({ApplicationService}) {
     }
   };
   this._showSidebar = function() {
-    //TODO
+    $('body').addClass('sidebar-open');
   };
   this._hideSidebar = function() {
-    //TODO
+    $('body').removeClass('sidebar-open');
   };
 
   // setup Fonts Css dependencies methods
