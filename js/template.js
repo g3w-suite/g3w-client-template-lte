@@ -214,6 +214,7 @@ const ApplicationTemplate = function(templateConfig, ApplicationService) {
       const formService = formComponent.getService();
       // parameters : [content, title, push, perc, split, closable]
       GUI.setContent({
+        perc: options.perc || null,
         content: formComponent,
         push: !!options.push, //only one( if other delete previous component)
         showgoback: !!options.showgoback,
