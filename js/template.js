@@ -360,8 +360,7 @@ const ApplicationTemplate = function(templateConfig, ApplicationService) {
     //  - push every componet is added, set is refreshed
     //  - pushContent has a new parameter (backonclose) when is cliccked x
     //  - the contentComponet is close all stack is closed
-    GUI.pushContent = function(options) {
-      options =  options || {};
+    GUI.pushContent = function(options={}) {
       options.perc = options.perc || 100;
       options.push = true;
       GUI.setContent(options);
