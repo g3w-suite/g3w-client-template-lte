@@ -327,6 +327,7 @@ const ApplicationTemplate = function({ApplicationService}) {
       const formService = formComponent.getService();
       // parameters : [content, title, push, perc, split, closable]
       GUI.setContent({
+        perc: options.perc || null,
         content: formComponent,
         push: !!options.push, //only one( if other delete previous component)
         showgoback: !!options.showgoback,
@@ -350,7 +351,7 @@ const ApplicationTemplate = function({ApplicationService}) {
       return viewport.ViewportService.closeContent();
     };
 
-    // show results info/seach
+    // show results info/search
     GUI.showQueryResults = function(title, results) {
       const queryResultsComponent = GUI.getComponent('queryresults');
       const queryResultService = queryResultsComponent.getService();
@@ -471,8 +472,7 @@ const ApplicationTemplate = function({ApplicationService}) {
     //  - push every componet is added, set is refreshed
     //  - pushContent has a new parameter (backonclose) when is cliccked x
     //  - the contentComponet is close all stack is closed
-    GUI.pushContent = (options) => {
-      options =  options || {};
+    GUI.pushContent = (options = {}) => {
       options.perc = !this._isMobile ? options.perc || 100  : 100;
       options.push = true;
       GUI.setContent(options);
