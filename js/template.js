@@ -238,7 +238,7 @@ const ApplicationTemplate = function(templateConfig, ApplicationService) {
       return viewport.ViewportService.closeContent();
     };
 
-    // show results info/seach
+    // show results info/search
     GUI.showQueryResults = function(title, results) {
       const queryResultsComponent = GUI.getComponent('queryresults');
       const queryResultService = queryResultsComponent.getService();
@@ -248,12 +248,10 @@ const ApplicationTemplate = function(templateConfig, ApplicationService) {
       }
       const contentsComponent = GUI.getComponent('contents');
       if (!contentsComponent.getContentData().length || (contentsComponent.getContentData().length == 1 && contentsComponent.getCurrentContentData().content.getId() == 'queryresults')) {
-        GUI.showContextualContent(
-          {
+        GUI.showContextualContent({
             content: queryResultsComponent,
             title: [t("info.title"), title].join(' ')
-          }
-        );
+          });
       } else {
         if (['queryresults', 'openattributetable'].find((element) => element == contentsComponent.getCurrentContentData().content.getId())) {
           contentsComponent.popContent();
