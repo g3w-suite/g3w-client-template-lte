@@ -1,8 +1,32 @@
-.queryresults-wrapper{
+.queryresults-wrapper {
   height: 100%;
   .queryresults-container {
     height: 100%;
     overflow-y: auto;
+    .sub-group .group > .row {
+      margin-left: -2px;
+      margin-right: -2px;
+    }
+    .sub-group .group > .row:nth-child(odd) {
+      background-color: #ffffff;
+    }
+
+    .queryresults .query_relation_field {
+      i {
+        padding:7px;
+      }
+      cursor: pointer;
+      color: white;
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      border-radius: 50%;
+      box-shadow:  0 3px 5px rgba(0,0,0,0.5);
+      -moz-box-shadow: 0 3px 5px rgba(0,0,0,0.5);
+      -webkit-box-shadow: 0 3px 5px rgba(0,0,0,0.5);
+      -o-box-shadow: 0 3px 5px rgba(0,0,0,0.5);
+    }
+
     ul {
       list-style-type: none;
       overflow: auto;
@@ -50,13 +74,17 @@
         }
       }
       tbody {
-        border: 1px solid #f3f3f3
+        border: 1px solid #f3f3f3;
+        tr.featurebox-header:nth-child(1n+2) {
+          background-color: #f9f9f9;
+        }
+        .featurebox-header > td {
+          overflow: hidden;
+          //text-overflow: ellipsis;
+          white-space: nowrap;
+        }
       }
-      .featurebox-header > td {
-        overflow: hidden;
-        //text-overflow: ellipsis;
-        white-space: nowrap;
-      }
+
     }
     .link {
       cursor: pointer;
@@ -90,6 +118,7 @@
     .action-button {
       display:inline-block;
       text-align: center;
+      text-shadow: 0px 3px 5px rgba(0,0,0,0.3);
       padding: 2px;
       cursor: pointer;
       &:hover {
@@ -104,7 +133,6 @@
 
     .featurebox-header {
       cursor: pointer;
-
       .action-cell {
         text-align: center;
         >span {

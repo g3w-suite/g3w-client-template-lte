@@ -7,6 +7,7 @@ const GUI = require('sdk/gui/gui');
 const GlobalComponents = require('sdk/gui/vue/vue.globalcomponents');
 const GlobalDirective = require('sdk/gui/vue/vue.directives');
 const VueTemplatePlugin = require('./vuetemplateplugin');
+const TemplateEventBus = new Vue();
 
 // install global components
 Vue.use(GlobalComponents);
@@ -287,7 +288,9 @@ const ApplicationTemplate = function({ApplicationService}) {
     };
     GUI.getFontClass = function(type) {
       return VueApp.g3wtemplate.getFontClass(type);
-    }
+    };
+    // Event Bus on Template
+    GUI.EventBus = TemplateEventBus;
   };
   // setup Interaces
   this._setupInterface = function() {
@@ -348,6 +351,7 @@ const ApplicationTemplate = function({ApplicationService}) {
     };
 
     GUI.closeContent = function() {
+      GUI.EventBus.$emit('closecontent');
       return viewport.ViewportService.closeContent();
     };
 

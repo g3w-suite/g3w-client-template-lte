@@ -5,11 +5,29 @@
     }
   }
 
-  .g3w-form-component_body form .box-primary {
-    border-top-color: @light-blue
+  .g3w-form-component_body {
+    form .box-primary {
+      border-top-color: @light-blue
+    }
+
+    .bootstrap-filestyle {
+      label.btn-primary {
+        background-color: @light-blue;
+        border-color: @light-blue;
+        &:hover {
+          background-color: darken(@light-blue, 20%);
+        }
+      }
+    }
   }
 
   .g3w-form-component_relations {
+    h5.relation_title {
+      color: @light-blue;
+    }
+    .g3w-icon {
+      color: @light-blue;
+    }
     .tooltip.bottom .tooltip-inner {
       background-color:@light-blue;
     }
@@ -22,7 +40,7 @@
     }
   }
 
-  .g3w-form, .g3w-form-component_footer{
+  .g3w-form, .g3w-form-component_footer {
     .g3w-relationname {
       color: @light-blue;
     }

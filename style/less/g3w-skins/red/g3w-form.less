@@ -5,11 +5,29 @@
     }
   }
 
-  .g3w-form-component_body form .box-primary {
-    border-top-color: @red;
+  .g3w-form-component_body {
+    form .box-primary {
+      border-top-color: @red;
+    }
+
+    .bootstrap-filestyle {
+      label.btn-primary {
+        background-color: @red;
+        border-color: @red;
+        &:hover {
+          background-color: darken(@red, 20%);
+        }
+      }
+    }
   }
 
   .g3w-form-component_relations {
+    h5.relation_title {
+      color: @red;
+    }
+    .g3w-icon {
+      color: @red;
+    }
     .tooltip.bottom .tooltip-inner {
       background-color:@red;
     }

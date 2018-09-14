@@ -5,11 +5,29 @@
     }
   }
 
-  .g3w-form-component_body form .box-primary {
-    border-top-color: @purple;
+  .g3w-form-component_body {
+    form .box-primary {
+      border-top-color: @purple;
+    }
+
+    .bootstrap-filestyle {
+      label.btn-primary {
+        background-color: @purple;
+        border-color: @purple;
+        &:hover {
+          background-color: darken(@purple, 20%);
+        }
+      }
+    }
   }
 
   .g3w-form-component_relations {
+    h5.relation_title {
+      color: @purple;
+    }
+    .g3w-icon {
+      color: @purple;
+    }
     .tooltip.bottom .tooltip-inner {
       background-color:@purple;
     }
