@@ -17,7 +17,7 @@ Vue.use(GlobalDirective);
 Vue.use(VueTemplatePlugin, {
   font:{
     name: 'fontawsome',
-    version: '4'
+    version: '5'
   }
 });
 

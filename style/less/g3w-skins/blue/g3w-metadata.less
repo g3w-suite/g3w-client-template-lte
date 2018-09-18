@@ -1,3 +1,11 @@
 .skin-blue {
-  .metadata-item-tab.general {}
+  .metadata-item-tab.general {
+    background-color: @light-blue;
+  }
+  .metadata-nav-tabs > li.active > a, .metadata-nav-tabs > li > a:hover {
+    color: @light-blue !important;
+  }
+  .metadata-nav-tabs > li > a::after {
+    background: @light-blue;
+  }
 }

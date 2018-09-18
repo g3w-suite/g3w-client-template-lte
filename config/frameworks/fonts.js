@@ -24,6 +24,9 @@ const Fonts = {
         filluncheck: "fa fa-square",
         table: "fa fa-table",
         trash: "fa fa-trash",
+        'trash-o':"fa fa-trash-o",
+        pencil: "fa fa-pencil",
+        'ellips-h': "fa fa-ellips-h",
         'arrow-up': "fa fa-chevron-up",
         'arrow-down': "fa fa-chevron-down",
         'arrow-left': "fa fa-chevron-left",
@@ -50,12 +53,14 @@ const Fonts = {
         calendar: "fa fa-calendar",
         list: "fa fa-list-alt",
         link: "fa fa-link",
+        unlink: " fa-chain-broken",
         eye: "fa fa-eye",
-        'eye-close': "fa fa-eye-slash"
+        'eye-close': "fa fa-eye-slash",
+        save: "fa fa-floppy-o"
       },
       '5': {
-        'change-map': "fas fa-map-sign",
-        map: "fas fa-map",
+        'change-map': "fas fa-map-signs",
+        map: "far fa-map",
         file: "fas fa-file-code",
         marker: "fas fa-map-marker-alt",
         relation: "fas fa-sitemap",
@@ -76,6 +81,9 @@ const Fonts = {
         filluncheck: "fas fa-square",
         table: "fas fa-table",
         trash: "fas fa-trash",
+        'trash-o':"far fa-trash-alt",
+        pencil: "fas fa-pencil-alt",
+        'ellips-h': "fas fa-ellips-h",
         'arrow-up': "fas fa-chevron-up",
         'arrow-down': "fas fa-chevron-down",
         'arrow-left': "fas fa-chevron-left",
@@ -98,8 +106,10 @@ const Fonts = {
         calendar: "fas fa-calendar-alt",
         list: "fas fa-list-alt",
         link: "fas fa-link",
+        unlink: "fas fa-unlink",
         eye: "far fa-eye",
-        'eye-close': "far fa-eye-slash"
+        'eye-close': "far fa-eye-slash",
+        save: "far fa-save"
       }
     }
   }

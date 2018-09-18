@@ -3,6 +3,19 @@
 @sidebar-width: 350px;
 @control-sidebar-width: 450px;
 
+.main-sidebar {
+  box-shadow: 3px 0 15px 0px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 3px 0 15px 0px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow:3px 0 15px 0px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar-collapse .main-sidebar {
+  box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow:none;
+}
+
+
 .sidebar {
   color: white;
   .g3w-sidebarpanel {
@@ -14,9 +27,11 @@
       margin-top: 0px;
     }
   }
+
   .treeview-label {
     font-size: 1.1em;
     font-weight: bold;
+    margin-left: 5px;
   }
   .menu-items {
     padding: 10px 15px;
@@ -32,8 +47,12 @@
     }
   }
 
+
   .sidebar-menu > li {
-    border-bottom: 1px solid rgba(184, 199, 206, 0.1);
+    border-bottom: 1px solid #21292d;
+    &:last-child {
+      border:0;
+    }
   }
   // color  icons of sidebar
 
