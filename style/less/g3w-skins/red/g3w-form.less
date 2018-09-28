@@ -1,11 +1,11 @@
 .skin-red {
-  .g3w-form-component_header {
+  #g3wform_header {
     .title {
       color: darken(@red, 20%);
     }
   }
 
-  .g3w-form-component_body {
+  #g3wform_body {
     form .box-primary {
       border-top-color: @red;
     }
@@ -23,18 +23,22 @@
     }
   }
 
-  .g3w-form-component_relations {
+  #g3wform_relations {
     h5.relation_title {
       color: @red;
     }
     .g3w-icon {
       color: @red;
     }
-    .tooltip.bottom .tooltip-inner {
+    .tooltip-inner {
       background-color:@red;
+      font-weight: bold;
     }
     .tooltip.bottom .tooltip-arrow {
       border-bottom-color: @red;
+    }
+    .tooltip.left .tooltip-arrow {
+      border-left-color: @red;
     }
     .relation-editbtn {
       border: 2px solid @red;
@@ -42,7 +46,7 @@
     }
   }
 
-  .g3w-form, .g3w-form-component_footer{
+  .g3w-form, #g3wform_footer{
     .g3w-relationname {
       color: @red;
     }

@@ -56,7 +56,15 @@ const Fonts = {
         unlink: " fa-chain-broken",
         eye: "fa fa-eye",
         'eye-close': "fa fa-eye-slash",
-        save: "fa fa-floppy-o"
+        save: "fa fa-floppy-o",
+        pdf: "fa fa-file-pdf-o",
+        image: "fa fa-file-image-o",
+        video: "fa fa-file-video-o",
+        unknow:"fa fa-question-circle-o",
+        zip: "fa file-zip-o",
+        text: "fa fa-file-text-o",
+        excel: "fa fa-file-excel-o",
+        ppt: "fa fa-file-powerpoint-o"
       },
       '5': {
         'change-map': "fas fa-map-signs",
@@ -109,7 +117,15 @@ const Fonts = {
         unlink: "fas fa-unlink",
         eye: "far fa-eye",
         'eye-close': "far fa-eye-slash",
-        save: "far fa-save"
+        save: "far fa-save",
+        pdf: "fas fa-file-pdf",
+        image: "far fa-image",
+        video: "far fa-file-video",
+        unknow:"far fa-question-circle",
+        zip: "far fa-file-archive",
+        text: "far fa-file-alt",
+        excel: "far fa-file-excel",
+        ppt: "far fa-file-powerpoint"
       }
     }
   }

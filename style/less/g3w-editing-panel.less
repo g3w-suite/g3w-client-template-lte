@@ -25,13 +25,13 @@
   }
   .editbtn {
     padding: 3px 3px 3px 3px;
-    margin: 0px 5px 0px 5px;
+    margin: 0 5px 0 5px;
     border: 1px solid darken(grey, 15%);
     .border-radius( 5px );
-    box-shadow:  0 2px 4px rgba(255,255,255, 0.2);
-    -moz-box-shadow: 0 2px 4px rgba(255,255,255, 0.2);
-    -webkit-box-shadow: 0 2px 4px rgba(255,255,255, 0.2);
-    -o-box-shadow: 0 2px 4px rgba(255,255,255, 0.2);
+    box-shadow:  0 2px 0 rgba(255,255,255, 0.2);
+    -moz-box-shadow: 0 2px 0 rgba(255,255,255, 0.2);
+    -webkit-box-shadow: 0 2px 0 rgba(255,255,255, 0.2);
+    -o-box-shadow: 0 2px 0 rgba(255,255,255, 0.2);
     display: inline-block;
     opacity: .4;
     cursor: not-allowed;
@@ -65,5 +65,19 @@
   .disableddiv {
     pointer-events: none;
     opacity: 0.6;
+  }
+}
+
+.g3w-editing-table {
+  .editing_table_title {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  .editing_table_relation_messagge {
+    margin-bottom: 10px;
+    font-size: 1.3em;
+    background-color: #f5f5f5;
+    padding: 3px;
+    border-radius: 3px;
   }
 }

@@ -1,4 +1,4 @@
-.g3w-form-component_header {
+#g3wform_header {
   overflow: hidden;
   background-color: #ffffff !important;
   .title {
@@ -9,9 +9,17 @@
   }
 }
 
-.g3w-form-component_body {
-  .form_editing_relation_input {
+#g3wform_body {
 
+  .form-group {
+    margin-bottom: 5px;
+  }
+  .bootstrap-filestyle > input.form-control {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .form_editing_relation_input {
     .info_helptext_button {
       text-align: center;
       font-size: 0.7em;
@@ -28,13 +36,77 @@
       border: 1px solid #ffffff;
       border-radius:50%;
     }
+
     font-weight: bold;
     width: 100%;
     padding: 5px;
     background-color: rgba(0,0,0,0.1);
   }
-
-  overflow: hidden;
+  .preview {
+    width: 100%;
+    margin-top: 10px;
+    display:flex;
+    align-items: center;
+    .filename {
+      overflow: hidden;
+      margin: 15px;
+      font-weight: bold;
+    }
+    .clearmedia {
+      cursor: pointer;
+      color: red;
+      margin-left: auto;
+    }
+    .previewtype {
+      &:hover{
+        background-color: #efefef;
+      }
+      display: flex;
+      justify-content: center;
+      padding-top: 10px;
+      cursor: pointer;
+      background-color: #ffffff;
+      border-radius: 5px;
+      width: 50px;
+      height: 50px;
+      border: 2px solid;
+      &.pdf {
+        color: @red;
+        border-color:@red;
+      }
+      &.image {
+        color: @yellow;
+        border-color:@yellow;
+      }
+      &.video {
+        color: orange;
+        border-color:orange;
+      }
+      &.unknow {
+        color: grey;
+        border-color:grey;
+      }
+      &.zip {
+        color: saddlebrown;
+        border: 2px solid saddlebrown;
+      }
+      &.text {
+        color: @light-blue;
+        border-color:@light-blue;
+      }
+      &.excel {
+        color: @green;
+        border-color: @green;
+      }
+      &.ppt {
+        color: @purple;
+        border-color: @purple;
+      }
+    }
+  }
+  background-color: #ffffff;
+  overflow-x:hidden ;
+  overflow-y: auto;
   clear:both;
   margin-bottom: 10px;
   .divider {
@@ -60,22 +132,88 @@
   color: red;
 }
 
-.g3w-form-component_footer {
-  overflow: hidden;
-  position:absolute;
-  bottom:15px;
+#g3wform_footer {
+  height: 100px;
+  position: relative;
+  bottom: 5px;
   width:100%;
+  background-color: #ededed;
+  button {
+    font-weight: bold;
+    margin: 5px;
+  }
 }
 
-.g3w-form-component_relations {
-
+#g3wform_relations {
+  overflow-y: auto;
+  overflow-x: hidden;
   h5.relation_title {
     font-size: 1.2em;
     font-weight: bold;
   }
+  .preview {
+    width: 100%;
+    display:flex;
+    align-items: center;
+    .filename {
+      overflow: hidden;
+      margin: 15px;
+      font-weight: bold;
+    }
+    .clearmedia {
+      cursor: pointer;
+      color: red;
+      margin-left: auto;
+    }
+    .previewtype {
+      &:hover{
+        background-color: #efefef;
+      }
+      display: flex;
+      justify-content: center;
+      padding-top: 10px;
+      cursor: pointer;
+      background-color: #ffffff;
+      border-radius: 5px;
+      width: 50px;
+      height: 50px;
+      border: 2px solid;
+      &.pdf {
+        color: @red;
+        border-color:@red;
+      }
+      &.image {
+        color: @yellow;
+        border-color:@yellow;
+      }
+      &.video {
+        color: orange;
+        border-color:orange;
+      }
+      &.unknow {
+        color: grey;
+        border-color:grey;
+      }
+      &.zip {
+        color: saddlebrown;
+        border: 2px solid saddlebrown;
+      }
+      &.text {
+        color: @light-blue;
+        border-color:@light-blue;
+      }
+      &.excel {
+        color: @green;
+        border-color: @green;
+      }
+      &.ppt {
+        color: @purple;
+        border-color: @purple;
+      }
+    }
+  }
 
   margin-bottom: 10px;
-  overflow: hidden;
   .attr-label {
     width: 30%;
     max-width: 40%;
@@ -95,6 +233,7 @@
   }
   .add-link {
     margin-top: 5px;
+    margin-left: 5px;
     span.disabled {
       opacity: 0.3;
     }

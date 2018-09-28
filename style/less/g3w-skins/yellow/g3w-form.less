@@ -1,11 +1,11 @@
 .skin-yellow {
-  .g3w-form-component_header {
+  #g3wform_header {
     .title {
       color: darken(@yellow, 20%);
     }
   }
 
-  .g3w-form-component_body {
+  #g3wform_body {
     form .box-primary {
       border-top-color: @yellow;
     }
@@ -22,18 +22,23 @@
       }
     }
   }
-  .g3w-form-component_relations {
+
+  #g3wform_relations {
     h5.relation_title {
       color: @yellow;
     }
     .g3w-icon {
       color: @yellow;
     }
-    .tooltip.bottom .tooltip-inner {
+    .tooltip-inner {
       background-color:@yellow;
+      font-weight: bold;
     }
     .tooltip.bottom .tooltip-arrow {
       border-bottom-color: @yellow;
+    }
+    .tooltip.left .tooltip-arrow {
+      border-left-color: @yellow;
     }
     .relation-editbtn {
       border: 2px solid @yellow;
@@ -41,7 +46,7 @@
     }
   }
 
-  .g3w-form, .g3w-form-component_footer{
+  .g3w-form, #g3wform_footer{
     .g3w-relationname {
       color: @yellow;
     }
