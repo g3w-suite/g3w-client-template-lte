@@ -1,4 +1,16 @@
 .g3wform_body {
+  .dataTable.no-footer {
+    border-bottom:none;
+  }
+
+  .relation_tool {
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    -ms-filter: drop-shadow(0 0 5px rgba(0,0,0,0.2));
+    filter: drop-shadow(0 0 5px rgba(0,0,0,0.2));
+  }
+
   h5.relation_title {
     font-size: 1.2em;
     font-weight: bold;
@@ -23,8 +35,8 @@
     font-size: 15px !important;
   }
   .add-link {
-    margin-top: 5px;
     margin-left: 5px;
+    font-size: 1.8em !important;
     span.disabled {
       opacity: 0.3;
     }
@@ -194,6 +206,7 @@
   button {
     font-weight: bold;
     margin: 5px;
+    min-width: 80px;
   }
 }
 

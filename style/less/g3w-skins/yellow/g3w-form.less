@@ -1,6 +1,9 @@
 .skin-yellow {
   .g3wform_header {
     .title {
+      &.one {
+        color: darken(@yellow, 20%);
+      }
       color: lighten(@yellow, 20%);
       &.tabs:hover {
         border-bottom: 4px solid lighten(@yellow, 40%);
@@ -15,6 +18,12 @@
   .g3wform_body {
     form .box-primary {
       border-top-color: @yellow;
+    }
+
+    .form-control {
+      &:focus {
+        border-color: @yellow;
+      }
     }
     .input-group-addon {
       color: @yellow;

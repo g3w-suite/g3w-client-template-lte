@@ -1,6 +1,9 @@
 .skin-purple {
   .g3wform_header {
     .title {
+      &.one {
+        color: darken(@purple, 20%);
+      }
       color: lighten(@purple, 20%);
       &.tabs:hover {
         border-bottom: 4px solid lighten(@purple, 40%);
@@ -15,6 +18,11 @@
   .g3wform_body {
     form .box-primary {
       border-top-color: @purple;
+    }
+    .form-control {
+      &:focus {
+        border-color: @purple;
+      }
     }
     .input-group-addon {
       color: @purple;

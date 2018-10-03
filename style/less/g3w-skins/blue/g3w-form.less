@@ -1,6 +1,9 @@
 .skin-blue {
   .g3wform_header {
     .title {
+      &.one {
+        color: darken(@light-blue, 20%);
+      }
       color: lighten(@light-blue, 20%);
       &.tabs:hover {
         border-bottom: 4px solid lighten(@light-blue, 40%);
@@ -14,6 +17,12 @@
   .g3wform_body {
     form .box-primary {
       border-top-color: @light-blue
+    }
+
+    .form-control {
+      &:focus {
+        border-color: @light-blue;
+      }
     }
 
     .input-group-addon {
