@@ -21,6 +21,11 @@ Vue.use(VueTemplatePlugin, {
   }
 });
 
+// set mixins inheriAttrs to avoid tha unused props are setted as attrs
+Vue.mixin({
+  inheritAttrs: false
+});
+
 // get all items needed by application
 const sidebar = require('./sidebar');
 const floatbar = require('./floatbar');
