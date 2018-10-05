@@ -12,6 +12,15 @@
     }
 
     .queryresults {
+      table {
+        tbody {
+          > tr.featurebox-header {
+            &:nth-of-type(even) {
+              background-color: #f9f9f9 !important;
+            }
+          }
+        }
+      }
       .query_relation_field {
         i {
           padding:7px;
@@ -83,9 +92,6 @@
       }
       tbody {
         border: 1px solid #f3f3f3;
-        tr.featurebox-header:nth-child(1n+2) {
-          background-color: #f9f9f9;
-        }
         .featurebox-header > td {
           overflow: hidden;
           //text-overflow: ellipsis;
