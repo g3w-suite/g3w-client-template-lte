@@ -62,19 +62,20 @@
           }
         }
       }
-
       .featurebox-header-open {
         td {
           background-color:  lighten(@light-blue, 30%) !important;
         }
       }
 
-      .featurebox-body {
+      tr.featurebox-header-open + .featurebox-body  {
         .action-buttons-container {
           background-color: @light-blue;
         }
+        td > div, td > table {
+          border-color: lighten(@light-blue, 30%);
+        }
       }
-
       .box.box-primary {
         border-top-color: @light-blue;
       }
