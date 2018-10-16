@@ -1,4 +1,5 @@
 const inherit = require('sdk').core.utils.inherit;
+const t = require('sdk').core.i18n.t;
 const base = require('sdk').core.utils.base;
 const G3WObject = require('sdk').core.G3WObject;
 const GUI = require('sdk').gui.GUI;
@@ -26,6 +27,7 @@ const ViewportService = function() {
         width: 0,
         height: 0
       },
+      collapsed: false,
       aside: true,
       showgoback: true,
       stack: [], // array elements of  stack contents
@@ -59,6 +61,18 @@ const ViewportService = function() {
     this._addComponents(options.components);
   };
 
+  this.getState = function() {
+    return this.state;
+  };
+
+  this.getMapState = function() {
+    return this.state.map;
+  };
+
+  this.getContentState = function() {
+    return this.state.content;
+  };
+
   this._addComponents = function(components) {
     // components is an object
     //(index.js)
@@ -83,7 +97,10 @@ const ViewportService = function() {
               // sset de fefault component to map
               this._defaultMapComponent = component;
             }
-          });
+          })
+          .fail((err) => {
+            console.log(err)
+          })
       }
     })
   };
@@ -107,10 +124,9 @@ const ViewportService = function() {
         .then(() => {
           this._components['map'] = contextualMapComponent;
         });
-    }
-    else {
+    } else {
       this._components['map'] = this._contextualMapComponent;
-      this._toggleMapComponentVisibility(this._contextualMapComponent,true);
+      this._toggleMapComponentVisibility(this._contextualMapComponent, true);
     }
     this._showView('map',options);
   };
@@ -119,8 +135,8 @@ const ViewportService = function() {
   this.recoverDefaultMap = function() {
     if (this._components['map'] != this._defaultMapComponent) {
       this._components['map'] = this._defaultMapComponent;
-      this._toggleMapComponentVisibility(this._contextualMapComponent,false);
-      this._toggleMapComponentVisibility(this._defaultMapComponent,true);
+      this._toggleMapComponentVisibility(this._contextualMapComponent, false);
+      this._toggleMapComponentVisibility(this._defaultMapComponent, true);
     }
     return this._components['map']
   };
@@ -170,7 +186,7 @@ const ViewportService = function() {
     // set all pcontenty parameters
     this._prepareContentView(options);
     this._immediateComponentsLayout = false;
-    this._showView('content', options, true);
+    this._showView('content', options);
     this._components.content.setContent(options)
       .then(() => {
         this._layoutComponents();
@@ -201,7 +217,7 @@ const ViewportService = function() {
       const data = this._components.content.getPreviousContentData();
       this._prepareContentView(data.options);
       this._immediateComponentsLayout = false;
-      this._showView('content');
+      this._showView('content', data.options);
       this._components.content.popContent()
         .then(() => {
           this._layoutComponents();
@@ -227,6 +243,15 @@ const ViewportService = function() {
         d.resolve(mapComponent);
       });
     return d.promise()
+  };
+
+  this.collapseContent = function({perc = 50} = {}) {
+    const options = this.state.content.collapsed ? {split: 'h', perc: 100} : { split: 'v', perc};
+    const contentData = this.state.content.contentsdata[0];
+    contentData.options.split = options.split;
+    contentData.options.perc = options.perc;
+    this._showView('content', options);
+    this.state.content.collapsed = !this.state.content.collapsed;
   };
 
   this.removeContent = function() {
@@ -312,6 +337,7 @@ const ViewportService = function() {
   this._prepareContentView = function(options) {
     this.state.content.preferredPerc = options.perc || this.getDefaultViewPerc('content');
     this.state.content.title = options.title;
+    this.state.content.split =  options.split ? options.split : null;
     this.state.content.closable =  _.isNil(options.closable) ? true : options.closable;
     this.state.content.backonclose = _.isNil(options.backonclose) ? true : options.backonclose;
     this.state.content.contentsdata = this._components.content.contentsdata;
@@ -321,15 +347,13 @@ const ViewportService = function() {
   // manage all layout logic
   // viewName: map or content
   //options.  percentage , splitting title etc ..
-  this._showView = function(viewName, options) {
-    options = options || {};
+  this._showView = function(viewName, options={}) {
     const perc = options.perc || this.getDefaultViewPerc(viewName);
     const split = options.split || 'h';
     let aside;
     if (this.isPrimaryView(viewName)) {
       aside = (typeof(options.aside) == 'undefined') ? false : options.aside;
-    }
-    else {
+    } else {
       aside = true;
     }
     this.state[viewName].aside = aside;
@@ -352,8 +376,7 @@ const ViewportService = function() {
         contentEl.css('padding-left',toggleWidth + 5);
         reducedWidth = (toggleWidth - 5);
       }
-    }
-    else {
+    } else {
       contentEl.css('padding-left', 15);
     }
     return {
@@ -385,7 +408,7 @@ const ViewportService = function() {
         z-index:1000;\
         height: 39px;\
         width: 39px">\
-          <button class="glyphicon glyphicon-remove pull-right close-panel-button" style="background-color: transparent;border: 0px;"></button>\
+          <button :class="g3wtemplate.getFontClass(\'close\')" class="pull-right close-panel-button" style="background-color: transparent;border: 0px;"></button>\
         </div>');
       closeMapBtn.on('click', () => {
         this.closeMap();
@@ -396,13 +419,11 @@ const ViewportService = function() {
 
     if (this.state.secondaryVisible) {
       if (this._isSecondary('content') && (this.state.secondaryPerc < this.state.content.preferredPerc)) {
-        closeMapBtn.show()
-      }
-      else {
+        isMobile.any ? closeMapBtn.hide() : closeMapBtn.show()
+      } else {
         closeMapBtn.hide();
       }
-    }
-    else {
+    } else {
       closeMapBtn.hide();
     }
 
@@ -428,14 +449,13 @@ const ViewportService = function() {
       secondaryHeight = viewportHeight;
       primaryWidth = viewportWidth - secondaryWidth;
       primaryHeight = viewportHeight;
-    }
-    else {
+    } else {
       secondaryWidth = viewportWidth;
       secondaryHeight = this.state.secondaryVisible ? Math.max((viewportHeight * scale),this._secondaryViewMinHeight) : 0;
       primaryWidth = viewportWidth;
       primaryHeight = viewportHeight - secondaryHeight;
     }
-    this.state[primaryView].sizes.width = primaryWidth;
+    this.state[primaryView].sizes.width = primaryWidth + 0.1;
     this.state[primaryView].sizes.height = primaryHeight;
     this.state[secondaryView].sizes.width = secondaryWidth;
     this.state[secondaryView].sizes.height = secondaryHeight;
@@ -487,7 +507,7 @@ const ViewportService = function() {
         drawing = false;
       }
     };
-    // resister on readyy GUI
+    // GUI ready event
     GUI.on('ready',() => {
       const primaryView = this.state.primaryView;
       const secondaryView = this._otherView(primaryView);
@@ -548,6 +568,12 @@ const ViewportComponent = Vue.extend({
     showContent: function() {
       return this.state.content.show;
     },
+    collapsedContent: function() {
+      return this.state.content.collapsed;
+    },
+    showCollapseButton() {
+      return this.isMobile() && this.state.content.contentsdata.length < 2;
+    },
     contentTitle: function() {
       const contentsData = this.state.content.contentsdata;
       if (contentsData.length) {
@@ -558,9 +584,9 @@ const ViewportComponent = Vue.extend({
       const contentsData = this.state.content.contentsdata;
       if (contentsData.length > 1 && this.state.content.showgoback) {
         if (!contentsData[contentsData.length - 2].options.title) {
-          return 'indietro'
+          return t('back');
         }
-        return 'a ' + contentsData[contentsData.length - 2].options.title;
+        return ` ${t('backto')} ${contentsData[contentsData.length - 2].options.title}`;
       }
       return false;
     },
@@ -570,7 +596,10 @@ const ViewportComponent = Vue.extend({
   },
   methods: {
     closeContent: function() {
-      viewportService.removeContent();
+      GUI.closeContent();
+    },
+    collapseContent: function() {
+      viewportService.collapseContent();
     },
     closeMap: function() {
       viewportService.closeMap();

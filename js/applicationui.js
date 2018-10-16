@@ -60,7 +60,8 @@ const AppUI = Vue.extend({
     user: function() {
       let user = ApplicationService.getConfig().user;
       // check if user is empty object
-      if (_.isEmpty(user) || !user.username) {user = null}
+      if (!user || !user.username)
+        user = null;
       return user;
     },
     numberOfProjectsInGroup: function() {
@@ -80,7 +81,6 @@ const AppUI = Vue.extend({
     closePanel: function(){
       sidebarService.closePanel();
     },
-    isMobile: function(){return isMobile.any},
     getLogoLink: function() {
       let logo_link = null;
       if (ApplicationService.getConfig().logo_link) {
@@ -94,6 +94,10 @@ const AppUI = Vue.extend({
       if (contentsComponent.getComponentById('projectsmenu')) {
         GUI.closeContent();
       } else {
+        if (this.isMobile()) {
+          GUI.hideSidebar();
+          $('#main-navbar.navbar-collapse').removeClass('in');
+        }
         GUI.setContent({
           content: new ProjectsMenuComponent(),
           title: '',

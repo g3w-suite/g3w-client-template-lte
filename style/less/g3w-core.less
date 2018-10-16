@@ -1,0 +1,172 @@
+.content-wrapper,
+.right-side,
+.main-footer {
+.sidebar-open & {
+    @media (max-width: @screen-xs-max) {
+      .translate(@sidebar-width-small, 0);
+    }
+  }
+}
+
+.btn {
+  border-radius: 3px;
+}
+
+.btn-circle-medium {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  padding:0px;
+  font-size: 1.2em;
+}
+
+.box-header {
+  cursor: pointer;
+}
+
+.box-title {
+  &.fa-plus, &.fa-minus {
+    &:before {
+      content: ""
+    }
+  }
+}
+
+.quick-actions-menu {
+  overflow: hidden;
+  height:40px;
+  line-height:40px;
+  text-align:center;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.btn {
+  &.quick-action {
+    font-size: 1.5em;
+    color: #888888;
+    background-color: transparent;
+    border: 0px;
+    margin: -5px 0px 0px 0px;
+    padding: 6px 10px;
+    vertical-align: middle;
+    &:hover {
+      color: #888888;
+      border-color: @light-blue;
+      background-color: transparent;
+    }
+  }
+}
+
+.g3w-icon {
+  &:hover {
+    cursor: pointer;
+  }
+
+  padding: 5px;
+  font-size: 1.3em;
+  border-radius: 50%;
+  box-shadow:  0 2px 4px rgba(0,0,0,0.2);
+  -moz-box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  -webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  -o-box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.close-panel-block {
+  overflow: hidden;
+  line-height: 14px;
+  margin-top: 4px;
+  font-size:1.5em;
+}
+button.close-panel-button {
+  background-color: transparent;
+  border-radius: 50%;
+  box-shadow:  0 2px 4px rgba(0,0,0,0.2);
+  -moz-box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  -webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  -o-box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  &.dark {
+    color: white;
+    background-color: @sidebar-dark-bg;
+    box-shadow:  0 2px 4px rgba(255,255,255,0.2);
+    -moz-box-shadow: 0 2px 4px rgba(255,255,255,0.2);
+    -webkit-box-shadow: 0 2px 4px rgba(255,255,255,0.2);
+    -o-box-shadow: 0 2px 4px rgba(255,255,255,0.2);
+  }
+  border: 0px
+}
+
+/** initial setup **/
+.nano {
+  position : relative;
+  width    : 100%;
+  height   : 100%;
+  overflow : hidden;
+}
+.nano > .nano-content {
+  position      : absolute;
+  overflow      : scroll;
+  overflow-x    : hidden;
+  top           : 0;
+  right         : 0;
+  bottom        : 0;
+  left          : 0;
+}
+.nano > .nano-content:focus {
+  outline: thin dotted;
+}
+.nano > .nano-content::-webkit-scrollbar {
+  display: none;
+}
+.has-scrollbar > .nano-content::-webkit-scrollbar {
+  display: block;
+}
+.nano > .nano-pane {
+  background : rgba(0,0,0,0);
+  position   : absolute;
+  width      : 10px;
+  right      : 0;
+  top        : 0;
+  bottom     : 0;
+  visibility : hidden\9; /* Target only IE7 and IE8 with this hack */
+  opacity    : .01;
+  -webkit-transition    : .2s;
+  -moz-transition       : .2s;
+  -o-transition         : .2s;
+  transition            : .2s;
+  -moz-border-radius    : 5px;
+  -webkit-border-radius : 5px;
+  border-radius         : 5px;
+}
+.nano > .nano-pane > .nano-slider {
+  background: #444;
+  background: rgba(0,0,0,.25);
+  position              : relative;
+  margin                : 0 1px;
+  -moz-border-radius    : 3px;
+  -webkit-border-radius : 3px;
+  border-radius         : 3px;
+}
+.nano:hover > .nano-pane, .nano-pane.active, .nano-pane.flashed {
+  visibility : visible\9; /* Target only IE7 and IE8 with this hack */
+  opacity    : 0.99;
+}
+
+/* cambio il colore dell sidebar scroll */
+.slimScrollBar {
+  background: none repeat scroll 0 0 #ffffff !important;
+  width: 7px!important;
+  opacity:0.5!important;
+}
+
+.gutter-vertical {
+  margin-top: -10px;
+  cursor: ns-resize;
+  border: 2px dotted #ffffff;
+}
+
+.modal-footer {
+  button {
+    font-weight: bold;
+  }
+}

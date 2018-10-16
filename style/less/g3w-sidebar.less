@@ -1,0 +1,97 @@
+@sidebar-width-mobile: 100%;
+@sidebar-width-small: 300px;
+@sidebar-width: 350px;
+@control-sidebar-width: 450px;
+
+
+
+.sidebar {
+  color: white;
+  .g3w-sidebarpanel {
+    padding: 10px 15px 10px 15px;
+  }
+  .g3w-sidebarpanel-placeholder {
+    margin-top: 10px;
+    h3 {
+      margin-top: 0;
+    }
+  }
+
+  .treeview-label {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-left: 5px;
+  }
+  .menu-items {
+    padding: 10px 15px;
+    li {
+      background-color: lighten(@sidebar-dark-bg,10%);
+      border-radius: .25rem;
+      padding: 2px;
+      margin-bottom: 2px;
+      cursor: pointer;
+      &:hover {
+        background-color: lighten(@sidebar-dark-bg,15%);
+      }
+    }
+  }
+
+
+  .sidebar-menu > li {
+    border-bottom: 1px solid #21292d;
+    &:last-child {
+      border:0;
+    }
+  }
+  // color  icons of sidebar
+
+  #g3w-sidebarcomponents .sidebaritem a .fa-search {
+    color: #8DC3E3;
+  }
+
+  #g3w-sidebarcomponents .sidebaritem a {
+    .fa-map-o, .fa-map {
+      color: #019A4C;
+    }
+  }
+
+  #g3w-sidebarcomponents .sidebaritem  a {
+    .fa-gears, .fa-cogs {
+      color: #FFE721;
+    }
+  }
+
+  #g3w-sidebarcomponents .sidebaritem a .fa-print {
+    color: #FF9B21;
+  }
+
+  #g3w-sidebarcomponents .sidebaritem a {
+    .fa-file-code-o, .fa-file-code {
+      color: #ffffff;
+    }
+  }
+}
+
+.main-sidebar,
+.main-sidebar-mobile,
+.left-side {
+  @media (max-width: @screen-xs-max) {
+      width: @sidebar-width-mobile;
+  }
+  @media (max-width: @screen-xs-max) {
+    .translate(-@sidebar-width-mobile, 0);
+  }
+  .btn {
+    &.quick-action {
+      color: #bbbbbb;
+      background-color: @sidebar-dark-bg;
+      border: 2px solid #888888;
+      &:hover {
+        color: #bbbbbb;
+        background-color: @sidebar-dark-bg;
+        border: 2px solid #888888;
+      }
+    }
+  }
+}
+

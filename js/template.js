@@ -1,15 +1,30 @@
 const t = require('sdk/core/i18n/i18n.service').t;
-const inherit = require('core/utils/utils').inherit;
-const base = require('core/utils/utils').base;
-const G3WObject = require('core/g3wobject');
+const inherit = require('sdk/core/utils/utils').inherit;
+const base = require('sdk/core/utils/utils').base;
+const G3WObject = require('sdk/core/g3wobject');
 const ComponentsRegistry = require('sdk/gui/componentsregistry');
 const GUI = require('sdk/gui/gui');
-const GlobalComponents = require('gui/vue/vue.globalcomponents');
+const GlobalComponents = require('sdk/gui/vue/vue.globalcomponents');
 const GlobalDirective = require('sdk/gui/vue/vue.directives');
+const VueTemplatePlugin = require('./vuetemplateplugin');
+const TemplateEventBus = new Vue();
 
+// install global components
 Vue.use(GlobalComponents);
+// install gloabl directive
 Vue.use(GlobalDirective);
+// install template information library (es. classes etc..)
+Vue.use(VueTemplatePlugin, {
+  font:{
+    name: 'fontawsome',
+    version: '5'
+  }
+});
 
+// set mixins inheriAttrs to avoid tha unused props are setted as attrs
+Vue.mixin({
+  inheritAttrs: false
+});
 
 // get all items needed by application
 const sidebar = require('./sidebar');
@@ -22,8 +37,9 @@ const layout = require('./layout');
 // loading spinner at beginning
 layout.loading(true);
 
-const ApplicationTemplate = function(templateConfig, ApplicationService) {
-  this.templateConfig = templateConfig;
+const ApplicationTemplate = function({ApplicationService}) {
+  // useful to build a difference layout/compoìnent based on mobile or not
+  this._isMobile = isMobile.any;
   this.init = function() {
     // set general metods for the application as  GUI.showForm etc ..
     this._setupInterface();
@@ -31,14 +47,101 @@ const ApplicationTemplate = function(templateConfig, ApplicationService) {
     this._setupLayout();
     //register all services fro the application
     this._setUpServices();
-    this._createApp();
+    // create templateConfig
+    this.templateConfig = this._createTemplateConfig();
+    // create Vue App
+    const VueApp = this._createApp();
+    // setup Font, Css class methods
+    this._setUpTemplateDependencies(VueApp);
+  };
+  // create application config
+  this._createTemplateConfig = function() {
+    const G3WTemplate = Vue.prototype.g3wtemplate;
+    const appTitle = ApplicationService.getConfig().apptitle || 'G3W Suite';
+    // get sdk componets
+    const ContentsComponent = require('./contentsviewer');
+    const CatalogComponent = require('sdk/gui/catalog/vue/catalog');
+    const SearchComponent = require('sdk/gui/search/vue/search');
+    const PrintComponent = require('sdk/gui/print/vue/print');
+    const MetadataComponent = require('sdk/gui/metadata/vue/metadata');
+    const ToolsComponent = require('sdk/gui/tools/vue/tools');
+    const MapComponent = require('sdk/gui/map/vue/map');
+    const QueryResultsComponent = require('sdk/gui/queryresults/vue/queryresults');
+    return {
+      title: appTitle,
+      placeholders: {
+        navbar: {
+          components: []
+        },
+        sidebar: {
+          components: [
+            new MetadataComponent({
+              id: 'metadata',
+              open: false,
+              collapsible: false,
+              context: false,
+              icon: G3WTemplate.getFontClass('file'),
+              mobile: true
+            }),
+            new PrintComponent({
+              id: 'print',
+              open: false,
+              collapsible: true, //  it used to manage click event if can run setOpen component method
+              icon: G3WTemplate.getFontClass('print'),
+              mobile: false
+            }),
+            new SearchComponent({
+              id: 'search',
+              open: false,
+              collapsible: true,
+              icon: G3WTemplate.getFontClass('search'),
+              mobile: true
+            }),
+            new CatalogComponent({
+              id: 'catalog',
+              open: false,
+              collapsible: false,
+              icon: G3WTemplate.getFontClass('map'),
+              mobile: true
+            }),
+            // Component that store plugins
+            new ToolsComponent({
+              id: 'tools',
+              open: false,
+              collapsible: true,
+              icon: G3WTemplate.getFontClass('tools'),
+              mobile: false
+            })
+          ]
+        },
+        floatbar:{
+          components: []
+        }
+      },
+      othercomponents: [
+        new QueryResultsComponent({
+          id: 'queryresults'
+        })
+      ],
+      viewport: {
+        // placeholder of the content (view content). Secodary view (hidden)
+        components: {
+          map: new MapComponent({
+            id: 'map'
+          }),
+          content: new ContentsComponent({
+            id: 'contents'
+          })
+        }
+      }
+    }
   };
 
   //Vue app
   this._createApp = function() {
     const store = ApplicationService.getStore();
     const self = this;
-    const app = new Vue({
+    const App = new Vue({
       store,
       el: '#app',
       mounted: function() {
@@ -51,6 +154,7 @@ const ApplicationTemplate = function(templateConfig, ApplicationService) {
         });
       }
     });
+    return App;
   };
 
   this._setupLayout = function(){
@@ -163,7 +267,7 @@ const ApplicationTemplate = function(templateConfig, ApplicationService) {
   this._removeComponent = function(componentId) {
     ComponentsRegistry.unregisterComponent(componentId);
   };
-  this._showModalOverlay = function(bool) {
+  this._showModalOverlay = function(bool=false) {
     const mapService = GUI.getComponent('map').getService();
     if (bool) {
       mapService.startDrawGreyCover();
@@ -172,11 +276,28 @@ const ApplicationTemplate = function(templateConfig, ApplicationService) {
     }
   };
   this._showSidebar = function() {
-    //TODO
+    $('body').addClass('sidebar-open');
   };
   this._hideSidebar = function() {
-    //TODO
+    $('body').removeClass('sidebar-open');
   };
+
+  // setup Fonts Css dependencies methods
+  this._setUpTemplateDependencies = function(VueApp) {
+    // method that return Template Info
+    GUI.getTemplateInfo = function() {
+      return VueApp.g3wtemplate.getInfo();
+    };
+    GUI.getTemplateInfo = function() {
+      return VueApp.g3wtemplate.getInfo();
+    };
+    GUI.getFontClass = function(type) {
+      return VueApp.g3wtemplate.getFontClass(type);
+    };
+    // Event Bus on Template
+    GUI.EventBus = TemplateEventBus;
+  };
+  // setup Interaces
   this._setupInterface = function() {
     /* PLUBLIC INTERFACE */
     /* Common methods */
@@ -235,6 +356,7 @@ const ApplicationTemplate = function(templateConfig, ApplicationService) {
     };
 
     GUI.closeContent = function() {
+      GUI.EventBus.$emit('closecontent');
       return viewport.ViewportService.closeContent();
     };
 
@@ -248,10 +370,12 @@ const ApplicationTemplate = function(templateConfig, ApplicationService) {
       }
       const contentsComponent = GUI.getComponent('contents');
       if (!contentsComponent.getContentData().length || (contentsComponent.getContentData().length == 1 && contentsComponent.getCurrentContentData().content.getId() == 'queryresults')) {
-        GUI.showContextualContent({
+        GUI.showContextualContent(
+          {
             content: queryResultsComponent,
             title: [t("info.title"), title].join(' ')
-          });
+          }
+        );
       } else {
         if (['queryresults', 'openattributetable'].find((element) => element == contentsComponent.getCurrentContentData().content.getId())) {
           contentsComponent.popContent();
@@ -342,15 +466,14 @@ const ApplicationTemplate = function(templateConfig, ApplicationService) {
       viewport.ViewportService.resetContextualMapComponent();
     };
     //  (100%) content
-    GUI.showContent = function(options) {
+    GUI.showContent = (options) => {
       options =  options || {};
-      options.perc = options.perc || 100;
+      options.perc = !this._isMobile ? options.perc || 100 : 100;
       GUI.setContent(options);
     };
 
-    GUI.showContextualContent = function(options) {
-      options =  options || {};
-      options.perc = options.perc || 50;
+    GUI.showContextualContent = (options = {}) => {
+      options.perc = !this._isMobile ? options.perc || 50  : 100;
       GUI.setContent(options)
     };
     // add component to stack (append)
@@ -358,15 +481,15 @@ const ApplicationTemplate = function(templateConfig, ApplicationService) {
     //  - push every componet is added, set is refreshed
     //  - pushContent has a new parameter (backonclose) when is cliccked x
     //  - the contentComponet is close all stack is closed
-    GUI.pushContent = function(options={}) {
-      options.perc = options.perc || 100;
+    GUI.pushContent = (options = {}) => {
+      options.perc = !this._isMobile ? options.perc || 100  : 100;
       options.push = true;
       GUI.setContent(options);
     };
     // add content to stack
-    GUI.pushContextualContent = function(options) {
+    GUI.pushContextualContent = (options) => {
       options = options || {};
-      options.perc = options.perc || 50;
+      options.perc = !this._isMobile ? options.perc || 50  : 100;
       options.push = true;
       GUI.setContent(options);
     };
@@ -378,12 +501,20 @@ const ApplicationTemplate = function(templateConfig, ApplicationService) {
     GUI.getContentLength = function() {
       return viewport.ViewportService.contentLength();
     };
-    GUI.setContent = function(options) {
-      options = options || {};
+
+    GUI.isContentCollapsed = function() {
+      return viewport.ViewportService.getContentState().collapsed;
+    };
+
+    GUI.collapseContent = function() {
+      viewport.ViewportService.collapseContent();
+    };
+
+    GUI._setContent = (options={}) => {
       options.content = options.content || null;
       options.title = options.title || "";
       options.push = _.isBoolean(options.push) ? options.push : false;
-      options.perc = options.perc || 50;
+      options.perc = !this._isMobile ? options.perc || 50 : 100;
       options.split = options.split || 'h';
       options.backonclose = _.isBoolean(options.backonclose) ? options.backonclose : false;
       options.showtitle = _.isBoolean(options.showtitle) ? options.showtitle : true;
@@ -398,6 +529,15 @@ const ApplicationTemplate = function(templateConfig, ApplicationService) {
       ApplicationService.getConfig().projects = [];
     };
 
+    // return specific classes
+    GUI.getTemplateClasses = function() {
+      return BootstrapVersionClasses
+    };
+
+    GUI.getTemplateClass = function({element, type}) {
+      return BootstrapVersionClasses[element][type];
+    };
+
     /* FINE VIEWPORT */
     /*  */
     /* END PUBLIC INTERFACE */
@@ -406,29 +546,6 @@ const ApplicationTemplate = function(templateConfig, ApplicationService) {
 };
 
 inherit(ApplicationTemplate, G3WObject);
-
-ApplicationTemplate.fail = function(bootstrap, lng, error) {
-  const connectionErrorMsg = (lng == 'it') ? 'Errore di connessione': 'Connection error';
-  const errorMsg = error ? error : connectionErrorMsg;
-  ERRORSMESSAGES = {
-    'it': `
-        <div class="col-12 text-center initial_error_text" ><h1>Oops!!! Si è verificato un errore</h1></div>
-        <div class="col-12 text-center initial_error_text"><h3>Causa:  ${errorMsg}</h3></div>
-        <div class="col-12 text-center initial_error_text"><h4>Al momento non è possibile caricare la mappa</h5></div>
-        <div class="col-12 text-center initial_error_text"><h1>Premi Ctrl+F5</h5></div>`,
-    'en': `
-        <div class="col-12 text-center initial_error_text" ><h1>Oops!!!An error occurs</h1></div>
-        <div class="col-12 text-center initial_error_text"><h3>Cause: ${errorMsg}</h3></div>
-        <div class="col-12 text-center initial_error_text"><h4>At the moment is not possible show map</h5></div>
-        <div class="col-12 text-center initial_error_text"><h1>Press Ctrl+F5</h5></div>`
-  };
-  layout.loading(false);
-  const background_image = require('../../images/error_backgroung.png');
-  if (!layout.bootstrap) layout.bootstrap = bootstrap;
-  // object to add i18n traslations
-  const showMessageError = ERRORSMESSAGES[lng];
-  layout.reload(showMessageError, background_image);
-};
 
 // Placeholder knowed by application
 ApplicationTemplate.PLACEHOLDERS = [
@@ -444,6 +561,28 @@ ApplicationTemplate.Services = {
   sidebar: sidebar.SidebarService,
   viewport: viewport.ViewportService,
   floatbar: sidebar.FloatbarService
+};
+
+ApplicationTemplate.fail = function({language='en', error }) {
+  const background_image = require('../images/error_backgroung.png');
+  const connectionErrorMsg = (language == 'it') ? 'Errore di connessione': 'Connection error';
+  const errorMsg = error ? error : connectionErrorMsg;
+  ERRORSMESSAGES = {
+    'it': `
+        <div class="col-12 text-center initial_error_text" ><h1>Oops!!! Si è verificato un errore</h1></div>
+        <div class="col-12 text-center initial_error_text"><h3>Causa:  ${errorMsg}</h3></div>
+        <div class="col-12 text-center initial_error_text"><h4>Al momento non è possibile caricare la mappa</h5></div>
+        <div class="col-12 text-center initial_error_text"><h1>Premi Ctrl+F5</h5></div>`,
+    'en': `
+        <div class="col-12 text-center initial_error_text" ><h1>Oops!!!An error occurs</h1></div>
+        <div class="col-12 text-center initial_error_text"><h3>Cause: ${errorMsg}</h3></div>
+        <div class="col-12 text-center initial_error_text"><h4>At the moment is not possible show map</h5></div>
+        <div class="col-12 text-center initial_error_text"><h1>Press Ctrl+F5</h5></div>`
+  };
+  layout.loading(false);
+  // object to add i18n traslations
+  const showMessageError = ERRORSMESSAGES[language];
+  layout.reload(showMessageError, background_image);
 };
 
 

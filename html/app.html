@@ -12,7 +12,7 @@
           </button>
           <!-- Toggle button on navbar only for mobile -->
           <a v-if="isMobile()" href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Expand</span>
+            <i :class="g3wtemplate.getFontClass('bars')"></i>
           </a>
           <div class="logo-wrapper" style="max-height: 30px">
             <a v-if="logo_url" :href="logo_link" :target="logo_link_target" class="">
@@ -29,16 +29,16 @@
         <div class="collapse navbar-collapse" id="main-navbar">
           <navbarleftitems></navbarleftitems>
           <navbarrightitems></navbarrightitems>
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav navbar-right app-navbar-nav">
             <li id="changemaps" class="dropdown user" v-if="numberOfProjectsInGroup > 1">
               <a href="#" @click="openProjectsMenu" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="fa fa-th" aria-hidden="true"></i>
+                <i :class="g3wtemplate.getFontClass('change-map')" aria-hidden="true"></i>
                 <span v-t="'changemap'"></span>
               </a>
             </li>
             <li v-if="user" class="dropdown user user-menu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="fa fa-user"></i>
+                <i :class="g3wtemplate.getFontClass('user')"></i>
                 <span class="hidden-xs">{{ user.username }}</span>
               </a>
               <ul class="dropdown-menu">
@@ -49,10 +49,10 @@
                 </li>
                 <li class="user-footer">
                   <div class="pull-left">
-                    <a :href="user.admin_url" class="btn btn-default btn-flat"><i class="fa fa-folder"></i> Admin</a>
+                    <a :href="user.admin_url" class="btn btn-default btn-flat"><i :class="g3wtemplate.getFontClass('folder')"></i> Admin</a>
                   </div>
                   <div class="pull-right">
-                    <a :href="user.logout_url" class="btn btn-default btn-flat"><i class="fa fa-sign-out"></i>Sign out</a>
+                    <a :href="user.logout_url" class="btn btn-default btn-flat"><i :class="g3wtemplate.getFontClass('sign-out')"></i>Sign out</a>
                   </div>
                 </li>
               </ul>
@@ -64,7 +64,7 @@
             </li>
             <li v-if="frontendurl" class="dropdown">
               <a :href="frontendurl">
-                <span><i class="fa fa-home"></i> Home</span>
+                <span><i :class="g3wtemplate.getFontClass('home')"></i> Home</span>
               </a>
             </li>
           </ul>
@@ -75,7 +75,7 @@
   <!-- Left side column. contains the logo and sidebar -->
   <sidebar></sidebar>
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper" style="background-color:white">
+  <div class="content-wrapper">
     <viewport></viewport>
   </div>
   <!-- /.content-wrapper -->
@@ -102,13 +102,13 @@
             </div>
           </a>
           <address id="address-credits" style="line-height: 2; text-align: center;">
-            <i class="fa fa-map-marker" aria-hidden="true"></i>
+            <i :class="g3wtemplate.getFontClass('marker')" aria-hidden="true"></i>
             <span> Viale Verdi, 24 - Montecatini Terme (PT)</span></br>
-            <i class="fa fa-mobile" aria-hidden="true"></i>
+            <i :class="g3wtemplate.getFontClass('mobile')" aria-hidden="true"></i>
             <span> +39 347 6597931</span></br>
-            <i class="fa fa-fax" aria-hidden="true"></i>
+            <i :class="g3wtemplate.getFontClass('fax')" aria-hidden="true"></i>
             <span> +39 0572 901639</span></br>
-            <i class="fa fa-envelope" aria-hidden="true">
+            <i :class="g3wtemplate.getFontClass('mail')" aria-hidden="true">
             </i>
             <span><a href="mailto:info@gis3w.it" style="color:#000000"> info@gis3w.it</a></span>
           </address>

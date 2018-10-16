@@ -49,14 +49,13 @@ proto.setContent = function(options) {
     .then(() => {
       this.addContent(content, options)
       .then(() => {
-        d.resolve();
+        d.resolve(options);
       })
     })
-  }
-  else {
+  } else {
     this.addContent(content,options)
     .then(() => {
-      d.resolve();
+      d.resolve(options);
     })
   }
   this.setOpen(true);
@@ -164,7 +163,7 @@ proto.layout = function(parentWidth, parentHeight) {
       //check each componentstored in stack
       if (typeof data.content.layout == 'function') {
         //call function layout of each component that are stored into the stack
-        data.content.layout(parentWidth, height);
+        data.content.layout(parentWidth + 0.5, height);
       }
     })
   })
