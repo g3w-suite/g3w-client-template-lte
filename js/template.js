@@ -141,13 +141,16 @@ const ApplicationTemplate = function({ApplicationService}) {
   this._createApp = function() {
     const store = ApplicationService.getStore();
     const self = this;
+    if (isMobile.any) {
+      $('body').addClass('sidebar-collapse');
+    }
     const App = new Vue({
       store,
       el: '#app',
       mounted: function() {
         self._buildTemplate();
         $(document).localize();
-        this.$nextTick(function(){
+        this.$nextTick(function() {
           self._setViewport(self.templateConfig.viewport);
           self.emit('ready');
           GUI.ready();

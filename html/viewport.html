@@ -8,9 +8,15 @@
           <span :class="g3wtemplate.getFontClass('arrow-left')"></span>{{ previousTitle }}
         </span>
       </div>
-      <button v-if="state.content.closable && state.content.aside" :class="g3wtemplate.getFontClass('close')" class="pull-right close-panel-button" @click="closeContent"></button>
-      <button v-if="showCollapseButton" :class="[collapsedContent ? g3wtemplate.getFontClass('arrow-up'): g3wtemplate.getFontClass('arrow-down')]" class="pull-right collapse-panel-button" @click="collapseContent"></button>
-      <div v-if="showtitle && contentTitle">
+      <span v-if="state.content.closable && state.content.aside" @click="closeContent" class="g3w-span-button fa-stack fa-lg pull-right">
+        <i class="fa fa-circle fa-stack-2x panel-button"></i>
+        <i :class="g3wtemplate.getFontClass('close')" class="fa-stack-1x panel-icon"></i>
+      </span>
+      <span v-if="showCollapseButton" class="g3w-span-button fa-stack fa-lg pull-right" @click="collapseContent">
+         <i class="fa fa-circle fa-stack-2x panel-button"></i>
+         <i :class="[collapsedContent ? g3wtemplate.getFontClass('arrow-up'): g3wtemplate.getFontClass('arrow-down')]" class="fa-stack-1x panel-icon"></i>
+      </span>
+      <div class="panel-title" v-if="showtitle && contentTitle">
         <span id="contenttitle">{{ contentTitle }}</span>
       </div>
     </div>

@@ -10,7 +10,13 @@
     .sub-group .group > .row:nth-child(odd) {
       background-color: #ffffff;
     }
-
+    .field_link {
+      border-radius: 5px;
+      height: 25px;
+      min-width: 45px;
+      max-width: 80px;
+      font-weight: bold;
+    }
     .queryresults {
       table {
         tbody {
@@ -170,10 +176,16 @@
     }
 
     .featurebox-body {
+      @media (max-width: 768px) {
+        .field_value.col-sm-6, .field_label.col-sm-6 {
+          width: 50% !important;
+          float: left;
+        }
+      }
       tbody {
         border: 0;
         td {
-          padding: 0px;
+          padding: 0;
         }
       }
       .action-buttons-container {

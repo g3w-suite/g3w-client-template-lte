@@ -2,9 +2,12 @@
 
 .main-header {
   .navbar {
-    box-shadow: 0 3px 15px 0px rgba(0, 0, 0, 0.3);
-    -moz-box-shadow: 0 3px 15px 0px rgba(0, 0, 0, 0.3);
-    -webkit-box-shadow:0 3px 15px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow:0 3px 15px 0 rgba(0, 0, 0, 0.3);
+  }
+  .navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle:hover {
+    margin-top: 3px;
   }
 }
 
@@ -34,9 +37,9 @@
 
 //Per evitare che la navbar si allarghi (in altezza) in modalità mobile (override di bootstrap)
 .navbar-form{
-  padding-top:0px;
-  padding-bottom:0px;
-  margin-bottom:0px
+  padding-top:0;
+  padding-bottom:0;
+  margin-bottom:0
 }
 
 .logo-wrapper {
@@ -47,7 +50,7 @@
   color: white;
   img {
     height: 40px;
-    margin: 0px 10px 0px 5px;
+    margin: 0 10px 0 5px;
   }
 }
 

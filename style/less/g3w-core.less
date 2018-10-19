@@ -72,29 +72,6 @@
   -o-box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-.close-panel-block {
-  overflow: hidden;
-  line-height: 14px;
-  margin-top: 4px;
-  font-size:1.5em;
-}
-button.close-panel-button {
-  background-color: transparent;
-  border-radius: 50%;
-  box-shadow:  0 2px 4px rgba(0,0,0,0.2);
-  -moz-box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  -webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  -o-box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  &.dark {
-    color: white;
-    background-color: @sidebar-dark-bg;
-    box-shadow:  0 2px 4px rgba(255,255,255,0.2);
-    -moz-box-shadow: 0 2px 4px rgba(255,255,255,0.2);
-    -webkit-box-shadow: 0 2px 4px rgba(255,255,255,0.2);
-    -o-box-shadow: 0 2px 4px rgba(255,255,255,0.2);
-  }
-  border: 0px
-}
 
 /** initial setup **/
 .nano {
@@ -169,4 +146,13 @@ button.close-panel-button {
   button {
     font-weight: bold;
   }
+}
+
+
+.container-fluid >.navbar-collapse, .container-fluid>.navbar-header, .container>.navbar-collapse, .container>.navbar-header {
+  @media (min-width: 768px) {
+    margin-right: 0;
+    margin-left: -15px;
+  }
+
 }

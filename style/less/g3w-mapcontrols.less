@@ -260,23 +260,19 @@
 }
 
 .ol-geocoder.gcd-txt-container {
+  &.nominatim-mobile {
+    left:0;
+  }
   position: absolute;
   width: 25em;
   max-width: 300px;
   height: 4.375em;
   top: 7px;
   left: 40px;
-  @media (max-width: @screen-xs-max) {
-    left: 0;
-  }
-  box-sizing: border-box;
-}
-
-.ol-geocoder.gcd-txt-container {
   min-width: 250px;
   height: 6px;
   @media (max-width: @screen-xs-max) {
-    width:200px;
+    left: 0;
   }
   box-sizing: border-box;
 }
@@ -357,7 +353,8 @@
 .ol-geocoder ul.gcd-txt-result {
   li.nominatim-noresults {
     font-weight: bold;
-    vertical-align: center;
+    padding-top: 10px;
+    background-color: #ffffff !important;
   };
   position: absolute;
   left: 0;

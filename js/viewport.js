@@ -387,63 +387,30 @@ const ViewportService = function() {
 
   //main layout function
   this._layout = function() {
-    let closeMapBtn = $('#closemap-btn');
     const splitClassToAdd = (this.state.split == 'h') ? 'split-h' : 'split-v';
     const splitClassToRemove =  (this.state.split == 'h') ? 'split-v' : 'split-c';
     $(".g3w-viewport .g3w-view").addClass(splitClassToAdd);
     $(".g3w-viewport .g3w-view").removeClass(splitClassToRemove);
     const reducesdSizes = this._getReducedSizes();
     this._setViewSizes(reducesdSizes.reducedWidth,reducesdSizes.reducedHeight);
-    // cloaseMap button
-    if (!closeMapBtn.length) {
-      closeMapBtn = $('<div id="closemap-btn" @click="closeMap" style="\
-        position: absolute;\
-        right: 10px;\
-        top: 7px;\
-        line-height: 1;\
-        padding: 7px 2px;\
-        font-size: 1.5em;\
-        background-color: #3c8dbc;\
-        color: white;\
-        z-index:1000;\
-        height: 39px;\
-        width: 39px">\
-          <button :class="g3wtemplate.getFontClass(\'close\')" class="pull-right close-panel-button" style="background-color: transparent;border: 0px;"></button>\
-        </div>');
-      closeMapBtn.on('click', () => {
-        this.closeMap();
-      });
-      const mapView = $(".g3w-viewport .map");
-      mapView.append(closeMapBtn);
-    }
-
-    if (this.state.secondaryVisible) {
-      if (this._isSecondary('content') && (this.state.secondaryPerc < this.state.content.preferredPerc)) {
-        isMobile.any ? closeMapBtn.hide() : closeMapBtn.show()
-      } else {
-        closeMapBtn.hide();
-      }
-    } else {
-      closeMapBtn.hide();
-    }
-
     if (this._immediateComponentsLayout) {
       this._layoutComponents();
     }
   };
 
-
   this._setViewSizes = function() {
     const primaryView = this.state.primaryView;
     const secondaryView = this._otherView(primaryView);
     const viewportWidth = Math.round(this._viewportWidth()) - 1; // remove one pixel for zoom in zoom out issue
+    //all viewport height
     const viewportHeight = this._viewportHeight();
+    // assign all width and height of the view to primary view (map)
     let primaryWidth = viewportWidth;
     let primaryHeight = viewportHeight;
     let secondaryWidth;
     let secondaryHeight;
+    // percentage of secondary view (content)
     const scale = this.state.secondaryPerc / 100;
-
     if (this.state.split == 'h') {
       secondaryWidth = this.state.secondaryVisible ? Math.max((viewportWidth * scale),this._secondaryViewMinWidth) : 0;
       secondaryHeight = viewportHeight;
@@ -572,7 +539,7 @@ const ViewportComponent = Vue.extend({
       return this.state.content.collapsed;
     },
     showCollapseButton() {
-      return this.isMobile() && this.state.content.contentsdata.length < 2;
+      return this.isMobile() && this.state.content.contentsdata.length == 1;
     },
     contentTitle: function() {
       const contentsData = this.state.content.contentsdata;
@@ -592,6 +559,12 @@ const ViewportComponent = Vue.extend({
     },
     contentSmallerThenPreferred: function() {
       return this.state.secondaryPerc < this.state.content.preferredPerc;
+    }
+  },
+  watch: {
+    'state.content.contentsdata': function(oldContentDataArray, newContentDataArray) {
+      if (this.isMobile() && !newContentDataArray.length)
+        this.state.content.collapsed = false;
     }
   },
   methods: {
