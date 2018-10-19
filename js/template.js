@@ -180,6 +180,18 @@ const ApplicationTemplate = function({ApplicationService}) {
     Vue.component('viewport', viewport.ViewportComponent);
     Vue.component('floatbar', floatbar.FloatbarComponent);
     Vue.component('app', AppUI);
+    // dataTable Translations
+    $.extend( true, $.fn.dataTable.defaults, {
+      "language": {
+        "paginate": {
+          "previous": t("dataTable.previous"),
+          "next": t("dataTable.next"),
+        },
+        "info": t("dataTable.info"),
+        "zeroRecords": t("dataTable.nodatafilterd"),
+        "infoFiltered": t("dataTable.infoFiltered")
+      }
+    });
   };
 
   // route setting att beginning (is an example)
