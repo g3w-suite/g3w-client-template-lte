@@ -8,6 +8,7 @@ const GlobalComponents = require('sdk/gui/vue/vue.globalcomponents');
 const GlobalDirective = require('sdk/gui/vue/vue.directives');
 const VueTemplatePlugin = require('./vuetemplateplugin');
 const TemplateEventBus = new Vue();
+import templateStore from './store/store';
 
 // install global components
 Vue.use(GlobalComponents);
@@ -144,20 +145,23 @@ const ApplicationTemplate = function({ApplicationService}) {
     if (isMobile.any) {
       $('body').addClass('sidebar-collapse');
     }
-    const App = new Vue({
+    return new Vue({
       store,
       el: '#app',
+      created() {
+        // register template store
+        this.$store.registerModule("template", templateStore);
+      },
       mounted: function() {
         self._buildTemplate();
-        $(document).localize();
         this.$nextTick(function() {
+          $(document).localize();
           self._setViewport(self.templateConfig.viewport);
           self.emit('ready');
           GUI.ready();
         });
       }
     });
-    return App;
   };
 
   this._setupLayout = function(){
