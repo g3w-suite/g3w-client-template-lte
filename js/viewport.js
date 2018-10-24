@@ -447,6 +447,7 @@ const ViewportService = function() {
       const reducesdSizes = this._getReducedSizes();
       const reducedWidth = reducesdSizes.reducedWidth || 0;
       const reducedHeight = reducesdSizes.reducedHeight || 0;
+      // for each components
       Object.entries(this._components).forEach(([name, component]) => {
         const width = this.state[name].sizes.width - reducedWidth ;
         const height = this.state[name].sizes.height - reducedHeight;
@@ -519,7 +520,10 @@ const ViewportComponent = Vue.extend({
   template: require('../html/viewport.html'),
   data: function() {
     return {
-      state: viewportService.state
+      state: viewportService.state,
+      media: {
+        matches: true
+      }
     }
   },
   computed: {
@@ -539,7 +543,7 @@ const ViewportComponent = Vue.extend({
       return this.state.content.collapsed;
     },
     showCollapseButton() {
-      return this.isMobile() && this.state.content.contentsdata.length == 1;
+      return this.isMobile() && this.state.content.contentsdata.length == 1 && this.media.matches;
     },
     contentTitle: function() {
       const contentsData = this.state.content.contentsdata;
@@ -562,9 +566,15 @@ const ViewportComponent = Vue.extend({
     }
   },
   watch: {
-    'state.content.contentsdata': function(oldContentDataArray, newContentDataArray) {
-      if (this.isMobile() && !newContentDataArray.length)
+    'state.content.contentsdata': function(newContentDataArray, oldContentDataArray) {
+      if (this.isMobile() && !oldContentDataArray.length)
         this.state.content.collapsed = false;
+    },
+    'media.matches': function(newMatches, oldMatches) {
+      if (this.state.content.contentsdata.length === 1 && (oldMatches != newMatches)) {
+        this.state.content.collapsed = true;
+        viewportService.collapseContent()
+      }
     }
   },
   methods: {
@@ -580,6 +590,17 @@ const ViewportComponent = Vue.extend({
     gotoPreviousContent: function() {
       viewportService.popContent();
     }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      const mediaQueryEventMobile = window.matchMedia("(min-height: 300px)");
+      this.media.matches = mediaQueryEventMobile.matches;
+      mediaQueryEventMobile.addListener((event) => {
+        if (event.type === 'change') {
+          this.media.matches = event.currentTarget.matches;
+        }
+      })
+    })
   }
 });
 

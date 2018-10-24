@@ -15,7 +15,10 @@
     <div v-show="panelsinstack" class="g3w-sidebarpanel">
       <div style="overflow: hidden;line-height: 14px;margin-top: 4px; font-size:1.5em">
           <h4 style="display: inline-block; font-weight: bold">{{ gui.title }}</h4>
-          <button :class="g3wtemplate.getFontClass('close')" class="pull-right close-panel-button"  @click="closePanel"></button>
+          <span @click="closePanel" class="g3w-span-button close-pane-button fa-stack fa-lg pull-right">
+            <i :class="g3wtemplate.getFontClass('circle')" class="fa-stack-1x panel-button"></i>
+            <i :class="g3wtemplate.getFontClass('close')" class="fa-stack-1x panel-icon"></i>
+          </span>
       </div>
       <div id="g3w-sidebarpanel-placeholder" class="g3w-sidebarpanel-placeholder"></div>
     </div>

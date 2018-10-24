@@ -64,7 +64,8 @@ const Fonts = {
         zip: "fa file-zip-o",
         text: "fa fa-file-text-o",
         excel: "fa fa-file-excel-o",
-        ppt: "fa fa-file-powerpoint-o"
+        ppt: "fa fa-file-powerpoint-o",
+        circle: "fa fa-circle"
       },
       '5': {
         'change-map': "fas fa-map-signs",
@@ -125,7 +126,8 @@ const Fonts = {
         zip: "far fa-file-archive",
         text: "far fa-file-alt",
         excel: "far fa-file-excel",
-        ppt: "far fa-file-powerpoint"
+        ppt: "far fa-file-powerpoint",
+        circle: "fas fa-circle"
       }
     }
   }

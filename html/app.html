@@ -95,23 +95,34 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <a style="text-align: center!important;" href="http://www.gis3w.it" target="_blank">
-            <img :src="credits_logo" class="img-responsive center-block" alt="">
-            <div style="text-align: center!important; margin-bottom:50px; margin-top:20px; color:#000000">
-              <h4>GIS3W s.n.c.</h4>
+          <div style="display: flex; flex-direction: column; justify-content: space-around; justify-items: center; align-items: center">
+            <div class="g3w-credits-block">
+              <div v-t-template="'g3wSuiteFramework'" class="credit-title-logo"></div>
+              <a target="_blank" href="https://g3wsuite.gis3w.it/">
+                <img class="g3w-suite-logo" :src="g3w_suite_logo" alt="">
+              </a>
             </div>
-          </a>
-          <address id="address-credits" style="line-height: 2; text-align: center;">
-            <i :class="g3wtemplate.getFontClass('marker')" aria-hidden="true"></i>
-            <span> Viale Verdi, 24 - Montecatini Terme (PT)</span></br>
-            <i :class="g3wtemplate.getFontClass('mobile')" aria-hidden="true"></i>
-            <span> +39 347 6597931</span></br>
-            <i :class="g3wtemplate.getFontClass('fax')" aria-hidden="true"></i>
-            <span> +39 0572 901639</span></br>
-            <i :class="g3wtemplate.getFontClass('mail')" aria-hidden="true">
-            </i>
-            <span><a href="mailto:info@gis3w.it" style="color:#000000"> info@gis3w.it</a></span>
-          </address>
+            <div v-if="powered_by">
+              <div v-t-template="'productOf'" class="credit-title-logo g3w-credits-block"></div>
+              <a style="text-align: center!important;" href="http://www.gis3w.it" target="_blank">
+                <img :src="credits_logo" class="img-responsive center-block" alt="">
+                <div style="text-align: center!important; margin-bottom:10px; margin-top:30px; color:#000000">
+                  <h4>GIS3W s.n.c.</h4>
+                </div>
+              </a>
+              <address id="address-credits" style="line-height: 2;">
+                <i :class="g3wtemplate.getFontClass('marker')" aria-hidden="true"></i>
+                <span> Viale Verdi, 24 - Montecatini Terme (PT)</span></br>
+                <i :class="g3wtemplate.getFontClass('mobile')" aria-hidden="true"></i>
+                <span> +39 347 6597931</span></br>
+                <i :class="g3wtemplate.getFontClass('fax')" aria-hidden="true"></i>
+                <span> +39 0572 901639</span></br>
+                <i :class="g3wtemplate.getFontClass('mail')" aria-hidden="true">
+                </i>
+                <span><a href="mailto:info@gis3w.it" style="color:#000000"> info@gis3w.it</a></span>
+              </address>
+            </div>
+          </div>
         </div>
       </div>
     </div>

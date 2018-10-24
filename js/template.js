@@ -296,13 +296,18 @@ const ApplicationTemplate = function({ApplicationService}) {
   };
   this._showSidebar = function() {
     $('body').addClass('sidebar-open');
+    $('body').removeClass('sidebar-collapse')
   };
   this._hideSidebar = function() {
     $('body').removeClass('sidebar-open');
+    $('body').addClass('sidebar-collapse')
   };
 
   // setup Fonts Css dependencies methods
   this._setUpTemplateDependencies = function(VueApp) {
+    GUI.isMobile = function() {
+      return isMobile.any;
+    };
     // method that return Template Info
     GUI.getTemplateInfo = function() {
       return VueApp.g3wtemplate.getInfo();

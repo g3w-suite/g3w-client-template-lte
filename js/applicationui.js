@@ -5,7 +5,7 @@ const GUI = require('sdk/gui/gui');
 const layout = require('./layout');
 const AppUI = Vue.extend({
   template: require('../html/app.html'),
-  mounted: function(){
+  mounted: function() {
     this.$nextTick(function(){
       /* start to render LayoutManager layout */
       layout.loading(false);
@@ -30,20 +30,29 @@ const AppUI = Vue.extend({
     })
   },
   computed: {
+    currentProject() {
+      return ProjectsRegistry.getCurrentProject();
+    },
+    appconfig() {
+      return ApplicationService.getConfig();
+    },
+    urls() {
+      return this.appconfig.urls;
+    },
+    powered_by() {
+      return this.appconfig.group.powered_by;
+    },
+    g3w_suite_logo() {
+      const client_url = this.urls.clienturl;
+      return `${client_url}images/g3wsuite_logo.png`;
+    },
     credits_logo: function() {
-      const client_url = ApplicationService.getConfig().urls.clienturl;
+      const client_url = this.urls.clienturl;
       return `${client_url}images/logo_gis3w_156_85.png`;
     },
     logo_url: function() {
-      const config = ApplicationService.getConfig();
-      let logo_url;
-      const logo_project_url = ProjectsRegistry.getCurrentProject().getThumbnail();
-      if (logo_project_url) {
-        logo_url = logo_project_url;
-      } else {
-        logo_url = config.mediaurl+config.logo_img;
-      }
-      return logo_url;
+      const logo_project_url = this.currentProject.getThumbnail();
+      return logo_project_url ? logo_project_url : `${this.appconfig.mediaurl}${this.appconfig.logo_img}`;
     },
     logo_link: function() {
       const logo_link = this.getLogoLink();
@@ -54,26 +63,20 @@ const AppUI = Vue.extend({
       return logo_link ? "_blank" : "";
     },
     project_title: function() {
-      const currentProject = ProjectsRegistry.getCurrentProject();
-      return currentProject.state.name;
+      return this.currentProject.getState().name;
     },
     user: function() {
-      let user = ApplicationService.getConfig().user;
-      // check if user is empty object
-      if (!user || !user.username)
-        user = null;
-      return user;
+      return (this.appconfig.user || this.appconfig.user.username) ? this.appconfig.user : null;
     },
     numberOfProjectsInGroup: function() {
-      return ApplicationService.getConfig().projects.length;
+      return this.appconfig.projects.length;
     },
     frontendurl: function() {
-      return ApplicationService.getConfig().urls.frontendurl;
+      return this.urls.frontendurl;
     },
     main_title() {
-      const config = ApplicationService.getConfig();
-      const main_title = config.main_map_title;
-      const group_name = config.group.name;
+      const main_title = this.appconfig.main_map_title;
+      const group_name = this.appconfig.group.name;
       return main_title ? `${main_title} - ${group_name}` : group_name;
     },
   },
@@ -82,11 +85,7 @@ const AppUI = Vue.extend({
       sidebarService.closePanel();
     },
     getLogoLink: function() {
-      let logo_link = null;
-      if (ApplicationService.getConfig().logo_link) {
-        logo_link = ApplicationService.getConfig().logo_link;
-      }
-      return logo_link;
+      return this.appconfig.logo_link ? this.appconfig.logo_link: null;
     },
     openProjectsMenu: function() {
       const contentsComponent = GUI.getComponent('contents');

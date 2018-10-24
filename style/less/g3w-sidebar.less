@@ -3,8 +3,6 @@
 @sidebar-width: 350px;
 @control-sidebar-width: 450px;
 
-
-
 .sidebar {
   color: white;
   .g3w-sidebarpanel {
@@ -17,6 +15,23 @@
     }
   }
 
+  .close-pane-button {
+    color: transparent;
+    border-radius: 50%;
+    margin-bottom: 3px;
+    line-height: 1.5em;
+    height: 1.5em;
+    width: 1.5em;
+    -webkit-box-shadow: 0 2px 4px rgba(0,0,0,.2);;
+    -moz-box-shadow: 0 2px 4px rgba(0,0,0,.2);;
+    box-shadow: 0 2px 4px rgba(0,0,0,.2);;
+    &:hover {
+      cursor: pointer;
+    }
+    .panel-icon {
+      color: #ffffff;
+    }
+  }
   .treeview-label {
     font-size: 1.1em;
     font-weight: bold;

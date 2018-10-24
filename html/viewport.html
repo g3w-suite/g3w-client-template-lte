@@ -9,7 +9,7 @@
         </span>
       </div>
       <span v-if="state.content.closable && state.content.aside" @click="closeContent" class="g3w-span-button fa-stack fa-lg pull-right">
-        <i class="fa fa-circle fa-stack-2x panel-button"></i>
+        <i :class="g3wtemplate.getFontClass('circle')"  class="fa-stack-2x panel-button"></i>
         <i :class="g3wtemplate.getFontClass('close')" class="fa-stack-1x panel-icon"></i>
       </span>
       <span v-if="showCollapseButton" class="g3w-span-button fa-stack fa-lg pull-right" @click="collapseContent">

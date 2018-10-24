@@ -174,7 +174,7 @@ $.LayoutManager._init = function() {
         window.console.error("Error: the fixed layout requires the slimscroll plugin!");
       }
       //Enable slimscroll for fixed layout (sidebar)
-      if ($.LayoutManager.options.sidebarSlimScroll) {
+      if ($.LayoutManager.options.sidebarSlimScroll && !isMobile.any) {
         if (typeof $.fn.slimScroll != 'undefined') {
           //Destroy if it exists
           $("#g3w-sidebar").slimScroll({destroy: true}).height("auto");
@@ -187,7 +187,8 @@ $.LayoutManager._init = function() {
           });
         }
       } else {
-         $(".sidebar").css({'height': ($(window).height() - $(".navbar-header").height()) + "px"})
+        $(".sidebar").css({'height': ($(window).height() - $(".navbar-header").height()) + "px"});
+        $(".sidebar").css('overflow-y', 'auto');
       }
     }
 

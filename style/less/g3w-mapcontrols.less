@@ -271,7 +271,7 @@
   }
   position: absolute;
   width: 25em;
-  max-width: 300px;
+  max-width: 250px;
   height: 4.375em;
   top: 7px;
   left: 40px;
@@ -283,6 +283,15 @@
   box-sizing: border-box;
 }
 
+
+.ol-attribution.ol-unselectable.ol-uncollapsible {
+  ul {
+    @media (max-width: 578px) {
+      font-size: 0.8em;
+    }
+  }
+}
+
 .ol-geocoder .gcd-txt-control {
   position: relative;
   height: 40px;
@@ -291,6 +300,8 @@
   border-radius: 2px;
   margin-left: 2px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  width: 100%;
+
 }
 
 .ol-geocoder.gcd-txt-container *,
@@ -564,6 +575,10 @@
   top:8px;
   right: 0;
   flex-direction: row;
+  @media (max-width: 578px) {
+    top: 50px;
+    left: 0;
+  }
 }
 
 .controls-inside-v {
