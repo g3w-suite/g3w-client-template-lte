@@ -1,0 +1,24 @@
+.skin-green {
+  .skin-button {
+    background: @green;
+    &.lighten {
+      background: lighten(@green, 30%);
+    }
+    &.bordered {
+      border-color: @green;
+    }
+    &.focus {
+      border:0;
+    }
+  }
+  .skin-color {
+    color: @green;
+  }
+  .skin-tooltip-top + .tooltip.top .tooltip-inner {
+    background-color:@green;
+    font-weight: bold;
+  }
+  .skin-tooltip-top + .tooltip.top .tooltip-arrow {
+    border-top-color: @green;
+  }
+}

@@ -5,6 +5,11 @@ const GUI = require('sdk/gui/gui');
 const layout = require('./layout');
 const AppUI = Vue.extend({
   template: require('../html/app.html'),
+  data() {
+    return {
+      customcredits: false
+    }
+  },
   mounted: function() {
     this.$nextTick(function(){
       /* start to render LayoutManager layout */
@@ -104,6 +109,11 @@ const AppUI = Vue.extend({
         });
       }
     }
+  },
+  created() {
+    !!this.appconfig.credits && $.get(this.appconfig.credits).then((credits)=> {
+      this.customcredits = credits !== 'None' && credits
+    });
   }
 });
 

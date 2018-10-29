@@ -1,0 +1,24 @@
+.skin-blue {
+  .skin-button {
+    background: @light-blue;
+    &.lighten {
+      background: lighten(@light-blue, 30%);
+    }
+    &.bordered {
+      border-color: @light-blue;
+    }
+    &.focus {
+      border:0;
+    }
+  }
+  .skin-color {
+    color: @light-blue;
+  }
+  .skin-tooltip-top + .tooltip.top .tooltip-inner {
+    background-color:@light-blue;
+    font-weight: bold;
+  }
+  .skin-tooltip-top + .tooltip.top .tooltip-arrow {
+    border-top-color: @light-blue;
+  }
+}

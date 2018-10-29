@@ -43,14 +43,29 @@
 }
 
 .logo-wrapper {
-  display:inline-block;
-  padding-top: 3px;
-  font-size: 2em;
+  display:flex;
+  padding: 5px;
+  max-height: 50px;
   font-weight: bold;
+  align-items: center;
   color: white;
   img {
     height: 40px;
-    margin: 0 10px 0 5px;
+    margin-right: 10px;
+  }
+  .project_title_content {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    > div {
+      height: 22px;
+    }
+    .main_title {
+      font-size: 1.6em;
+    }
+    .sub_title {
+      font-size: 1.3em;
+    }
   }
 }
 

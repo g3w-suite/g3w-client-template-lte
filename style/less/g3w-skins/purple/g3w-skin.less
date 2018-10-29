@@ -1,0 +1,24 @@
+.skin-purple {
+  .skin-button {
+    background: @purple;
+    &.lighten {
+      background: lighten(@purple, 30%);
+    }
+    &.bordered {
+      border-color: @purple;
+    }
+    &.focus {
+      border:0;
+    }
+  }
+  .skin-color {
+    color: @purple;
+  }
+  .skin-tooltip-top + .tooltip.top .tooltip-inner {
+    background-color:@purple;
+    font-weight: bold;
+  }
+  .skin-tooltip-top + .tooltip.top .tooltip-arrow {
+    border-top-color: @purple;
+  }
+}

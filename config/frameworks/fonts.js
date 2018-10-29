@@ -65,7 +65,9 @@ const Fonts = {
         text: "fa fa-file-text-o",
         excel: "fa fa-file-excel-o",
         ppt: "fa fa-file-powerpoint-o",
-        circle: "fa fa-circle"
+        circle: "fa fa-circle",
+        download: "fa fa-download",
+        calculator: "fa fa-calculator"
       },
       '5': {
         'change-map': "fas fa-map-signs",
@@ -127,7 +129,9 @@ const Fonts = {
         text: "far fa-file-alt",
         excel: "far fa-file-excel",
         ppt: "far fa-file-powerpoint",
-        circle: "fas fa-circle"
+        circle: "fas fa-circle",
+        download: "fas fa-download",
+        calculator: "fas fa-calculator"
       }
     }
   }

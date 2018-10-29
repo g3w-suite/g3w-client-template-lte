@@ -1,0 +1,24 @@
+.skin-yellow {
+  .skin-button {
+    background: @yellow;
+    &.lighten {
+      background: lighten(@yellow, 30%);
+    }
+    &.bordered {
+      border-color: @yellow;
+    }
+    &.focus {
+      border:0;
+    }
+  }
+  .skin-color {
+    color: @yellow;
+  }
+  .skin-tooltip-top + .tooltip.top .tooltip-inner {
+    background-color:@yellow;
+    font-weight: bold;
+  }
+  .skin-tooltip-top + .tooltip.top .tooltip-arrow {
+    border-top-color: @yellow;
+  }
+}

@@ -1,0 +1,24 @@
+.skin-red {
+  .skin-button {
+    background: @red;
+    &.lighten {
+      background: lighten(@red, 30%);
+    }
+    &.bordered {
+      border-color: @red;
+    }
+    &.focus {
+      border:0;
+    }
+  }
+  .skin-color {
+    color: @red;
+  }
+  .skin-tooltip-top + .tooltip.top .tooltip-inner {
+    background-color:@red;
+    font-weight: bold;
+  }
+  .skin-tooltip-top + .tooltip.top .tooltip-arrow {
+    border-top-color: @red;
+  }
+}
