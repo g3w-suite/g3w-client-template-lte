@@ -4,16 +4,7 @@ const base = require('sdk/core/utils/utils').base;
 const G3WObject = require('sdk/core/g3wobject');
 const ComponentsRegistry = require('sdk/gui/componentsregistry');
 const GUI = require('sdk/gui/gui');
-const GlobalComponents = require('sdk/gui/vue/vue.globalcomponents');
-const GlobalDirective = require('sdk/gui/vue/vue.directives');
 const VueTemplatePlugin = require('./vuetemplateplugin');
-const TemplateEventBus = new Vue();
-import templateStore from './store/store';
-
-// install global components
-Vue.use(GlobalComponents);
-// install gloabl directive
-Vue.use(GlobalDirective);
 // install template information library (es. classes etc..)
 Vue.use(VueTemplatePlugin, {
   font:{
@@ -42,18 +33,8 @@ const ApplicationTemplate = function({ApplicationService}) {
   // useful to build a difference layout/compoìnent based on mobile or not
   this._isMobile = isMobile.any;
   this.init = function() {
-    // set general metods for the application as  GUI.showForm etc ..
-    this._setupInterface();
-    // setup layout
-    this._setupLayout();
-    //register all services fro the application
-    this._setUpServices();
-    // create templateConfig
-    this.templateConfig = this._createTemplateConfig();
     // create Vue App
-    const VueApp = this._createApp();
-    // setup Font, Css class methods
-    this._setUpTemplateDependencies(VueApp);
+    this._createApp();
   };
   // create application config
   this._createTemplateConfig = function() {
@@ -146,15 +127,23 @@ const ApplicationTemplate = function({ApplicationService}) {
       $('body').addClass('sidebar-collapse');
     }
     return new Vue({
-      store,
       el: '#app',
+      store,
       created() {
-        // register template store
-        this.$store.registerModule("template", templateStore);
+        // set general metods for the application as  GUI.showForm etc ..
+        self._setupInterface();
+        // setup layout
+        self._setupLayout();
+        //register all services fro the application
+        self._setUpServices();
+        // create templateConfig
+        self.templateConfig = self._createTemplateConfig();
       },
       mounted: function() {
-        self._buildTemplate();
         this.$nextTick(function() {
+          self._buildTemplate();
+          // setup Font, Css class methods
+          self._setUpTemplateDependencies(this);
           $(document).localize();
           self._setViewport(self.templateConfig.viewport);
           self.emit('ready');
@@ -318,8 +307,6 @@ const ApplicationTemplate = function({ApplicationService}) {
     GUI.getFontClass = function(type) {
       return VueApp.g3wtemplate.getFontClass(type);
     };
-    // Event Bus on Template
-    GUI.EventBus = TemplateEventBus;
   };
   // setup Interaces
   this._setupInterface = function() {
@@ -380,7 +367,7 @@ const ApplicationTemplate = function({ApplicationService}) {
     };
 
     GUI.closeContent = function() {
-      GUI.EventBus.$emit('closecontent');
+      this.emit('closecontent');
       return viewport.ViewportService.closeContent();
     };
 
@@ -394,12 +381,10 @@ const ApplicationTemplate = function({ApplicationService}) {
       }
       const contentsComponent = GUI.getComponent('contents');
       if (!contentsComponent.getContentData().length || (contentsComponent.getContentData().length == 1 && contentsComponent.getCurrentContentData().content.getId() == 'queryresults')) {
-        GUI.showContextualContent(
-          {
-            content: queryResultsComponent,
-            title: [t("info.title"), title].join(' ')
-          }
-        );
+        GUI.showContextualContent({
+          content: queryResultsComponent,
+          title: [t("info.title"), title].join(' ')
+        });
       } else {
         if (['queryresults', 'openattributetable'].find((element) => element == contentsComponent.getCurrentContentData().content.getId())) {
           contentsComponent.popContent();
@@ -562,7 +547,7 @@ const ApplicationTemplate = function({ApplicationService}) {
       return BootstrapVersionClasses[element][type];
     };
 
-    /* FINE VIEWPORT */
+    /* END VIEWPORT */
     /*  */
     /* END PUBLIC INTERFACE */
   };
