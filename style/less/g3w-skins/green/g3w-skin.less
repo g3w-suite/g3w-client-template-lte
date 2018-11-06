@@ -1,11 +1,14 @@
 .skin-green {
+  .skin-border-color {
+    border-color: @green;
+  }
   .skin-button {
     background: @green;
     &.lighten {
       background: lighten(@green, 30%);
     }
     &.bordered {
-      border-color: @green;
+      .skin-border-color();
     }
     &.focus {
       border:0;

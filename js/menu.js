@@ -19,19 +19,21 @@ const InternalComponent = Vue.extend({
     trigger: function(item) {
       if (item.cbk) {
         //set full screen modal
-        $('#full-screen-modal').modal('show');
-        this.loading = true;
+        GUI.showFullModal({
+          show: true
+        });
+        GUI.setLoadingContent(true);
         item.cbk.apply(item)
-          .then(() => {
-            this.loading = false;
-            // hide full screen modal
-            $('#full-screen-modal').modal('hide');
-          })
+          .then(() => {})
           .fail(() => {
             GUI.notify.error("<h4>" + t("error_map_loading") + "</h4>" +
               "<h5>"+ t("check_internet_connection_or_server_admin") + "</h5>");
-            $('#full-screen-modal').modal('hide');
-            this.loading = false;
+          })
+          .always(() => {
+            GUI.showFullModal({
+              show: false
+            });
+            GUI.setLoadingContent(false);
           })
       }
       else if (item.href) {

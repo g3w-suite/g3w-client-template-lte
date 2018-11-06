@@ -22,7 +22,8 @@ const ViewportService = function() {
       aside: false
     },
     //content
-    content:{
+    content: {
+      loading: false,
       sizes: {
         width: 0,
         height: 0
@@ -71,6 +72,10 @@ const ViewportService = function() {
 
   this.getContentState = function() {
     return this.state.content;
+  };
+
+  this.setLoadingContent = function(loading=false) {
+    this.state.content.loading = loading;
   };
 
   this._addComponents = function(components) {

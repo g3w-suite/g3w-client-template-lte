@@ -67,7 +67,10 @@ const Fonts = {
         ppt: "fa fa-file-powerpoint-o",
         circle: "fa fa-circle",
         download: "fa fa-download",
-        calculator: "fa fa-calculator"
+        calculator: "fa fa-calculator",
+        picture: "fa fa-picture-o",
+        crosshairs: "fa fa-crosshairs",
+        keyboard: "fa fa-keyboard-o"
       },
       '5': {
         'change-map': "fas fa-map-signs",
@@ -131,7 +134,10 @@ const Fonts = {
         ppt: "far fa-file-powerpoint",
         circle: "fas fa-circle",
         download: "fas fa-download",
-        calculator: "fas fa-calculator"
+        calculator: "fas fa-calculator",
+        picture: "far fa-image",
+        crosshairs: "fas fa-crosshairs",
+        keyboard: "far fa-keyboard"
       }
     }
   }

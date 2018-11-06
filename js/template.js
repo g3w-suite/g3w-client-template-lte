@@ -79,13 +79,6 @@ const ApplicationTemplate = function({ApplicationService}) {
               icon: G3WTemplate.getFontClass('search'),
               mobile: true
             }),
-            new CatalogComponent({
-              id: 'catalog',
-              open: false,
-              collapsible: false,
-              icon: G3WTemplate.getFontClass('map'),
-              mobile: true
-            }),
             // Component that store plugins
             new ToolsComponent({
               id: 'tools',
@@ -93,7 +86,14 @@ const ApplicationTemplate = function({ApplicationService}) {
               collapsible: true,
               icon: G3WTemplate.getFontClass('tools'),
               mobile: false
-            })
+            }),
+            new CatalogComponent({
+              id: 'catalog',
+              open: false,
+              collapsible: false,
+              icon: G3WTemplate.getFontClass('map'),
+              mobile: true
+            }),
           ]
         },
         floatbar:{
@@ -451,6 +451,9 @@ const ApplicationTemplate = function({ApplicationService}) {
     GUI.hideSidebar = _.bind(this._hideSidebar, this);
     // MODAL
     GUI.setModal = _.bind(this._showModalOverlay, this);
+    GUI.showFullModal = function({element="#full-screen-modal", show=true} = {}) {
+      show && $(element).modal('show') || $(element).modal('hide')
+    };
 
     // VIEWPORT //
     GUI.setPrimaryView = function(viewName) {
@@ -546,6 +549,10 @@ const ApplicationTemplate = function({ApplicationService}) {
     GUI.getTemplateClass = function({element, type}) {
       return BootstrapVersionClasses[element][type];
     };
+
+    GUI.setLoadingContent = function(loading = false) {
+      ApplicationTemplate.Services.viewport.setLoadingContent(loading);
+    }
 
     /* END VIEWPORT */
     /*  */

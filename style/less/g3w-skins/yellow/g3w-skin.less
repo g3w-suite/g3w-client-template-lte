@@ -1,11 +1,14 @@
 .skin-yellow {
+  .skin-border-color {
+    border-color: @yellow;
+  }
   .skin-button {
     background: @yellow;
     &.lighten {
       background: lighten(@yellow, 30%);
     }
     &.bordered {
-      border-color: @yellow;
+      .skin-border-color();
     }
     &.focus {
       border:0;

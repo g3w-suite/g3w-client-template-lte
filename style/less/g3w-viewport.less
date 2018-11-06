@@ -14,6 +14,13 @@
       //transition: all 0.1s;
     }
     &.content {
+      .error-message {
+        font-weight: bold;
+        font-size: 1.2em;
+        color: #ff0000;
+        padding: 5px;
+        margin: 3px;
+      }
       .table-header-tool {
         padding: 10px;
         color: #ffffff;
@@ -55,10 +62,11 @@
       }
       .g3w_contents_back {
         display: inline-block;
-        >span {
+        > span {
           cursor: pointer;
+          font-weight: bold;
           &:hover {
-            text-decoration: underline;
+            text-decoration: none;
           }
         }
       }

@@ -1,11 +1,14 @@
 .skin-red {
+  .skin-border-color {
+    border-color: @red;
+  }
   .skin-button {
     background: @red;
     &.lighten {
       background: lighten(@red, 30%);
     }
     &.bordered {
-      border-color: @red;
+      .skin-border-color();
     }
     &.focus {
       border:0;

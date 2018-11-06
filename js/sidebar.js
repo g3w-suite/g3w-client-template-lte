@@ -114,12 +114,13 @@ function SidebarService() {
   // get component by id
   this.getComponent = function(id) {
     let Component;
-    this.state.components.forEach((component) => {
-      if (component.getId() == id) {
+    for (const component of this.state.components) {
+      console.log(component)
+      if (component.getId() === id) {
         Component = component;
-        return false;
+        break;
       }
-    });
+    }
     return Component;
   };
 

@@ -1,11 +1,14 @@
 .skin-purple {
+  .skin-border-color {
+    border-color: @purple;
+  }
   .skin-button {
     background: @purple;
     &.lighten {
       background: lighten(@purple, 30%);
     }
     &.bordered {
-      border-color: @purple;
+      .skin-border-color();
     }
     &.focus {
       border:0;
