@@ -71,7 +71,7 @@ const AppUI = Vue.extend({
       return this.currentProject.getState().name;
     },
     user: function() {
-      return (this.appconfig.user || this.appconfig.user.username) ? this.appconfig.user : null;
+      return (this.appconfig.user && this.appconfig.user.username) ? this.appconfig.user : null;
     },
     numberOfProjectsInGroup: function() {
       return this.appconfig.projects.length;
