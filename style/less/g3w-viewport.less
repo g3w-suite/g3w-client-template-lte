@@ -14,6 +14,84 @@
       //transition: all 0.1s;
     }
     &.content {
+      .preview {
+        width: 100%;
+        margin-top: 10px;
+        display:flex;
+        align-items: center;
+        .filename {
+          overflow: hidden;
+          margin: 15px;
+          font-weight: bold;
+        }
+        .clearmedia {
+          .g3w-icon {
+            color: red;
+          }
+          cursor: pointer;
+          margin-left: auto;
+        }
+        .previewtype {
+          &:hover{
+            background-color: #efefef;
+          }
+          display: flex;
+          justify-content: center;
+          padding-top: 10px;
+          cursor: pointer;
+          background-color: #ffffff;
+          border-radius: 5px;
+          width: 50px;
+          height: 50px;
+          border: 2px solid;
+          &.pdf {
+            color: @red;
+            border-color:@red;
+          }
+          &.image {
+            color: @yellow;
+            border-color:@yellow;
+          }
+          &.video {
+            color: orange;
+            border-color:orange;
+          }
+          &.unknow {
+            color: grey;
+            border-color:grey;
+          }
+          &.zip {
+            color: saddlebrown;
+            border: 2px solid saddlebrown;
+          }
+          &.text {
+            color: @light-blue;
+            border-color:@light-blue;
+          }
+          &.excel {
+            color: @green;
+            border-color: @green;
+          }
+          &.ppt {
+            color: @purple;
+            border-color: @purple;
+          }
+        }
+      }
+
+      .g3wform-relation-table tbody td {
+        .preview {
+          .previewtype {
+            width: 30px;
+            height: 30px;
+            padding-top: 6px;
+            i, i.fa-2x {
+              font-size: 1em;
+            }
+          }
+        }
+      }
+
       .error-message {
         font-weight: bold;
         font-size: 1.2em;
