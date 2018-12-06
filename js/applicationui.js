@@ -1,6 +1,7 @@
 const ApplicationService = require('core/applicationservice');
 const ProjectsRegistry = require('core/project/projectsregistry');
 const ProjectsMenuComponent = require('./projectsmenu');
+const HeaderLinkComponent = require('./headerlink');
 const GUI = require('sdk/gui/gui');
 const layout = require('./layout');
 const AppUI = Vue.extend({
@@ -9,6 +10,9 @@ const AppUI = Vue.extend({
     return {
       customcredits: false
     }
+  },
+  components: {
+    'header-link': HeaderLinkComponent
   },
   mounted: function() {
     this.$nextTick(function(){
@@ -40,6 +44,9 @@ const AppUI = Vue.extend({
     },
     appconfig() {
       return ApplicationService.getConfig();
+    },
+    customlinks() {
+      return this.appconfig.header_custom_links || [];
     },
     urls() {
       return this.appconfig.urls;

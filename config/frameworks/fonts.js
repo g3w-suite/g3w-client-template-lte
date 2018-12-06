@@ -70,7 +70,9 @@ const Fonts = {
         calculator: "fa fa-calculator",
         picture: "fa fa-picture-o",
         crosshairs: "fa fa-crosshairs",
-        keyboard: "fa fa-keyboard-o"
+        keyboard: "fa fa-keyboard-o",
+        'file-download': "fa fa-download",
+        copy: "fa fa-clone"
       },
       '5': {
         'change-map': "fas fa-map-signs",
@@ -137,7 +139,9 @@ const Fonts = {
         calculator: "fas fa-calculator",
         picture: "far fa-image",
         crosshairs: "fas fa-crosshairs",
-        keyboard: "far fa-keyboard"
+        keyboard: "far fa-keyboard",
+        'file-download':"fas fa-file-download",
+        copy: "far fa-copy"
       }
     }
   }

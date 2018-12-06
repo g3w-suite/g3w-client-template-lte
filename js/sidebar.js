@@ -115,7 +115,6 @@ function SidebarService() {
   this.getComponent = function(id) {
     let Component;
     for (const component of this.state.components) {
-      console.log(component)
       if (component.getId() === id) {
         Component = component;
         break;
@@ -201,11 +200,7 @@ const SidebarComponent = Vue.extend({
         return this.components.length>0 && !this.panelsinstack;
       },
       componentname: function(){
-        let name = "";
-        if (this.components.length){
-          name = this.components.slice(-1)[0].getTitle();
-        }
-        return name;
+        return this.components.length ? this.components.slice(-1)[0].getTitle(): "";
       },
       panelname: function(){
         let name = "";
