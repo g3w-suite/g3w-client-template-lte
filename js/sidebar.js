@@ -166,10 +166,13 @@ function SidebarService() {
       })
     })
   };
+
   // close panel
   this.closePanel = function() {
     this.closeSidebarPanel();
-    const panel = this.stack.pop();
+    this.stack.pop().then((content) => {
+      content = null;
+    })
   };
 
   base(this);

@@ -504,10 +504,13 @@ const ViewportService = function() {
           triggerResize();
         }
       });
-      // resize sul ridimensionamento della sidebar
-      $('.main-sidebar').on('webkitTransitionEnd transitionend msTransitionEnd oTransitionEnd', function () {
-        $(this).trigger('trans-end');
-        triggerResize();
+      // resize on main siedemar open close sidebar
+      $('.main-sidebar').on('webkitTransitionEnd transitionend msTransitionEnd oTransitionEnd', function (evt) {
+        //be sure that is the main sidebar that is transitioned non his child
+        if (event.target === this) {
+          $(this).trigger('trans-end');
+          triggerResize();
+        }
       });
     });
   };

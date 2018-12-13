@@ -28,17 +28,16 @@ proto.push = function(content, options) {
 };
 
 // remove last component from stack
-proto.pop = function(){
+proto.pop = function() {
   const d = $.Deferred();
   // qui potremo chiedere al pannello se può essere chiuso...
   if (this.state.contentsdata.length) {
     const content = this.state.contentsdata.slice(-1)[0].content;
-    return this._unmount(content)
-    .then(() => {
-      this.state.contentsdata.pop();
+    this._unmount(content).then(() => {
+      const content = this.state.contentsdata.pop();
+      d.resolve(content)
     })
-  }
-  else {
+  } else {
     d.resolve();
   }
   return d.promise();
