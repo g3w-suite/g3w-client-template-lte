@@ -505,7 +505,7 @@ const ViewportService = function() {
         }
       });
       // resize on main siedemar open close sidebar
-      $('.main-sidebar').on('webkitTransitionEnd transitionend msTransitionEnd oTransitionEnd', function (evt) {
+      $('.main-sidebar').on('webkitTransitionEnd transitionend msTransitionEnd oTransitionEnd', function (event) {
         //be sure that is the main sidebar that is transitioned non his child
         if (event.target === this) {
           $(this).trigger('trans-end');
