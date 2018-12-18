@@ -72,7 +72,8 @@ const Fonts = {
         crosshairs: "fa fa-crosshairs",
         keyboard: "fa fa-keyboard-o",
         'file-download': "fa fa-download",
-        copy: "fa fa-clone"
+        copy: "fa fa-clone",
+        draw: "fa fa-plus"
       },
       '5': {
         'change-map': "fas fa-map-signs",
@@ -141,7 +142,8 @@ const Fonts = {
         crosshairs: "fas fa-crosshairs",
         keyboard: "far fa-keyboard",
         'file-download':"fas fa-file-download",
-        copy: "far fa-copy"
+        copy: "far fa-copy",
+        draw: "fas fa-draw-polygon"
       }
     }
   }
