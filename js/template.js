@@ -361,6 +361,10 @@ const ApplicationTemplate = function({ApplicationService}) {
       GUI.setModal(false);
     };
 
+    GUI.disableElement = function({element, disable}) {
+      disable && $(element).addClass('g3w-disabled') || $(element).removeClass('g3w-disabled');
+    };
+
     // hide content
     GUI.hideContent = function(bool, perc) {
       return viewport.ViewportService.hideContent(bool, perc);
@@ -580,7 +584,7 @@ ApplicationTemplate.Services = {
 };
 
 ApplicationTemplate.fail = function({language='en', error }) {
-  const background_image = require('../images/error_backgroung.png');
+  const background_image = require('../images/error_backgroung_compress.jpeg');
   const connectionErrorMsg = (language == 'it') ? 'Errore di connessione': 'Connection error';
   const errorMsg = error ? error : connectionErrorMsg;
   ERRORSMESSAGES = {
