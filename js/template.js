@@ -365,6 +365,20 @@ const ApplicationTemplate = function({ApplicationService}) {
       disable && $(element).addClass('g3w-disabled') || $(element).removeClass('g3w-disabled');
     };
 
+    GUI.disableContent = function(disable) {
+      GUI.disableElement({
+        element: "#g3w-view-content #contents",
+        disable
+      })
+    };
+
+    GUI.disablePanel = function(disable=false) {
+      GUI.disableElement({
+        element: "#g3w-sidebarpanel-placeholder",
+        disable
+      })
+    };
+
     // hide content
     GUI.hideContent = function(bool, perc) {
       return viewport.ViewportService.hideContent(bool, perc);
