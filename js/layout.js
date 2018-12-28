@@ -274,7 +274,6 @@ $.LayoutManager._init = function() {
     const animationSpeed = $.LayoutManager.options.animationSpeed;
     //click event //
     $(document).on('click', menu + ' li a', function (e) {
-
       //Get the clicked link and the next element
       const $this = $(this);
       //is the content of the "accordion" ul //

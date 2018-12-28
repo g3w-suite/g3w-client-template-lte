@@ -236,17 +236,26 @@ const ViewportService = function() {
     return d.promise();
   };
 
+  this.isContentOpen = function() {
+    return !!this.state.content.contentsdata.length;
+  };
+
   // close  content
   this.closeContent = function() {
     const d = $.Deferred();
-    this._components.content.removeContent();
-    // close secondari view( return a promise)
-    this.closeSecondaryView()
-      .then(() => {
-        //recover default map
-        const mapComponent = this.recoverDefaultMap();
-        d.resolve(mapComponent);
-      });
+    if (this.isContentOpen()) {
+      this._components.content.removeContent();
+      // close secondari view( return a promise)
+      this.closeSecondaryView()
+        .then(() => {
+          //recover default map
+          const mapComponent = this.recoverDefaultMap();
+          d.resolve(mapComponent);
+        });
+    } else {
+      const mapComponent = this.recoverDefaultMap();
+      d.resolve(mapComponent);
+    }
     return d.promise()
   };
 
