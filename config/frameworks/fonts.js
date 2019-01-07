@@ -119,7 +119,7 @@ const Fonts = {
         folder: "fas fa-folder",
         'sign-out': "fas fa-sign-out-alt",
         close: "fas fa-times",
-        time: "far fa-time",
+        time: "far fa-clock",
         calendar: "fas fa-calendar-alt",
         list: "fas fa-list-alt",
         link: "fas fa-link",
