@@ -30,6 +30,7 @@ const layout = require('./layout');
 layout.loading(true);
 
 const ApplicationTemplate = function({ApplicationService}) {
+  const appLayoutConfig = ApplicationService.getConfig().layout || {};
   // useful to build a difference layout/compoìnent based on mobile or not
   this._isMobile = isMobile.any;
   this.init = function() {
@@ -92,7 +93,10 @@ const ApplicationTemplate = function({ApplicationService}) {
               open: false,
               collapsible: false,
               icon: G3WTemplate.getFontClass('map'),
-              mobile: true
+              mobile: true,
+              config: {
+                legend: appLayoutConfig.legend
+              }
             }),
           ]
         },
@@ -391,6 +395,7 @@ const ApplicationTemplate = function({ApplicationService}) {
 
     // show results info/search
     GUI.showQueryResults = function(title, results) {
+      const perc = appLayoutConfig.rightpanel ?  parseInt(appLayoutConfig.rightpanel.width) : 50;
       const queryResultsComponent = GUI.getComponent('queryresults');
       const queryResultService = queryResultsComponent.getService();
       queryResultService.reset();
@@ -400,6 +405,7 @@ const ApplicationTemplate = function({ApplicationService}) {
       const contentsComponent = GUI.getComponent('contents');
       if (!contentsComponent.getContentData().length || (contentsComponent.getContentData().length == 1 && contentsComponent.getCurrentContentData().content.getId() == 'queryresults')) {
         GUI.showContextualContent({
+          perc,
           content: queryResultsComponent,
           title: [t("info.title"), title].join(' ')
         });
@@ -410,7 +416,7 @@ const ApplicationTemplate = function({ApplicationService}) {
         GUI.pushContent({
           content: queryResultsComponent,
           backonclose: true,
-          perc: 50,
+          perc,
           title: "Risultati " + title
         });
       }
