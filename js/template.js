@@ -151,6 +151,9 @@ const ApplicationTemplate = function({ApplicationService}) {
           $(document).localize();
           self._setViewport(self.templateConfig.viewport);
           self.emit('ready');
+          //getSkinColor
+          const skinColor = $('.navbar').css('background-color');
+          GUI.skinColor = `#${skinColor.substr(4, skinColor.indexOf(')') - 4).split(',').map((color) => parseInt(color).toString(16)).join('')}`;
           GUI.ready();
         });
       }
@@ -502,8 +505,7 @@ const ApplicationTemplate = function({ApplicationService}) {
       viewport.ViewportService.resetContextualMapComponent();
     };
     //  (100%) content
-    GUI.showContent = (options) => {
-      options =  options || {};
+    GUI.showContent = (options={}) => {
       options.perc = !this._isMobile ? options.perc || 100 : 100;
       GUI.setContent(options);
     };

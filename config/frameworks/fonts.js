@@ -73,7 +73,8 @@ const Fonts = {
         keyboard: "fa fa-keyboard-o",
         'file-download': "fa fa-download",
         copy: "fa fa-clone",
-        draw: "fa fa-plus"
+        draw: "fa fa-plus",
+        chart: "fa fa-bar-chart"
       },
       '5': {
         'change-map': "fas fa-map-signs",
@@ -143,7 +144,8 @@ const Fonts = {
         keyboard: "far fa-keyboard",
         'file-download':"fas fa-file-download",
         copy: "far fa-copy",
-        draw: "fas fa-draw-polygon"
+        draw: "fas fa-draw-polygon",
+        chart: "fas fa-chart-bar"
       }
     }
   }

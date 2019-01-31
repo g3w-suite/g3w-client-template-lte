@@ -37,7 +37,7 @@ inherit(ContentsViewerComponent, Component);
 
 const proto = ContentsViewerComponent.prototype;
 
-proto.setContent = function(options) {
+proto.setContent = function(options={}) {
   const d = $.Deferred();
   const push = options.push || false;
   const content = options.content;
