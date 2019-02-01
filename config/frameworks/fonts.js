@@ -145,7 +145,7 @@ const Fonts = {
         'file-download':"fas fa-file-download",
         copy: "far fa-copy",
         draw: "fas fa-draw-polygon",
-        chart: "fas fa-chart-bar"
+        chart: "fas fa-chart-bar" 
       }
     }
   }
