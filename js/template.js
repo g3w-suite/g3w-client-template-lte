@@ -363,6 +363,7 @@ const ApplicationTemplate = function({ApplicationService}) {
       return formService;
     };
     GUI.closeForm = function() {
+      this.emit('closeform', false);
       viewport.ViewportService.removeContent();
       // force set modal to false
       GUI.setModal(false);
