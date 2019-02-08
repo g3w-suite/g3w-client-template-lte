@@ -744,24 +744,16 @@ $.LayoutManager.loading = function(start) {
   $('#initerror').remove();
   start = _.isBoolean(start) ? start : true;
   if (start) {
-    //$('body').append('<div id="loadspinner" class="loading"></div>');
-    $('body').append(`<div id="startingspinner">
-                        <div class="double-bounce1"></div>
-                        <div class="double-bounce2"></div>
-                      </div>`)
+    $('body').append(`
+         <div id="startingspinner">
+         <div class="double-bounce1"></div>
+         <div class="double-bounce2"></div>
+         </div>`
+    )
   } else {
     $('#startingspinner').remove();
   }
 };
 
-$.LayoutManager.reload = function(errorMsg, background_image) {
-  $('body').css({
-    'background-image': 'url('+background_image+')',
-    'background-position': 'center',
-    'background-repeat': 'no-repeat',
-    'background-size': 'cover'
-  });
-  $('body').append(`<div class="container"><div class="row" style="margin-top:40%">${errorMsg}</div></div>`)
-};
 
 module.exports = $.LayoutManager;

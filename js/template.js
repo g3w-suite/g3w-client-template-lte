@@ -5,6 +5,7 @@ const G3WObject = require('sdk/core/g3wobject');
 const ComponentsRegistry = require('sdk/gui/componentsregistry');
 const GUI = require('sdk/gui/gui');
 const VueTemplatePlugin = require('./vuetemplateplugin');
+
 // install template information library (es. classes etc..)
 Vue.use(VueTemplatePlugin, {
   font:{
@@ -403,27 +404,12 @@ const ApplicationTemplate = function({ApplicationService}) {
       const queryResultsComponent = GUI.getComponent('queryresults');
       const queryResultService = queryResultsComponent.getService();
       queryResultService.reset();
-      if (results) {
-        queryResultService.setQueryResponse(results);
-      }
-      const contentsComponent = GUI.getComponent('contents');
-      if (!contentsComponent.getContentData().length || (contentsComponent.getContentData().length == 1 && contentsComponent.getCurrentContentData().content.getId() == 'queryresults')) {
-        GUI.showContextualContent({
-          perc,
-          content: queryResultsComponent,
-          title: [t("info.title"), title].join(' ')
-        });
-      } else {
-        if (['queryresults', 'openattributetable'].find((element) => element == contentsComponent.getCurrentContentData().content.getId())) {
-          contentsComponent.popContent();
-        }
-        GUI.pushContent({
-          content: queryResultsComponent,
-          backonclose: true,
-          perc,
-          title: "Risultati " + title
-        });
-      }
+      results && queryResultService.setQueryResponse(results);
+      GUI.showContextualContent({
+        perc,
+        content: queryResultsComponent,
+        title: [t("info.title"), title].join(' ')
+      });
       return queryResultService;
     };
 
@@ -607,25 +593,26 @@ ApplicationTemplate.Services = {
 };
 
 ApplicationTemplate.fail = function({language='en', error }) {
-  const background_image = require('../images/error_backgroung_compress.jpeg');
-  const connectionErrorMsg = (language == 'it') ? 'Errore di connessione': 'Connection error';
-  const errorMsg = error ? error : connectionErrorMsg;
-  ERRORSMESSAGES = {
-    'it': `
-        <div class="col-12 text-center initial_error_text" ><h1>Oops!!! Si è verificato un errore</h1></div>
-        <div class="col-12 text-center initial_error_text"><h3>Causa:  ${errorMsg}</h3></div>
-        <div class="col-12 text-center initial_error_text"><h4>Al momento non è possibile caricare la mappa</h5></div>
-        <div class="col-12 text-center initial_error_text"><h1>Premi Ctrl+F5</h5></div>`,
-    'en': `
-        <div class="col-12 text-center initial_error_text" ><h1>Oops!!!An error occurs</h1></div>
-        <div class="col-12 text-center initial_error_text"><h3>Cause: ${errorMsg}</h3></div>
-        <div class="col-12 text-center initial_error_text"><h4>At the moment is not possible show map</h5></div>
-        <div class="col-12 text-center initial_error_text"><h1>Press Ctrl+F5</h5></div>`
-  };
   layout.loading(false);
-  // object to add i18n traslations
-  const showMessageError = ERRORSMESSAGES[language];
-  layout.reload(showMessageError, background_image);
+  const error_page =  {
+    it: {
+      error: error || "Errore di connessione",
+      at_moment: "Al momento non è possibile caricare la mappa",
+      f5: "Premi Ctrl+F5"
+    },
+    en: {
+      error: error || "Connection error",
+      at_moment: "At the moment is not possible show map",
+      f5: "Press Ctrl+F5"
+    }
+  };
+  const app = new Vue({
+    el: '#app',
+    template: require('../html/500.html'),
+    data: {
+      messages: error_page[language]
+    }
+  });
 };
 
 
