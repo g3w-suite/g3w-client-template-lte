@@ -4,6 +4,9 @@
   }
   .skin-background-color {
     background-color: @red;
+    &.lighten {
+      background-color: lighten(@red, 30%);
+    }
   }
   .skin-button {
     background: @red;
