@@ -50,7 +50,10 @@
       }
       .field_link {
         background-color: lighten(@light-blue, 10%) !important;
-        border-color: #ffffff;
+        border-color: lighten(@light-blue, 10%) !important;
+        &:hover {
+          background-color: @light-blue !important;
+        }
       }
       .queryresults-single {
         span.key {
