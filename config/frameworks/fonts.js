@@ -74,7 +74,8 @@ const Fonts = {
         'file-download': "fa fa-download",
         copy: "fa fa-clone",
         draw: "fa fa-plus",
-        chart: "fa fa-bar-chart"
+        chart: "fa fa-bar-chart",
+        run: "fa fa-play"
       },
       '5': {
         'change-map': "fas fa-map-signs",
@@ -145,7 +146,8 @@ const Fonts = {
         'file-download':"fas fa-file-download",
         copy: "far fa-copy",
         draw: "fas fa-draw-polygon",
-        chart: "fas fa-chart-bar" 
+        chart: "fas fa-chart-bar",
+        run: "fas fa-play"
       }
     }
   }

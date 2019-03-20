@@ -261,17 +261,18 @@ const ApplicationTemplate = function({ApplicationService}) {
       this._addComponents(viewportOptions.components);
     }
   };
+
   // add component to template
-  this._addComponent = function(component, placeholder) {
-    this._addComponents([component], placeholder);
+  this._addComponent = function(component, placeholder, options={}) {
+    this._addComponents([component], placeholder, options);
   };
   // registry component
-  this._addComponents = function(components, placeholder) {
+  this._addComponents = function(components, placeholder, options) {
     let register = true;
     if (placeholder && ApplicationTemplate.PLACEHOLDERS.indexOf(placeholder) > -1) {
       const placeholderService = ApplicationTemplate.Services[placeholder];
       if (placeholderService) {
-        register = placeholderService.addComponents(components);
+        register = placeholderService.addComponents(components, options);
       }
     }
     Object.entries(components).forEach(([key, component])=> {
@@ -280,6 +281,7 @@ const ApplicationTemplate = function({ApplicationService}) {
       }
     })
   };
+
   this._removeComponent = function(componentId) {
     ComponentsRegistry.unregisterComponent(componentId);
   };
@@ -321,8 +323,8 @@ const ApplicationTemplate = function({ApplicationService}) {
     /* PLUBLIC INTERFACE */
     /* Common methods */
     GUI.layout = layout;
-    GUI.addComponent = _.bind(this._addComponent, this);
-    GUI.removeComponent = _.bind(this._removeComponent, this);
+    GUI.addComponent = this._addComponent.bind(this);
+    GUI.removeComponent = this._removeComponent.bind(this);
     /* Metodos to define */
     GUI.getResourcesUrl = _.bind(function() {
       return ApplicationService.getConfig().resourcesurl;

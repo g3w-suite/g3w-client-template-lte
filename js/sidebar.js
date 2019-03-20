@@ -19,6 +19,7 @@ const SidebarItem = Vue.extend({
         open: false,
         icon: null,
         state: null,
+        iconColor: null,
         collapsible: null
       };
   },
@@ -29,7 +30,7 @@ const SidebarItem = Vue.extend({
       if (!this.component.state.open) {
         // set state of opened component
         sidebarService.state.components.forEach((component) => {
-          if (component != this.component && (this.component.collapsible || !this.component.context)) {
+          if (component !== this.component && (this.component.collapsible || !this.component.context)) {
             if (component.state.open) {
               !this.component.context ? $(component.getInternalComponent().$el).siblings('a').click() : null;
               component.setOpen(false);
@@ -66,10 +67,11 @@ function SidebarService() {
     this.layout = layout;
   };
   // add component to sidebar
-  this.addComponents = function(components) {
+  this.addComponents = function(components, options={}) {
+    const {position} = options;
     //for each component of the sidebar it is call addComponent method
     components.forEach((component) => {
-      this.addComponent(component);
+      this.addComponent(component, position);
     });
     return true;
   };
@@ -85,19 +87,20 @@ function SidebarService() {
     sidebarItem.title = component.title || sidebarItem.title;
     sidebarItem.open = component.state.open;//(component.open === undefined) ? sidebarItem.open : component.open;
     sidebarItem.icon = component.icon || sidebarItem.icon;
+    sidebarItem.iconColor = component.iconColor;
     sidebarItem.state = component.state || true;
     sidebarItem.collapsible = (typeof component.collapsible === 'boolean') ? component.collapsible : true;
     sidebarItem.context = (typeof component.context === 'boolean') ? component.context: true;
     sidebarItem.component = component;
     //append component to  g3w-sidebarcomponents (template sidebar.html)
     const itemcomponent = sidebarItem.$mount();
-    if (_.isNil(position)) {
+    if (position === null || position === undefined) {
       this.state.components.push(component);
       $('#g3w-sidebarcomponents').append(itemcomponent.$el);
     } else {
       this.state.components = this.state.components.splice(0,0,component);
       $('#g3w-sidebarcomponents').children().each(function(index, element) {
-        if (position == index) {
+        if (position === index) {
           $(itemcomponent.$el).insertBefore(element);
         }
       });

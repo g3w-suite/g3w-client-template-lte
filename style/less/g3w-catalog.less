@@ -126,7 +126,11 @@ Licensed under MIT
 }
 
 .catalog .tree-item {
-  cursor: pointer
+  cursor: pointer;
+  &.disabled {
+    color: darken(@color-white, 40%);
+    cursor: not-allowed;
+  }
 }
 
 .catalog .itemmarginbottom {
@@ -165,16 +169,16 @@ Licensed under MIT
   }
 }
 
-.catalog .tree  {
+.catalog .tree{
   color: @color-white;
   .disabled {
-    color: darken(@color-white,40%);
+    color: darken(@color-white, 40%);
     cursor: not-allowed;
   }
 }
 .catalog .baselayers {
   .radio {
-    margin: 0px;
+    margin: 0;
   }
 }
 

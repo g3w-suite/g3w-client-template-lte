@@ -1,6 +1,6 @@
 <li  v-show="state.visible" class="treeview sidebaritem" :class="{'active': open}">
   <a @click.prevent="onClickItem" href="#">
-    <i :class="icon"></i>
+    <i :class="icon" :style="{color: iconColor}"></i>
     <span class="treeview-label">{{title | t}}</span>
     <i v-if="collapsible" :class="g3wtemplate.getFontClass('angle-left')" class="pull-right"></i>
   </a>
