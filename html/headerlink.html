@@ -1,5 +1,5 @@
 <li class="customheaderlink dropdown user user-menu" :title="state.title">
-  <a :href="state.url" :class="{ imagelink : !!state.img}" target="_blank" class="dropdown-toggle">
+  <a :href="state.url" :class="{ imagelink : !!state.img}" :target="state.target" class="dropdown-toggle">
     <img height="40" v-if="state.img" :src="state.img">
     <span v-else>{{state.title}}</span>
   </a>
