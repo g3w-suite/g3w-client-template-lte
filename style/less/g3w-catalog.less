@@ -119,6 +119,9 @@ Licensed under MIT
 .catalog .tree-item, .catalog #legend div{
 
   span.tree-node-title {
+    &.disabled {
+      color: darken(@color-white, 40%);
+    }
     cursor: pointer;
     white-space: pre-line;
     width: 85%;
@@ -129,7 +132,6 @@ Licensed under MIT
   cursor: pointer;
   &.disabled {
     color: darken(@color-white, 40%);
-    cursor: not-allowed;
   }
 }
 
