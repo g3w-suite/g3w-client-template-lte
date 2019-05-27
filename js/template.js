@@ -358,6 +358,7 @@ const ApplicationTemplate = function({ApplicationService}) {
       GUI.setContent({
         perc: options.perc || null,
         content: formComponent,
+        split: options.split || 'h',
         push: !!options.push, //only one( if other delete previous component)
         showgoback: !!options.showgoback,
         closable: false
