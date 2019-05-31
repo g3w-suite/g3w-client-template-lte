@@ -23,11 +23,28 @@
   .skin-color {
     color: @yellow;
   }
-  .skin-tooltip-top + .tooltip.top .tooltip-inner {
-    background-color:@yellow;
-    font-weight: bold;
+
+  .skin-tooltip-top + .tooltip.top, .skin-tooltip-left + .tooltip.left, .skin-tooltip-right + .tooltip.right  {
+    .tooltip-inner {
+      background-color: @yellow;
+      font-weight: bold;
+    }
+
   }
-  .skin-tooltip-top + .tooltip.top .tooltip-arrow {
-    border-top-color: @yellow;
+  .skin-tooltip-top + .tooltip.top {
+    .tooltip-arrow {
+      border-top-color: @yellow;
+    }
+  }
+  .skin-tooltip-left + .tooltip.left {
+    .tooltip-arrow {
+      border-left-color: @yellow;
+    }
+  }
+
+  .skin-tooltip-right + .tooltip.right {
+    .tooltip-arrow {
+      border-right-color: @yellow;
+    }
   }
 }

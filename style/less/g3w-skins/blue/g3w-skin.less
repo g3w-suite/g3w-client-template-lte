@@ -23,7 +23,8 @@
   .skin-color {
     color: @light-blue;
   }
-  .skin-tooltip-top + .tooltip.top, .skin-tooltip-left + .tooltip.left  {
+
+  .skin-tooltip-top + .tooltip.top, .skin-tooltip-left + .tooltip.left, .skin-tooltip-right + .tooltip.right  {
     .tooltip-inner {
       background-color:@light-blue;
       font-weight: bold;
@@ -38,6 +39,12 @@
   .skin-tooltip-left + .tooltip.left {
     .tooltip-arrow {
       border-left-color: @light-blue;
+    }
+  }
+
+  .skin-tooltip-right + .tooltip.right {
+    .tooltip-arrow {
+      border-right-color: @light-blue;
     }
   }
 }
