@@ -75,7 +75,8 @@ const Fonts = {
         copy: "fa fa-clone",
         draw: "fa fa-plus",
         chart: "fa fa-bar-chart",
-        run: "fa fa-play"
+        run: "fa fa-play",
+        warning:"fa fa-exclamation-triangle"
       },
       '5': {
         'change-map': "fas fa-map-signs",
@@ -147,7 +148,8 @@ const Fonts = {
         copy: "far fa-copy",
         draw: "fas fa-draw-polygon",
         chart: "fas fa-chart-bar",
-        run: "fas fa-play"
+        run: "fas fa-play",
+        warning: "fas fa-exclamation-triangle"
       }
     }
   }
