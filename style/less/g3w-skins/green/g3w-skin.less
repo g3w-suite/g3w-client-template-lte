@@ -23,11 +23,26 @@
   .skin-color {
     color: @green;
   }
-  .skin-tooltip-top + .tooltip.top .tooltip-inner {
-    background-color:@green;
-    font-weight: bold;
+
+  .skin-tooltip-top + .tooltip.top, .skin-tooltip-left + .tooltip.left, .skin-tooltip-right + .tooltip.right  {
+    .tooltip-inner {
+      background-color:@green;
+      font-weight: bold;
+    }
   }
+  .skin-tooltip-left + .tooltip.left {
+    .tooltip-arrow {
+      border-left-color: @green;
+    }
+  }
+
   .skin-tooltip-top + .tooltip.top .tooltip-arrow {
     border-top-color: @green;
+  }
+
+  .skin-tooltip-right + .tooltip.right {
+    .tooltip-arrow {
+      border-right-color: @green;
+    }
   }
 }

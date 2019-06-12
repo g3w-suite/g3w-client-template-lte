@@ -23,11 +23,28 @@
   .skin-color {
     color: @red;
   }
-  .skin-tooltip-top + .tooltip.top .tooltip-inner {
-    background-color:@red;
-    font-weight: bold;
+
+  .skin-tooltip-top + .tooltip.top, .skin-tooltip-left + .tooltip.left, .skin-tooltip-right + .tooltip.right  {
+    .tooltip-inner {
+      background-color: @red;
+      font-weight: bold;
+    }
+
   }
-  .skin-tooltip-top + .tooltip.top .tooltip-arrow {
-    border-top-color: @red;
+  .skin-tooltip-top + .tooltip.top {
+    .tooltip-arrow {
+      border-top-color: @red;
+    }
+  }
+  .skin-tooltip-left + .tooltip.left {
+    .tooltip-arrow {
+      border-left-color: @red;
+    }
+  }
+
+  .skin-tooltip-right + .tooltip.right {
+    .tooltip-arrow {
+      border-right-color: @red;
+    }
   }
 }
