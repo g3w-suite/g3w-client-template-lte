@@ -46,7 +46,9 @@ const AppUI = Vue.extend({
       return ApplicationService.getConfig();
     },
     customlinks() {
-      return this.appconfig.header_custom_links || [];
+      return Array.isArray(this.appconfig.header_custom_links) ? this.appconfig.header_custom_links.filter((header_link) => {
+        return header_link !== null
+      }): [];
     },
     urls() {
       return this.appconfig.urls;
