@@ -126,14 +126,12 @@ const ApplicationTemplate = function({ApplicationService}) {
 
   //Vue app
   this._createApp = function() {
-    const store = ApplicationService.getStore();
     const self = this;
     if (isMobile.any) {
       $('body').addClass('sidebar-collapse');
     }
     return new Vue({
       el: '#app',
-      store,
       created() {
         // set general metods for the application as  GUI.showForm etc ..
         self._setupInterface();
