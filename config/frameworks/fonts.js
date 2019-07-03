@@ -77,7 +77,8 @@ const Fonts = {
         draw: "fa fa-plus",
         chart: "fa fa-bar-chart",
         run: "fa fa-play",
-        warning:"fa fa-exclamation-triangle"
+        warning:"fa fa-exclamation-triangle",
+        crosshairs: "fa fa-crosshairs"
       },
       '5': {
         'change-map': "fas fa-map-signs",
@@ -151,7 +152,8 @@ const Fonts = {
         draw: "fas fa-draw-polygon",
         chart: "fas fa-chart-bar",
         run: "fas fa-play",
-        warning: "fas fa-exclamation-triangle"
+        warning: "fas fa-exclamation-triangle",
+        crosshairs: "fas fa-crosshairs"
       }
     }
   }
