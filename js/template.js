@@ -462,10 +462,10 @@ const ApplicationTemplate = function({ApplicationService}) {
       floatbar.FloatbarService.close();
     };
     // SIDEBAR //
-    GUI.showSidebar = _.bind(this._showSidebar, this);
-    GUI.hideSidebar = _.bind(this._hideSidebar, this);
+    GUI.showSidebar = this._showSidebar.bind(this);
+    GUI.hideSidebar = this._hideSidebar.bind(this);
     // MODAL
-    GUI.setModal = _.bind(this._showModalOverlay, this);
+    GUI.setModal = this._showModalOverlay.bind(this);
     GUI.showFullModal = function({element="#full-screen-modal", show=true} = {}) {
       show && $(element).modal('show') || $(element).modal('hide')
     };
