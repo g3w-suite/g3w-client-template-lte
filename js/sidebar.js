@@ -16,6 +16,7 @@ const SidebarItem = Vue.extend({
         component: null,
         active: false,
         title: '',
+        info: '',
         open: false,
         icon: null,
         state: null,
@@ -85,6 +86,7 @@ function SidebarService() {
       service: this
     });
     sidebarItem.title = component.title || sidebarItem.title;
+    sidebarItem.info = component.info || sidebarItem.info;
     sidebarItem.open = component.state.open;//(component.open === undefined) ? sidebarItem.open : component.open;
     sidebarItem.icon = component.icon || sidebarItem.icon;
     sidebarItem.iconColor = component.iconColor;
