@@ -2,7 +2,7 @@
   <a @click.prevent="onClickItem" href="#">
     <i :class="icon" :style="{color: iconColor}"></i>
     <span class="treeview-label">{{title | t}}</span>
-    <span style="position: absolute; right: 5px; font-weight: bold">{{ info }}</span>
+    <span v-if="info.state" style="position: absolute; right: 5px; font-weight: bold" :class="info.class" :style="info.style">{{ info.state }}</span>
     <i v-if="collapsible" :class="g3wtemplate.getFontClass('angle-left')" class="pull-right"></i>
   </a>
   <div id="g3w-sidebarcomponent-placeholder"></div>

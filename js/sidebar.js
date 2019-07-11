@@ -12,14 +12,17 @@ const SidebarItem = Vue.extend({
   template: require('../html/sidebar-item.html'),
   data: function() {
     return {
+        info: this.$options.info || {
+          state: null,
+          style: null,
+          class: null
+        },
         main: true,
         component: null,
         active: false,
         title: '',
-        info: '',
         open: false,
         icon: null,
-        state: null,
         iconColor: null,
         collapsible: null
       };
@@ -69,21 +72,22 @@ function SidebarService() {
   };
   // add component to sidebar
   this.addComponents = function(components, options={}) {
-    const {position} = options;
     //for each component of the sidebar it is call addComponent method
     components.forEach((component) => {
-      this.addComponent(component, position);
+      this.addComponent(component, options);
     });
     return true;
   };
   // add each component to the sidebar
   // add also position insiede the sidebar
-  this.addComponent = function(component, position) {
+  this.addComponent = function(component, options={}) {
+    const {position, info} = options;
     if (isMobile.any && !component.mobile) {
       return false
     }
     const sidebarItem = new SidebarItem({
-      service: this
+      service: this,
+      info
     });
     sidebarItem.title = component.title || sidebarItem.title;
     sidebarItem.info = component.info || sidebarItem.info;
