@@ -2,15 +2,9 @@
   <!-- sidebar: style can be found in sidebar.less -->
   <!-- Sidebar toggle button-->
   <!-- Toggle button on the left side of main sidebar only if not mobile -->
-  <a v-if="!isMobile()" href="#" class="sidebar-aside-toggle" data-toggle="offcanvas" role="button">
+  <a v-if="!isMobile() && !iframe" href="#" class="sidebar-aside-toggle" data-toggle="offcanvas" role="button">
     <i :class="g3wtemplate.getFontClass('bars')"></i>
   </a>
-  <!--<div class="quick-actions-menu">-->
-    <!--<button class="btn btn-default btn-circle-medium glyphicon glyphicon-share-alt"></button>-->
-    <!--<button class="btn btn-default btn-circle-medium glyphicon glyphicon-modal-window"></button>-->
-    <!--<button class="btn btn-default btn-circle-medium glyphicon glyphicon-print"></button>-->
-    <!--<button class="btn btn-default btn-circle-medium glyphicon glyphicon-search"></button>-->
-  <!--</div>-->
 	<div id="g3w-sidebar" class="sidebar">
     <div v-show="panelsinstack" class="g3w-sidebarpanel">
       <div style="overflow: hidden;line-height: 14px;margin-top: 4px; font-size:1.5em">

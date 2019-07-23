@@ -383,7 +383,7 @@ const ViewportService = function() {
     const contentEl = $('.content');
     let reducedWidth = 0;
     let reducedHeight = 0;
-    if (contentEl && this.state.secondaryVisible && this.state.secondaryPerc == 100) {
+    if (contentEl && this.state.secondaryVisible && this.state.secondaryPerc === 100) {
       const sideBarToggleEl = $('.sidebar-aside-toggle');
       if (sideBarToggleEl && sideBarToggleEl.is(':visible')) {
         const toggleWidth = sideBarToggleEl.outerWidth();
@@ -425,7 +425,7 @@ const ViewportService = function() {
     let secondaryHeight;
     // percentage of secondary view (content)
     const scale = this.state.secondaryPerc / 100;
-    if (this.state.split == 'h') {
+    if (this.state.split === 'h') {
       secondaryWidth = this.state.secondaryVisible ? Math.max((viewportWidth * scale),this._secondaryViewMinWidth) : 0;
       secondaryHeight = viewportHeight;
       primaryWidth = viewportWidth - secondaryWidth;
@@ -448,8 +448,9 @@ const ViewportService = function() {
   };
 
   this._viewportWidth = function() {
-    const offset = $(".main-sidebar").offset().left;
-    const width = $(".main-sidebar").innerWidth();
+    const main_sidebar = $(".main-sidebar");
+    const offset = main_sidebar.length && main_sidebar.offset().left;
+    const width = main_sidebar.length && main_sidebar.innerWidth();
     const sideBarSpace = width + offset;
     return $(window).innerWidth() - sideBarSpace;
   };

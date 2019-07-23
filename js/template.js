@@ -34,6 +34,7 @@ const ApplicationTemplate = function({ApplicationService}) {
   const appLayoutConfig = ApplicationService.getConfig().layout || {};
   // useful to build a difference layout/compoìnent based on mobile or not
   this._isMobile = isMobile.any;
+  this._isIframe = appLayoutConfig.iframe;
   this.init = function() {
     // create Vue App
     this._createApp();
@@ -127,7 +128,7 @@ const ApplicationTemplate = function({ApplicationService}) {
   //Vue app
   this._createApp = function() {
     const self = this;
-    if (isMobile.any) {
+    if (isMobile.any || this._isIframe) {
       $('body').addClass('sidebar-collapse');
     }
     return new Vue({
@@ -152,7 +153,7 @@ const ApplicationTemplate = function({ApplicationService}) {
           self.emit('ready');
           //getSkinColor
           const skinColor = $('.navbar').css('background-color');
-          GUI.skinColor = `#${skinColor.substr(4, skinColor.indexOf(')') - 4).split(',').map((color) => parseInt(color).toString(16)).join('')}`;
+          GUI.skinColor = skinColor && `#${skinColor.substr(4, skinColor.indexOf(')') - 4).split(',').map((color) => parseInt(color).toString(16)).join('')}`;
           GUI.ready();
         });
       }

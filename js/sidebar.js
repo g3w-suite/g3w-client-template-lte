@@ -156,7 +156,7 @@ function SidebarService() {
   //remove component
   this.removeComponent = function(component) {
     this.state.components.forEach((sidebarComponent, index) => {
-      if (component == sidebarComponent) {
+      if (component === sidebarComponent) {
         component.unmount();
         this.state.components.splice(index, 1);
         return false;
@@ -193,6 +193,12 @@ const sidebarService = new SidebarService;
 
 const SidebarComponent = Vue.extend({
     template: require('../html/sidebar.html'),
+    props: {
+      iframe: {
+        type: Boolean,
+        default: false
+      }
+    },
     data: function() {
     	return {
         components: sidebarService.state.components,
