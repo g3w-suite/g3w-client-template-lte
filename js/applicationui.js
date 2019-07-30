@@ -51,7 +51,7 @@ const AppUI = Vue.extend({
       }): [];
     },
     isIframe() {
-      return this.appconfig.group.layout.iframe;
+      return !!this.appconfig.group.layout.iframe;
     },
     urls() {
       return this.appconfig.urls;

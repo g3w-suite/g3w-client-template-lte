@@ -401,8 +401,8 @@ const ViewportService = function() {
 
   //main layout function
   this._layout = function() {
-    const splitClassToAdd = (this.state.split == 'h') ? 'split-h' : 'split-v';
-    const splitClassToRemove =  (this.state.split == 'h') ? 'split-v' : 'split-c';
+    const splitClassToAdd = (this.state.split === 'h') ? 'split-h' : 'split-v';
+    const splitClassToRemove =  (this.state.split === 'h') ? 'split-v' : 'split-c';
     $(".g3w-viewport .g3w-view").addClass(splitClassToAdd);
     $(".g3w-viewport .g3w-view").removeClass(splitClassToRemove);
     const reducesdSizes = this._getReducedSizes();

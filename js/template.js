@@ -284,10 +284,10 @@ const ApplicationTemplate = function({ApplicationService}) {
   this._removeComponent = function(componentId) {
     ComponentsRegistry.unregisterComponent(componentId);
   };
-  this._showModalOverlay = function(bool=false) {
+  this._showModalOverlay = function(bool=false, message) {
     const mapService = GUI.getComponent('map').getService();
     if (bool) {
-      mapService.startDrawGreyCover();
+      mapService.startDrawGreyCover(message);
     } else {
       mapService.stopDrawGreyCover();
     }
