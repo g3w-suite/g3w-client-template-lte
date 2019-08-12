@@ -117,7 +117,9 @@ Licensed under MIT
 }
 
 .catalog .tree-item, .catalog #legend div{
-
+  &.selected ul {
+    background-color: @sidebar-dark-bg;
+  }
   span.tree-node-title {
     &.disabled {
       color: darken(@color-white, 40%);
