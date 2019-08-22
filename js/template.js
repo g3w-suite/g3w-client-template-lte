@@ -112,7 +112,7 @@ const ApplicationTemplate = function({ApplicationService}) {
         })
       ],
       viewport: {
-        // placeholder of the content (view content). Secodary view (hidden)
+        // placeholder of the content (view content). Secondary view (hidden)
         components: {
           map: new MapComponent({
             id: 'map'

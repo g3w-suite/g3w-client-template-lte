@@ -117,7 +117,7 @@ Licensed under MIT
 }
 
 .catalog .tree-item, .catalog #legend div{
-  &.selected ul {
+  &.selected ul.layer-categories {
     background-color: @sidebar-dark-bg;
   }
   span.tree-node-title {
@@ -130,9 +130,9 @@ Licensed under MIT
   }
 }
 
-.catalog .tree-item {
+.catalog .tree-item  {
   cursor: pointer;
-  &.disabled {
+  &.disabled > span {
     color: darken(@color-white, 40%);
   }
 }
@@ -148,12 +148,22 @@ Licensed under MIT
 .catalog .root.fa-chevron-right {
   padding-right: 8px;
 }
+.catalog .root-categories.fa-chevron-right {
+  padding-right: 7px;
+}
+
+.catalog .root-categories.fa-chevron-down {
+  padding-right: 3px;
+}
+
 .catalog .child {
   padding: 5px 3px 1px 30px;
 }
-
+.catalog .child-categories {
+  padding: 5px 3px 1px 12px;
+}
 .catalog .tree-root {
-  padding-left: 0px;
+  padding-left: 0;
 }
 
 .bold {
@@ -175,7 +185,7 @@ Licensed under MIT
 
 .catalog .tree{
   color: @color-white;
-  .disabled {
+  &.disabled {
     color: darken(@color-white, 40%);
     cursor: not-allowed;
   }
