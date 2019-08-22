@@ -143,7 +143,7 @@ const ApplicationTemplate = function({ApplicationService}) {
         // create templateConfig
         self.templateConfig = self._createTemplateConfig();
       },
-      mounted: function() {
+      mounted() {
         this.$nextTick(function() {
           self._buildTemplate();
           // setup Font, Css class methods
@@ -213,13 +213,17 @@ const ApplicationTemplate = function({ApplicationService}) {
 
   //register all services
   this._setUpServices = function() {
-    _.forEach(ApplicationTemplate.Services, function(service, element) {
-      ApplicationService.registerService(element, service);
-    });
-    _.forEach(GUI.getComponents(), function(component) {
-      ApplicationService.registerService(component.id, component.getService());
+    for (let id in ApplicationTemplate.Services) {
+      const service = ApplicationTemplate.Services[id];
+      ApplicationService.registerService(id, service);
+    }
+    ComponentsRegistry.on('componentregistered', (component) => {
+      const id = component.getId();
+      const service = component.getService();
+      ApplicationService.registerService(id, service);
     })
   };
+
   // build template function
   this._buildTemplate = function() {
     floatbar.FloatbarService.init(layout);
@@ -239,6 +243,7 @@ const ApplicationTemplate = function({ApplicationService}) {
       this._addComponents(this.templateConfig.othercomponents);
     }
   };
+
   // viewport setting
   this._setViewport = function(viewportOptions) {
     // viewport components
@@ -270,15 +275,13 @@ const ApplicationTemplate = function({ApplicationService}) {
     let register = true;
     if (placeholder && ApplicationTemplate.PLACEHOLDERS.indexOf(placeholder) > -1) {
       const placeholderService = ApplicationTemplate.Services[placeholder];
-      if (placeholderService) {
-        register = placeholderService.addComponents(components, options);
-      }
+      if (placeholderService) register = placeholderService.addComponents(components, options);
     }
-    Object.entries(components).forEach(([key, component])=> {
-      if (register) {
+    if (register) {
+      Object.entries(components).forEach(([key, component])=> {
         ComponentsRegistry.registerComponent(component);
-      }
-    })
+      })
+    }
   };
 
   this._removeComponent = function(componentId) {
@@ -618,5 +621,5 @@ ApplicationTemplate.fail = function({language='en', error }) {
 };
 
 
-module.exports =  ApplicationTemplate;
+module.exports = ApplicationTemplate;
 
