@@ -265,21 +265,20 @@ const ApplicationTemplate = function({ApplicationService}) {
   this._addComponent = function(component, placeholder, options={}) {
     this._addComponents([component], placeholder, options);
   };
+
   // registry component
   this._addComponents = function(components, placeholder, options) {
     let register = true;
     if (placeholder && ApplicationTemplate.PLACEHOLDERS.indexOf(placeholder) > -1) {
       const placeholderService = ApplicationTemplate.Services[placeholder];
-      if (placeholderService) {
+      if (placeholderService)
         register = placeholderService.addComponents(components, options);
-      }
     }
     Object.entries(components).forEach(([key, component])=> {
-      if (register) {
-        ComponentsRegistry.registerComponent(component);
-      }
+      register && ComponentsRegistry.registerComponent(component);
     })
   };
+
 
   this._removeComponent = function(componentId) {
     ComponentsRegistry.unregisterComponent(componentId);
@@ -292,10 +291,12 @@ const ApplicationTemplate = function({ApplicationService}) {
       mapService.stopDrawGreyCover();
     }
   };
+
   this._showSidebar = function() {
     $('body').addClass('sidebar-open');
     $('body').removeClass('sidebar-collapse')
   };
+
   this._hideSidebar = function() {
     $('body').removeClass('sidebar-open');
     $('body').addClass('sidebar-collapse')
@@ -322,6 +323,8 @@ const ApplicationTemplate = function({ApplicationService}) {
     /* PLUBLIC INTERFACE */
     /* Common methods */
     GUI.layout = layout;
+    GUI.showUserMessage = ({message, type='info'})=>{ alert(message)};
+    GUI.hideUserMessage = () => {};
     GUI.addComponent = this._addComponent.bind(this);
     GUI.removeComponent = this._removeComponent.bind(this);
     /* Metodos to define */
@@ -436,7 +439,7 @@ const ApplicationTemplate = function({ApplicationService}) {
     // proxy  bootbox library
     GUI.dialog = bootbox;
     /* spinner */
-    GUI.showSpinner = function(options){
+    GUI.showSpinner = function(options={}){
       const container = options.container || 'body';
       const id = options.id || 'loadspinner';
       const where = options.where || 'prepend'; // append | prepend
@@ -465,6 +468,11 @@ const ApplicationTemplate = function({ApplicationService}) {
     // SIDEBAR //
     GUI.showSidebar = this._showSidebar.bind(this);
     GUI.hideSidebar = this._hideSidebar.bind(this);
+
+    // RELOAD COMPONENTS
+    GUI.reloadComponents = function(){
+      ApplicationTemplate.Services.sidebar.reloadComponents();
+    };
     // MODAL
     GUI.setModal = this._showModalOverlay.bind(this);
     GUI.showFullModal = function({element="#full-screen-modal", show=true} = {}) {
@@ -480,7 +488,7 @@ const ApplicationTemplate = function({ApplicationService}) {
       viewport.ViewportService.showMap();
     };
 
-    GUI.showContextualMap = function(perc,split) {
+    GUI.showContextualMap = function(perc, split) {
       perc = perc || 30;
       viewport.ViewportService.showContextualMap({
         perc: perc,
