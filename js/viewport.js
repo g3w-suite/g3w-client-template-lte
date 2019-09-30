@@ -1,3 +1,4 @@
+import userMessage from '../components/vue/usermessage.vue';
 const inherit = require('sdk').core.utils.inherit;
 const t = require('sdk').core.i18n.t;
 const base = require('sdk').core.utils.base;
@@ -35,6 +36,12 @@ const ViewportService = function() {
       closable: true, // (x) is closable
       backonclose: false, // back on prevoius content
       contentsdata:[] // content data array
+    },
+    usermessage: {
+      show: false,
+      title: null,
+      message: null,
+      type: null
     }
   };
   // content of viewport (map and content)
@@ -60,6 +67,18 @@ const ViewportService = function() {
     this.state.split = options.split ? options.split : 'h';
     // add component (map and content)
     this._addComponents(options.components);
+  };
+
+  this.showUserMessage = function({title, message, type}={}) {
+    this.state.usermessage.show = true;
+    this.state.usermessage.message = message;
+    this.state.usermessage.title = title;
+    this.state.usermessage.type = type;
+    this.state.usermessage.show = true;
+  };
+
+  this.closeUserMessage = function(){
+    this.state.usermessage.show = false;
   };
 
   this.getState = function() {
@@ -98,7 +117,7 @@ const ViewportService = function() {
           .then(() => {
             this._components[viewName] = component;
             // check if view name is map
-            if (viewName == 'map') {
+            if (viewName === 'map') {
               // sset de fefault component to map
               this._defaultMapComponent = component;
             }
@@ -138,7 +157,7 @@ const ViewportService = function() {
 
   // get default component
   this.recoverDefaultMap = function() {
-    if (this._components['map'] != this._defaultMapComponent) {
+    if (this._components['map'] !== this._defaultMapComponent) {
       this._components['map'] = this._defaultMapComponent;
       this._toggleMapComponentVisibility(this._contextualMapComponent, false);
       this._toggleMapComponentVisibility(this._defaultMapComponent, true);
@@ -147,7 +166,7 @@ const ViewportService = function() {
   };
 
   this.setContextualMapComponent = function(mapComponent) {
-    if (mapComponent == this._defaultMapComponent) {
+    if (mapComponent === this._defaultMapComponent) {
       return;
     }
     if (this._contextualMapComponent) {
@@ -185,7 +204,7 @@ const ViewportService = function() {
    }
    */
 
-  this.showContent = function(options) {
+  this.showContent = function(options={}) {
     // check if push i setted
     options.push = options.push || false;
     // set all pcontenty parameters
@@ -535,6 +554,9 @@ const viewportService = new ViewportService;
 
 // COMPONENTE VUE VIEWPORT
 const ViewportComponent = Vue.extend({
+  components: {
+    userMessage
+  },
   template: require('../html/viewport.html'),
   data: function() {
     return {
@@ -607,6 +629,9 @@ const ViewportComponent = Vue.extend({
     },
     gotoPreviousContent: function() {
       viewportService.popContent();
+    },
+    closeUserMessage(){
+      viewportService.closeUserMessage();
     }
   },
   mounted() {
@@ -617,7 +642,7 @@ const ViewportComponent = Vue.extend({
         if (event.type === 'change') {
           this.media.matches = event.currentTarget.matches;
         }
-      })
+      });
     })
   }
 });

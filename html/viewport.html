@@ -1,5 +1,10 @@
 <div class="g3w-viewport">
   <div id="g3w-view-map" class="g3w-view map" :style="{width:state.map.sizes.width+'px',height:state.map.sizes.height+'px'}">
+    <transition name="fade" :duration="{ enter: 800, leave: 500 }">
+      <user-message v-if="state.usermessage.show" @close-usermessage="closeUserMessage"
+                    :title="state.usermessage.title" :message="state.usermessage.message" :type="state.usermessage.type" >
+      </user-message>
+    </transition>
   </div>
   <div id="g3w-view-content" class="g3w-view content" :style="{width:state.content.sizes.width+'px',height:state.content.sizes.height+'px'}">
     <div v-if="(showtitle && contentTitle) || previousTitle || (state.content.closable && state.content.aside)" class="close-panel-block">
@@ -23,3 +28,9 @@
     <div v-show="state.content.loading" class="bar-loader"></div>
   </div>
 </div>
+<script>
+  import Usermessage from "../components/vue/usermessage";
+  export default {
+    components: {Usermessage}
+  }
+</script>

@@ -323,8 +323,6 @@ const ApplicationTemplate = function({ApplicationService}) {
     /* PLUBLIC INTERFACE */
     /* Common methods */
     GUI.layout = layout;
-    GUI.showUserMessage = ({message, type='info'})=>{ alert(message)};
-    GUI.hideUserMessage = () => {};
     GUI.addComponent = this._addComponent.bind(this);
     GUI.removeComponent = this._removeComponent.bind(this);
     /* Metodos to define */
@@ -426,6 +424,16 @@ const ApplicationTemplate = function({ApplicationService}) {
 
     GUI.showPanel = _.bind(sidebar.SidebarService.showPanel, sidebar.SidebarService);
     GUI.closePanel = _.bind(sidebar.SidebarService.closePanel, sidebar.SidebarService);
+
+    //showusermessage
+
+    GUI.showUserMessage = function({message, type}) {
+      viewport.ViewportService.showUserMessage({message, type});
+    };
+
+    GUI.closeUserMessage = function() {
+      viewport.ViewportService.closeUserMessage();
+    };
 
     /* ------------------ */
 
