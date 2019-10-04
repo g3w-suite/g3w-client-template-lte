@@ -1,5 +1,5 @@
 <li  v-show="state.visible" class="treeview sidebaritem" :class="{'active': open}">
-  <a @click.prevent="onClickItem" href="#">
+  <a @click.prevent="onClickItem" ref="anchor_click" href="#">
     <i :class="icon" :style="{color: iconColor}"></i>
     <span class="treeview-label">{{title | t}}</span>
     <span v-if="info.state" style="position: absolute; right: 5px; font-weight: bold" :class="info.class" :style="info.style">{{ info.state }}</span>

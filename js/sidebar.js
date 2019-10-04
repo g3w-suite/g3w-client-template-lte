@@ -18,7 +18,7 @@ const SidebarItem = Vue.extend({
           class: null
         },
         main: true,
-        component: null,
+        component: this.$options.component,
         active: false,
         title: '',
         open: false,
@@ -46,6 +46,11 @@ const SidebarItem = Vue.extend({
       if (!this.component.collapsible && isMobile.any) {
         SIDEBAREVENTBUS.$emit('sidebaritemclick');
       }
+    }
+  },
+  created() {
+    this.component.openClose = () =>{
+      this.$refs.anchor_click.click();
     }
   }
 });
@@ -87,7 +92,8 @@ function SidebarService() {
     }
     const sidebarItem = new SidebarItem({
       service: this,
-      info
+      info,
+      component
     });
     sidebarItem.title = component.title || sidebarItem.title;
     sidebarItem.info = component.info || sidebarItem.info;
@@ -97,17 +103,15 @@ function SidebarService() {
     sidebarItem.state = component.state || true;
     sidebarItem.collapsible = (typeof component.collapsible === 'boolean') ? component.collapsible : true;
     sidebarItem.context = (typeof component.context === 'boolean') ? component.context: true;
-    sidebarItem.component = component;
     //append component to  g3w-sidebarcomponents (template sidebar.html)
-    const itemcomponent = sidebarItem.$mount();
-    if (position === null || position === undefined) {
-      this.state.components.push(component);
-      $('#g3w-sidebarcomponents').append(itemcomponent.$el);
-    } else {
-      this.state.components = this.state.components.splice(0,0,component);
-      $('#g3w-sidebarcomponents').children().each(function(index, element) {
+    const DOMComponent = sidebarItem.$mount().$el;
+    this.state.components.push(component);
+    if (position === null || position === undefined || position < 0)
+      $('#g3w-sidebarcomponents').append(DOMComponent);
+    else {
+      $('#g3w-sidebarcomponents').children().each(function (index, element) {
         if (position === index) {
-          $(itemcomponent.$el).insertBefore(element);
+          $(DOMComponent).insertBefore(element);
         }
       });
     }
