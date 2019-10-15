@@ -427,8 +427,8 @@ const ApplicationTemplate = function({ApplicationService}) {
 
     //showusermessage
 
-    GUI.showUserMessage = function({message, type}) {
-      viewport.ViewportService.showUserMessage({message, type});
+    GUI.showUserMessage = function(options={}) {
+      viewport.ViewportService.showUserMessage(options);
     };
 
     GUI.closeUserMessage = function() {

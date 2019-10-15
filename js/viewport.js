@@ -41,7 +41,14 @@ const ViewportService = function() {
       show: false,
       title: null,
       message: null,
-      type: null
+      position: null,
+      type: null,
+      draggable: null,
+      hooks: {
+        header: null,
+        body: null,
+        footer: null
+      }
     }
   };
   // content of viewport (map and content)
@@ -69,15 +76,22 @@ const ViewportService = function() {
     this._addComponents(options.components);
   };
 
-  this.showUserMessage = function({title, message, type}={}) {
+  this.showUserMessage = function({title, message, type, position, size, draggable, closable, hooks={}}={}) {
     this.state.usermessage.show = true;
     this.state.usermessage.message = message;
     this.state.usermessage.title = title;
+    this.state.usermessage.position = position;
     this.state.usermessage.type = type;
     this.state.usermessage.show = true;
+    this.state.usermessage.size = size;
+    this.state.usermessage.closable = closable;
+    this.state.usermessage.draggable = draggable;
+    this.state.usermessage.hooks.header = hooks.header;
+    this.state.usermessage.hooks.body = hooks.body;
+    this.state.usermessage.hooks.footer = hooks.footer;
   };
 
-  this.closeUserMessage = function(){
+  this.closeUserMessage = function() {
     this.state.usermessage.show = false;
   };
 
@@ -188,7 +202,7 @@ const ViewportService = function() {
 
   // close map method
   this.closeMap = function() {
-    this.state.secondaryPerc = (this.state.primaryView == 'map') ? 100 : 0;
+    this.state.secondaryPerc = (this.state.primaryView === 'map') ? 100 : 0;
     this.recoverDefaultMap();
     this._layout();
   };
@@ -567,6 +581,12 @@ const ViewportComponent = Vue.extend({
     }
   },
   computed: {
+    hooks() {
+      return this.usermessage.hooks;
+    },
+    usermessage() {
+      return this.state.usermessage;
+    },
     showtitle: function() {
       let showtitle = true;
       const contentsData = this.state.content.contentsdata;

@@ -1,8 +1,25 @@
 <div class="g3w-viewport">
   <div id="g3w-view-map" class="g3w-view map" :style="{width:state.map.sizes.width+'px',height:state.map.sizes.height+'px'}">
     <transition name="fade" :duration="{ enter: 800, leave: 500 }">
-      <user-message v-if="state.usermessage.show" @close-usermessage="closeUserMessage"
-                    :title="state.usermessage.title" :message="state.usermessage.message" :type="state.usermessage.type" >
+      <user-message
+        v-if="usermessage.show"
+        @close-usermessage="closeUserMessage"
+        :title="usermessage.title"
+        :message="usermessage.message"
+        :draggable="usermessage.draggable"
+        :closable="usermessage.closable"
+        :position="usermessage.position"
+        :size="usermessage.size"
+        :type="usermessage.type">
+        <template v-if="hooks.header" v-slot:header>
+          <component :is="hooks.header"></component>
+        </template>
+        <template v-if="hooks.body" v-slot:body>
+          <component :is="hooks.body"></component>
+        </template>
+        <template v-if="hooks.footer" v-slot:footer>
+          <component :is="usermessage.hooks.footer"></component>
+        </template>
       </user-message>
     </transition>
   </div>

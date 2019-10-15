@@ -1,10 +1,15 @@
 <template>
   <div class="usermessage-content" :style="style">
-    <div class="usermessage-close" @click="closeUserMessage">x</div>
+    <i style="align-self: flex-start; padding: 10px 0 0 5px;" :class="g3wtemplate.getFontClass(type)"></i>
+    <div class="usermessage-right">
+      <div v-if="closable" class="usermessage-close usermessage-right-item" @click="closeUserMessage"><i :class="g3wtemplate.getFontClass('close')"></i></div>
+    </div>
     <slot name="header">
       <h4 class="usermessage-header">{{ title }}</h4>
     </slot>
-    <div class="usermessage-message" v-html="message"></div>
+    <slot name="body">
+      <div class="usermessage-message" v-html="message"></div>
+    </slot>
     <slot name="footer"></slot>
   </div>
 </template>
@@ -23,13 +28,17 @@
       backgroundColor: '#FFBABA',
       color: '#D8000C'
     },
+    tool: {
+      backgroundColor: '#e2e2e2',
+      color: "#000000"
+    }
   };
   export default {
     name: "usermessage",
     props: {
       type: {
         type: String,
-        default: 'info' // info, warning, error
+        default: 'info' // info, warning, error, tool
       },
       title: {
         type: String,
@@ -39,6 +48,10 @@
         type: String,
         default: 'top'
       },
+      size: {
+        type: 'String',
+        default: null
+      },
       message: {
         type: String,
         deafult: ''
@@ -46,25 +59,38 @@
       autoclose: {
         type: Boolean,
         default: false
-      }
-    },
-    computed: {
-      style() {
-        return {
-          ...COLORS[this.type],
-          [this.position]: 0
-        };
+      },
+      draggable: {
+        type: Boolean,
+        default: false
+      },
+      closable: {
+        type: Boolean,
+        default: true
       }
     },
     methods: {
       closeUserMessage(){
         this.$emit('close-usermessage')
+      },
+      hideShow() {
+      }
+    },
+    created() {
+      const position = {
+        [this.position]: 0,
+        width: !this.size ? '100%' : this.size === 'small' ? '25%': '50%'
+      };
+      this.style = {
+      ...COLORS[this.type],
+      ...position,
       }
     },
     mounted(){
       this.autoclose && this.$nextTick(() => {
-        setTimeout(() =>{
+        const timeout = setTimeout(() =>{
           this.closeUserMessage();
+          clearTimeout(timeout)
         }, 1000)
       })
     }
@@ -74,33 +100,36 @@
 <style scoped>
   .usermessage-content {
     color: #FFFFFF;
-    background: red;
     z-index: 1000;
-    min-height:100px;
     position: absolute;
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
     align-items: center;
-    width: 100%;
   }
-
-  .usermessage-header {
-    font-weight: bold;
-  }
-
-  .usermessage-close {
+  .usermessage-content /deep/ .usermessage-right {
+    display: flex;
+    justify-items: flex-end;
     position: absolute;
-    top: 10px;
     right: 10px;
     cursor: pointer;
     font-weight: bold;
     padding: 5px;
   }
-
-  .usermessage-message {
-    marging: 5px;
-    padding: 10px;
+  .usermessage-content /deep/ .usermessage-right-item {
+    padding: 5px;
+  }
+  .usermessage-header {
+    font-weight: bold;
+  }
+  .usermessage-content /deep/ .usermessage-message {
+    margin: 5px;
+    width: 100%;
+    max-height: 50px;
+    font-weight: bold;
+    font-size: 1.2em;
     align-self: flex-start;
+    overflow-y: auto;
   }
 
 </style>
