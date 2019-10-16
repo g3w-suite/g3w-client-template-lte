@@ -44,6 +44,8 @@ const ViewportService = function() {
       position: null,
       type: null,
       draggable: null,
+      cloasable: null,
+      autoclose: null,
       hooks: {
         header: null,
         body: null,
@@ -76,19 +78,23 @@ const ViewportService = function() {
     this._addComponents(options.components);
   };
 
-  this.showUserMessage = function({title, message, type, position, size, draggable, closable, hooks={}}={}) {
-    this.state.usermessage.show = true;
-    this.state.usermessage.message = message;
-    this.state.usermessage.title = title;
-    this.state.usermessage.position = position;
-    this.state.usermessage.type = type;
-    this.state.usermessage.show = true;
-    this.state.usermessage.size = size;
-    this.state.usermessage.closable = closable;
-    this.state.usermessage.draggable = draggable;
-    this.state.usermessage.hooks.header = hooks.header;
-    this.state.usermessage.hooks.body = hooks.body;
-    this.state.usermessage.hooks.footer = hooks.footer;
+  this.showUserMessage = function({title, message, type, position, size, draggable, closable, autoclose, hooks={}}={}) {
+    this.closeUserMessage();
+    requestAnimationFrame(() => {
+      this.state.usermessage.show = true;
+      this.state.usermessage.message = message;
+      this.state.usermessage.title = title;
+      this.state.usermessage.position = position;
+      this.state.usermessage.type = type;
+      this.state.usermessage.show = true;
+      this.state.usermessage.size = size;
+      this.state.usermessage.autoclose = autoclose;
+      this.state.usermessage.closable = closable;
+      this.state.usermessage.draggable = draggable;
+      this.state.usermessage.hooks.header = hooks.header;
+      this.state.usermessage.hooks.body = hooks.body;
+      this.state.usermessage.hooks.footer = hooks.footer;
+    })
   };
 
   this.closeUserMessage = function() {
@@ -448,7 +454,7 @@ const ViewportService = function() {
   this._setViewSizes = function() {
     const primaryView = this.state.primaryView;
     const secondaryView = this._otherView(primaryView);
-    const viewportWidth = Math.round(this._viewportWidth()) - 1; // remove one pixel for zoom in zoom out issue
+    const viewportWidth = Math.round(this._viewportWidth()) - 0.5; // remove  for zoom in zoom out issue
     //all viewport height
     const viewportHeight = this._viewportHeight();
     // assign all width and height of the view to primary view (map)

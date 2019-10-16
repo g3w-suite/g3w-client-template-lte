@@ -78,7 +78,9 @@ const Fonts = {
         chart: "fa fa-bar-chart",
         run: "fa fa-play",
         warning:"fa fa-exclamation-triangle",
-        crosshairs: "fa fa-crosshairs"
+        alert: "a fa-exclamation-triangle",
+        crosshairs: "fa fa-crosshairs",
+        success: "fa fa-check-circle-o"
       },
       '5': {
         'change-map': "fas fa-map-signs",
@@ -153,7 +155,9 @@ const Fonts = {
         chart: "fas fa-chart-bar",
         run: "fas fa-play",
         warning: "fas fa-exclamation-triangle",
-        crosshairs: "fas fa-crosshairs"
+        alert: "fas fa-exclamation-triangle",
+        crosshairs: "fas fa-crosshairs",
+        success: "far fa-check-circle"
       }
     }
   }

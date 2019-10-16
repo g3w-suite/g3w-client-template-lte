@@ -1,12 +1,18 @@
 <template>
   <div class="usermessage-content" :style="style">
-    <i style="align-self: flex-start; padding: 10px 0 0 5px;" :class="g3wtemplate.getFontClass(type)"></i>
-    <div class="usermessage-right">
-      <div v-if="closable" class="usermessage-close usermessage-right-item" @click="closeUserMessage"><i :class="g3wtemplate.getFontClass('close')"></i></div>
+    <div class="usermessage-header-content">
+      <i class="usermessage-header-icontype" :class="g3wtemplate.getFontClass(type)"></i>
+      <div class="usermessage-header-title">
+        <slot name="header">
+          <h4>{{ title || type.toUpperCase() }}</h4>
+        </slot>
+      </div>
+      <div class="usermessage-header-right">
+        <div v-if="!autoclose && closable" @click="closeUserMessage">
+          <i class="usermessage-header-right-item" :class="g3wtemplate.getFontClass('close')"></i>
+        </div>
+      </div>
     </div>
-    <slot name="header">
-      <h4 class="usermessage-header">{{ title }}</h4>
-    </slot>
     <slot name="body">
       <div class="usermessage-message" v-html="message"></div>
     </slot>
@@ -16,21 +22,25 @@
 
 <script>
   const COLORS = {
+    success: {
+      backgroundColor: '#62ac62',
+      color: '#FFFFFF'
+    },
     info: {
-      backgroundColor: '#d9edf7',
-      color: '#31708f'
+      backgroundColor: '#44a0bb',
+      color: '#FFFFFF'
     },
     warning: {
-      backgroundColor: '#FEEFB3',
-      color: '#9F6000'
+      backgroundColor: '#f29e1d',
+      color: '#FFFFFF'
     },
-    error: {
-      backgroundColor: '#FFBABA',
-      color: '#D8000C'
+    alert: {
+      backgroundColor: '#c34943',
+      color: '#FFFFFF'
     },
     tool: {
-      backgroundColor: '#e2e2e2',
-      color: "#000000"
+      backgroundColor: '#FFFFFF',
+      color: "#222d32"
     }
   };
   export default {
@@ -38,7 +48,7 @@
     props: {
       type: {
         type: String,
-        default: 'info' // info, warning, error, tool
+        default: 'info' // info, warning, alert, tool
       },
       title: {
         type: String,
@@ -77,10 +87,46 @@
       }
     },
     created() {
+      let [where, alignement] = this.position.split('-');
+      let width = '100%';
+      switch (this.size) {
+        case 'small':
+          width = '25%';
+          break;
+        case 'medium':
+          width = '50%';
+          break;
+        default:
+          width = '100%';
+      }
+      if (where === 'center')
+        where = {
+          top: 0,
+          bottom:0,
+          maxHeight: '20%'
+        };
+      else {
+        where = {
+          [where]: 0
+        }
+      }
       const position = {
-        [this.position]: 0,
-        width: !this.size ? '100%' : this.size === 'small' ? '25%': '50%'
+        ...where,
+        width
       };
+      if (alignement) {
+        position.width = '25%';
+        switch (alignement) {
+          case 'center':
+            position.left = '0';
+            position.right = '0';
+            position.margin = 'auto';
+            break;
+          case 'right':
+            position.right  = 0;
+            break;
+        }
+      }
       this.style = {
       ...COLORS[this.type],
       ...position,
@@ -91,7 +137,7 @@
         const timeout = setTimeout(() =>{
           this.closeUserMessage();
           clearTimeout(timeout)
-        }, 1000)
+        }, 2000)
       })
     }
   }
@@ -106,26 +152,42 @@
     flex-wrap: wrap;
     flex-direction: column;
     align-items: center;
+    padding: 5px;
+    min-width: 250px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
   }
-  .usermessage-content /deep/ .usermessage-right {
+
+  .usermessage-content /deep/ .usermessage-header-content {
     display: flex;
-    justify-items: flex-end;
-    position: absolute;
-    right: 10px;
-    cursor: pointer;
-    font-weight: bold;
-    padding: 5px;
-  }
-  .usermessage-content /deep/ .usermessage-right-item {
-    padding: 5px;
-  }
-  .usermessage-header {
-    font-weight: bold;
-  }
-  .usermessage-content /deep/ .usermessage-message {
-    margin: 5px;
+    justify-content: space-between;
     width: 100%;
-    max-height: 50px;
+  }
+
+  .usermessage-content /deep/ .usermessage-header-icontype {
+    padding: 10px 0 0 5px;
+    font-weight: bold;
+    font-size: 1.3em;
+  }
+
+  .usermessage-content /deep/ .usermessage-header-title, .usermessage-content /deep/ .usermessage-header-title h4 {
+    font-weight: bold;
+  }
+
+  .usermessage-content /deep/ .usermessage-header-right {
+    padding: 5px;
+  }
+
+  .usermessage-content /deep/ .usermessage-header-right-item {
+    font-weight: bold !important;
+    font-size: 1.2em;
+    cursor: pointer;
+  }
+
+  .usermessage-content /deep/ .usermessage-message {
+    width: 100%;
+    padding: 5px;
+    max-height: 70%;
     font-weight: bold;
     font-size: 1.2em;
     align-self: flex-start;
