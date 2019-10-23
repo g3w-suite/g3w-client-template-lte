@@ -437,13 +437,33 @@ const ApplicationTemplate = function({ApplicationService}) {
 
     /* ------------------ */
 
-    toastr.options.positionClass = 'toast-top-center';
-    toastr.options.preventDuplicates = true;
-    toastr.options.timeOut = 2000;
-
-    /* --------------------- */
-    // proxy  toastr library
-    GUI.notify = toastr;
+    GUI.notify = {
+      warning(message){
+        GUI.showUserMessage({
+          type: 'warning',
+          message
+        })
+      },
+      error(message){
+        GUI.showUserMessage({
+          type: 'alert',
+          message
+        })
+      },
+      info(message){
+        GUI.showUserMessage(({
+          type: 'info',
+          message
+        }))
+      },
+      success(message){
+        GUI.showUserMessage({
+          type: 'success',
+          message,
+          autoclose: true
+        })
+      }
+    };
     // proxy  bootbox library
     GUI.dialog = bootbox;
     /* spinner */
