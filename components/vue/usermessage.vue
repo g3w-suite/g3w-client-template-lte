@@ -158,33 +158,33 @@
     -moz-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
   }
 
-  .usermessage-content /deep/ .usermessage-header-content {
+  .usermessage-header-content {
     display: flex;
     justify-content: space-between;
     width: 100%;
   }
 
-  .usermessage-content /deep/ .usermessage-header-icontype {
+  .usermessage-header-icontype {
     padding: 10px 0 0 5px;
     font-weight: bold;
     font-size: 1.3em;
   }
 
-  .usermessage-content /deep/ .usermessage-header-title, .usermessage-content /deep/ .usermessage-header-title h4 {
+ .usermessage-header-title, .usermessage-header-title h4 {
     font-weight: bold;
   }
 
-  .usermessage-content /deep/ .usermessage-header-right {
+ .usermessage-header-right {
     padding: 5px;
   }
 
-  .usermessage-content /deep/ .usermessage-header-right-item {
+  .usermessage-header-right-item {
     font-weight: bold !important;
     font-size: 1.2em;
     cursor: pointer;
   }
 
-  .usermessage-content /deep/ .usermessage-message {
+  .usermessage-message {
     width: 100%;
     padding: 5px;
     max-height: 70%;
