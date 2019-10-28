@@ -1,11 +1,34 @@
 <div class="g3w-viewport">
   <div id="g3w-view-map" class="g3w-view map" :style="{width:state.map.sizes.width+'px',height:state.map.sizes.height+'px'}">
+    <transition name="fade" :duration="{ enter: 800, leave: 500 }">
+      <user-message
+        v-if="usermessage.show"
+        @close-usermessage="closeUserMessage"
+        :title="usermessage.title"
+        :message="usermessage.message"
+        :draggable="usermessage.draggable"
+        :closable="usermessage.closable"
+        :position="usermessage.position"
+        :autoclose="usermessage.autoclose"
+        :size="usermessage.size"
+        :type="usermessage.type">
+        <template v-if="hooks.header" v-slot:header>
+          <component :is="hooks.header"></component>
+        </template>
+        <template v-if="hooks.body" v-slot:body>
+          <component :is="hooks.body"></component>
+        </template>
+        <template v-if="hooks.footer" v-slot:footer>
+          <component :is="usermessage.hooks.footer"></component>
+        </template>
+      </user-message>
+    </transition>
   </div>
   <div id="g3w-view-content" class="g3w-view content" :style="{width:state.content.sizes.width+'px',height:state.content.sizes.height+'px'}">
     <div v-if="(showtitle && contentTitle) || previousTitle || (state.content.closable && state.content.aside)" class="close-panel-block">
       <div v-if="previousTitle" class="g3w_contents_back">
         <span  @click="gotoPreviousContent()">
-          <span :class="g3wtemplate.getFontClass('arrow-left')"></span>{{ previousTitle }}
+          <span :class="g3wtemplate.getFontClass('back')"></span>{{ previousTitle }}
         </span>
       </div>
       <span v-if="state.content.closable && state.content.aside" @click="closeContent" class="g3w-span-button fa-stack fa-lg pull-right">

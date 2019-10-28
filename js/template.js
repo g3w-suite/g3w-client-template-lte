@@ -143,7 +143,7 @@ const ApplicationTemplate = function({ApplicationService}) {
         // create templateConfig
         self.templateConfig = self._createTemplateConfig();
       },
-      mounted() {
+      mounted: function() {
         this.$nextTick(function() {
           self._buildTemplate();
           // setup Font, Css class methods
@@ -213,17 +213,13 @@ const ApplicationTemplate = function({ApplicationService}) {
 
   //register all services
   this._setUpServices = function() {
-    for (let id in ApplicationTemplate.Services) {
-      const service = ApplicationTemplate.Services[id];
-      ApplicationService.registerService(id, service);
-    }
-    ComponentsRegistry.on('componentregistered', (component) => {
-      const id = component.getId();
-      const service = component.getService();
-      ApplicationService.registerService(id, service);
+    _.forEach(ApplicationTemplate.Services, function(service, element) {
+      ApplicationService.registerService(element, service);
+    });
+    _.forEach(GUI.getComponents(), function(component) {
+      ApplicationService.registerService(component.id, component.getService());
     })
   };
-
   // build template function
   this._buildTemplate = function() {
     floatbar.FloatbarService.init(layout);
@@ -243,7 +239,6 @@ const ApplicationTemplate = function({ApplicationService}) {
       this._addComponents(this.templateConfig.othercomponents);
     }
   };
-
   // viewport setting
   this._setViewport = function(viewportOptions) {
     // viewport components
@@ -270,19 +265,20 @@ const ApplicationTemplate = function({ApplicationService}) {
   this._addComponent = function(component, placeholder, options={}) {
     this._addComponents([component], placeholder, options);
   };
+
   // registry component
   this._addComponents = function(components, placeholder, options) {
     let register = true;
     if (placeholder && ApplicationTemplate.PLACEHOLDERS.indexOf(placeholder) > -1) {
       const placeholderService = ApplicationTemplate.Services[placeholder];
-      if (placeholderService) register = placeholderService.addComponents(components, options);
+      if (placeholderService)
+        register = placeholderService.addComponents(components, options);
     }
-    if (register) {
-      Object.entries(components).forEach(([key, component])=> {
-        ComponentsRegistry.registerComponent(component);
-      })
-    }
+    Object.entries(components).forEach(([key, component])=> {
+      register && ComponentsRegistry.registerComponent(component);
+    })
   };
+
 
   this._removeComponent = function(componentId) {
     ComponentsRegistry.unregisterComponent(componentId);
@@ -295,10 +291,12 @@ const ApplicationTemplate = function({ApplicationService}) {
       mapService.stopDrawGreyCover();
     }
   };
+
   this._showSidebar = function() {
     $('body').addClass('sidebar-open');
     $('body').removeClass('sidebar-collapse')
   };
+
   this._hideSidebar = function() {
     $('body').removeClass('sidebar-open');
     $('body').addClass('sidebar-collapse')
@@ -427,19 +425,49 @@ const ApplicationTemplate = function({ApplicationService}) {
     GUI.showPanel = _.bind(sidebar.SidebarService.showPanel, sidebar.SidebarService);
     GUI.closePanel = _.bind(sidebar.SidebarService.closePanel, sidebar.SidebarService);
 
+    //showusermessage
+
+    GUI.showUserMessage = function(options={}) {
+      viewport.ViewportService.showUserMessage(options);
+    };
+
+    GUI.closeUserMessage = function() {
+      viewport.ViewportService.closeUserMessage();
+    };
+
     /* ------------------ */
 
-    toastr.options.positionClass = 'toast-top-center';
-    toastr.options.preventDuplicates = true;
-    toastr.options.timeOut = 2000;
-
-    /* --------------------- */
-    // proxy  toastr library
-    GUI.notify = toastr;
+    GUI.notify = {
+      warning(message){
+        GUI.showUserMessage({
+          type: 'warning',
+          message
+        })
+      },
+      error(message){
+        GUI.showUserMessage({
+          type: 'alert',
+          message
+        })
+      },
+      info(message){
+        GUI.showUserMessage(({
+          type: 'info',
+          message
+        }))
+      },
+      success(message){
+        GUI.showUserMessage({
+          type: 'success',
+          message,
+          autoclose: true
+        })
+      }
+    };
     // proxy  bootbox library
     GUI.dialog = bootbox;
     /* spinner */
-    GUI.showSpinner = function(options){
+    GUI.showSpinner = function(options={}){
       const container = options.container || 'body';
       const id = options.id || 'loadspinner';
       const where = options.where || 'prepend'; // append | prepend
@@ -468,6 +496,11 @@ const ApplicationTemplate = function({ApplicationService}) {
     // SIDEBAR //
     GUI.showSidebar = this._showSidebar.bind(this);
     GUI.hideSidebar = this._hideSidebar.bind(this);
+
+    // RELOAD COMPONENTS
+    GUI.reloadComponents = function(){
+      ApplicationTemplate.Services.sidebar.reloadComponents();
+    };
     // MODAL
     GUI.setModal = this._showModalOverlay.bind(this);
     GUI.showFullModal = function({element="#full-screen-modal", show=true} = {}) {
@@ -483,7 +516,7 @@ const ApplicationTemplate = function({ApplicationService}) {
       viewport.ViewportService.showMap();
     };
 
-    GUI.showContextualMap = function(perc,split) {
+    GUI.showContextualMap = function(perc, split) {
       perc = perc || 30;
       viewport.ViewportService.showContextualMap({
         perc: perc,
@@ -621,5 +654,5 @@ ApplicationTemplate.fail = function({language='en', error }) {
 };
 
 
-module.exports = ApplicationTemplate;
+module.exports =  ApplicationTemplate;
 

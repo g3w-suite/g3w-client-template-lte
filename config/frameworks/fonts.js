@@ -11,7 +11,7 @@ const Fonts = {
         tool: "fa fa-gear",
         search: "fa fa-search",
         print: "fa fa-print",
-        info: "fa fa-info",
+        info: "fa fa-info-circle",
         'info-circle': "fa fa-info-circle",
         globe: "fa fa-globe",
         mail: "fa fa-envelope-o",
@@ -77,8 +77,11 @@ const Fonts = {
         draw: "fa fa-plus",
         chart: "fa fa-bar-chart",
         run: "fa fa-play",
-        warning:"fa fa-exclamation-triangle",
-        crosshairs: "fa fa-crosshairs"
+        warning:"fa fa-exclamation-circle",
+        alert: "a fa-exclamation-triangle",
+        crosshairs: "fa fa-crosshairs",
+        success: "fa fa-check-circle-o",
+        back: "fa fa-chevron-circle-left"
       },
       '5': {
         'change-map': "fas fa-map-signs",
@@ -90,7 +93,7 @@ const Fonts = {
         tool: "fas fa-cog",
         search: "fas fa-search",
         print: "fas fa-print",
-        info: "fas fa-info",
+        info: "fas fa-info-circle",
         'info-circle': "fas fa-info-circle",
         globe: "fas fa-globe",
         mail: "fas fa-envelope",
@@ -152,8 +155,11 @@ const Fonts = {
         draw: "fas fa-draw-polygon",
         chart: "fas fa-chart-bar",
         run: "fas fa-play",
-        warning: "fas fa-exclamation-triangle",
-        crosshairs: "fas fa-crosshairs"
+        warning: "fas fa-exclamation-circle",
+        alert: "fas fa-exclamation-triangle",
+        crosshairs: "fas fa-crosshairs",
+        success: "far fa-check-circle",
+        back: "fas fa-chevron-circle-left"
       }
     }
   }
