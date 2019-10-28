@@ -28,7 +28,7 @@
     <div v-if="(showtitle && contentTitle) || previousTitle || (state.content.closable && state.content.aside)" class="close-panel-block">
       <div v-if="previousTitle" class="g3w_contents_back">
         <span  @click="gotoPreviousContent()">
-          <span :class="g3wtemplate.getFontClass('arrow-left')"></span>{{ previousTitle }}
+          <span :class="g3wtemplate.getFontClass('back')"></span>{{ previousTitle }}
         </span>
       </div>
       <span v-if="state.content.closable && state.content.aside" @click="closeContent" class="g3w-span-button fa-stack fa-lg pull-right">
@@ -46,9 +46,3 @@
     <div v-show="state.content.loading" class="bar-loader"></div>
   </div>
 </div>
-<script>
-  import Usermessage from "../components/vue/usermessage";
-  export default {
-    components: {Usermessage}
-  }
-</script>

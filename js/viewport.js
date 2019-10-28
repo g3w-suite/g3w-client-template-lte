@@ -233,8 +233,8 @@ const ViewportService = function() {
     this._showView('content', options);
     this._components.content.setContent(options)
       .then(() => {
-        this._layoutComponents();
         this._immediateComponentsLayout = true;
+        this._layoutComponents('show-content');
       });
   };
 
@@ -243,7 +243,7 @@ const ViewportService = function() {
     const prevContentPerc = this.state.secondaryPerc;
     this.state.secondaryPerc = !!bool ? 0: perc;
     this.state.secondaryVisible = !bool;
-    this._layout();
+    this._layout('hide-content');
     // return previous percentage
     return prevContentPerc;
   };
@@ -264,10 +264,9 @@ const ViewportService = function() {
       this._showView('content', data.options);
       this._components.content.popContent()
         .then(() => {
-          this._layoutComponents();
-          this._immediateComponentsLayout = true;
           this.state.secondaryPerc = data.options.perc;
-          this._layout();
+          this._immediateComponentsLayout = true;
+          this._layout('pop-content');
           d.resolve(this._components.contentgetCurrentContentData)
         })
     } else
@@ -285,7 +284,7 @@ const ViewportService = function() {
     if (this.isContentOpen()) {
       this._components.content.removeContent();
       // close secondari view( return a promise)
-      this.closeSecondaryView()
+      this.closeSecondaryView('close-content')
         .then(() => {
           //recover default map
           const mapComponent = this.recoverDefaultMap();
@@ -310,13 +309,8 @@ const ViewportService = function() {
   this.removeContent = function() {
     // check if backonclose proprerty is  true o false
     // to remove all content stack or just last component
-    if (this.state.content.backonclose && this.state.content.contentsdata.length > 1) {
-      this.popContent();
-    } else {
-      this._components.content.removeContent();
-      this.recoverDefaultMap();
-      return this.closeSecondaryView();
-    }
+    if (this.state.content.backonclose && this.state.content.contentsdata.length > 1) this.popContent();
+    else return this.closeContent();
   };
 
   this.isPrimaryView = function(viewName) {
@@ -324,14 +318,12 @@ const ViewportService = function() {
   };
 
   this.setPrimaryView = function(viewTag) {
-    if (this.state.primaryView != viewTag) {
-      this.state.primaryView = viewTag;
-    }
+    if (this.state.primaryView !== viewTag) this.state.primaryView = viewTag;
     this._layout();
   };
 
-  this.showPrimaryView = function(perc) {
-    if (perc && this.state.secondaryVisible && this.state.secondaryPerc == 100) {
+  this.showPrimaryView = function(perc=null) {
+    if (perc && this.state.secondaryVisible && this.state.secondaryPerc === 100) {
       this.state.secondaryPerc = 100 - perc;
       this._layout();
     }
@@ -345,22 +337,21 @@ const ViewportService = function() {
   };
 
   // close secondary view
-  this.closeSecondaryView = function(componentId) {
+  this.closeSecondaryView = function(event=null) {
     const d = $.Deferred();
     const secondaryViewComponent = this._components[this._otherView(this.state.primaryView)];
     if (secondaryViewComponent.clearContents) {
       secondaryViewComponent.clearContents()
         .then(() => {
           this.state.secondaryVisible = false;
-          this._layout();
+          this._layout(event);
           Vue.nextTick(() => {
             d.resolve();
           })
         });
-    }
-    else {
+    } else {
       this.state.secondaryVisible = false;
-      this._layout();
+      this._layout(event);
       Vue.nextTick(() => {
         d.resolve();
       })
@@ -374,15 +365,15 @@ const ViewportService = function() {
 
   // return the opposite view
   this._otherView = function(viewName) {
-    return (viewName == 'map') ? 'content' : 'map';
+    return (viewName === 'map') ? 'content' : 'map';
   };
 
   this._isSecondary = function(view) {
-    return this.state.primaryView != view;
+    return this.state.primaryView !== view;
   };
 
   this._setPrimaryView = function(viewTag) {
-    if (this.state.primaryView != viewTag) {
+    if (this.state.primaryView !== viewTag) {
       this.state.primaryView = viewTag;
     }
   };
@@ -429,9 +420,7 @@ const ViewportService = function() {
         contentEl.css('padding-left',toggleWidth + 5);
         reducedWidth = (toggleWidth - 5);
       }
-    } else {
-      contentEl.css('padding-left', 15);
-    }
+    } else contentEl.css('padding-left', 15);
     return {
       reducedWidth: reducedWidth,
       reducedHeight: reducedHeight
@@ -439,16 +428,14 @@ const ViewportService = function() {
   };
 
   //main layout function
-  this._layout = function() {
+  this._layout = function(event=null) {
     const splitClassToAdd = (this.state.split === 'h') ? 'split-h' : 'split-v';
     const splitClassToRemove =  (this.state.split === 'h') ? 'split-v' : 'split-c';
     $(".g3w-viewport .g3w-view").addClass(splitClassToAdd);
     $(".g3w-viewport .g3w-view").removeClass(splitClassToRemove);
     const reducesdSizes = this._getReducedSizes();
     this._setViewSizes(reducesdSizes.reducedWidth,reducesdSizes.reducedHeight);
-    if (this._immediateComponentsLayout) {
-      this._layoutComponents();
-    }
+    if (this._immediateComponentsLayout) this._layoutComponents(event);
   };
 
   this._setViewSizes = function() {
@@ -496,8 +483,8 @@ const ViewportService = function() {
 
   // load components of  viewport
   // after right size setting
-  this._layoutComponents = function() {
-    Vue.nextTick(() => {
+  this._layoutComponents = function(event=null) {
+    requestAnimationFrame(() => {
       const reducesdSizes = this._getReducedSizes();
       const reducedWidth = reducesdSizes.reducedWidth || 0;
       const reducedHeight = reducesdSizes.reducedHeight || 0;
@@ -506,7 +493,10 @@ const ViewportService = function() {
         const width = this.state[name].sizes.width - reducedWidth ;
         const height = this.state[name].sizes.height - reducedHeight;
         component.layout(width, height);
-      })
+      });
+      if (event) setTimeout(()=> {
+        this.emit(event);
+      }, 0)
     });
   };
 
@@ -523,7 +513,7 @@ const ViewportService = function() {
       if (resizeFired === true) {
         resizeFired = false;
         drawing = true;
-        this._layout(true);
+        this._layout('resize');
         requestAnimationFrame(drawResize);
       } else {
         drawing = false;
@@ -542,7 +532,7 @@ const ViewportService = function() {
       if ((secondaryViewMinHeight != "") && !_.isNaN(parseFloat(secondaryViewMinHeight))) {
         this._secondaryViewMinHeight =  parseFloat(secondaryViewMinHeight);
       }
-      this._layout(true);
+      this._layout();
       GUI.on('guiresized',() => {
         triggerResize();
       });
