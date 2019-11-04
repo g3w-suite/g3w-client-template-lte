@@ -55,11 +55,7 @@ const InternalComponent = Vue.extend({
       return src
     }
   },
-  mounted: function() {
-    this.$nextTick(() => {
-      $("#menu-projects.nano").nanoScroller();
-    })
-  }
+  mounted(){}
 });
 
 function MenuComponent(options={}){
