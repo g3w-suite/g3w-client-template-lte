@@ -68,8 +68,7 @@ const ViewportService = function() {
   // attributo che serve per
   this._immediateComponentsLayout = true;
   /* PLUBILC INTARFACE */
-  this.init = function(options) {
-    var options = options || {};
+  this.init = function(options={}) {
     // check if it set primary view (map is default)
     this.state.primaryView = options.primaryview ? options.primaryview : 'map';
     // check splitting property
