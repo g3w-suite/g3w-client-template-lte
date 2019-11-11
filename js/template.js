@@ -126,14 +126,12 @@ const ApplicationTemplate = function({ApplicationService}) {
 
   //Vue app
   this._createApp = function() {
-    const store = ApplicationService.getStore();
     const self = this;
     if (isMobile.any) {
       $('body').addClass('sidebar-collapse');
     }
     return new Vue({
       el: '#app',
-      store,
       created() {
         // set general metods for the application as  GUI.showForm etc ..
         self._setupInterface();
@@ -154,7 +152,7 @@ const ApplicationTemplate = function({ApplicationService}) {
           self.emit('ready');
           //getSkinColor
           const skinColor = $('.navbar').css('background-color');
-          GUI.skinColor = `#${skinColor.substr(4, skinColor.indexOf(')') - 4).split(',').map((color) => parseInt(color).toString(16)).join('')}`;
+          GUI.skinColor = skinColor && `#${skinColor.substr(4, skinColor.indexOf(')') - 4).split(',').map((color) => parseInt(color).toString(16)).join('')}`;
           GUI.ready();
         });
       }
@@ -266,21 +264,20 @@ const ApplicationTemplate = function({ApplicationService}) {
   this._addComponent = function(component, placeholder, options={}) {
     this._addComponents([component], placeholder, options);
   };
+
   // registry component
   this._addComponents = function(components, placeholder, options) {
     let register = true;
     if (placeholder && ApplicationTemplate.PLACEHOLDERS.indexOf(placeholder) > -1) {
       const placeholderService = ApplicationTemplate.Services[placeholder];
-      if (placeholderService) {
+      if (placeholderService)
         register = placeholderService.addComponents(components, options);
-      }
     }
     Object.entries(components).forEach(([key, component])=> {
-      if (register) {
-        ComponentsRegistry.registerComponent(component);
-      }
+      register && ComponentsRegistry.registerComponent(component);
     })
   };
+
 
   this._removeComponent = function(componentId) {
     ComponentsRegistry.unregisterComponent(componentId);
@@ -293,10 +290,12 @@ const ApplicationTemplate = function({ApplicationService}) {
       mapService.stopDrawGreyCover();
     }
   };
+
   this._showSidebar = function() {
     $('body').addClass('sidebar-open');
     $('body').removeClass('sidebar-collapse')
   };
+
   this._hideSidebar = function() {
     $('body').removeClass('sidebar-open');
     $('body').addClass('sidebar-collapse')

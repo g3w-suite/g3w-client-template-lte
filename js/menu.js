@@ -48,11 +48,10 @@ const InternalComponent = Vue.extend({
     },
     logoSrc: function(src) {
       if (src) {
-        if (src.indexOf('static') == -1 && src.indexOf('media') == -1)
+        if (src.indexOf('static') === -1 && src.indexOf('media') === -1)
           src = ProjectsRegistry.config.mediaurl + src;
-      } else {
+      } else
         src = '/static/client/images/FakeProjectThumb.png';
-      }
       return src
     }
   },
@@ -63,8 +62,7 @@ const InternalComponent = Vue.extend({
   }
 });
 
-function MenuComponent(options){
-  options = options || {};
+function MenuComponent(options={}){
   base(this,options);
   this.title = options.title || "menu";
   this.state.visible = true;
