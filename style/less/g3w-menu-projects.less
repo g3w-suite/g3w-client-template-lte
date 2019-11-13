@@ -36,7 +36,13 @@
   padding-left: 3px;
 }
 
-#menu-projects .row-equal {
-  display: flex;
-  flex-wrap: wrap;
+#menu-projects {
+  &.container {
+    padding: 5px;
+    overflow-y: auto;
+  }
+ .row-equal {
+    display: flex;
+    flex-wrap: wrap;
+  }
 }
