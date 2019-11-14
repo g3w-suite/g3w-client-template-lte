@@ -574,6 +574,7 @@ const ApplicationTemplate = function({ApplicationService}) {
     };
 
     GUI._setContent = (options={}) => {
+      GUI.closeUserMessage();
       options.content = options.content || null;
       options.title = options.title || "";
       options.push = _.isBoolean(options.push) ? options.push : false;
