@@ -6,6 +6,9 @@ const ComponentsRegistry = require('sdk/gui/componentsregistry');
 const GUI = require('sdk/gui/gui');
 const VueTemplatePlugin = require('./vuetemplateplugin');
 
+// // start to sue composition api
+// Vue.use(vueCompositionApi.default);
+
 // install template information library (es. classes etc..)
 Vue.use(VueTemplatePlugin, {
   font:{
@@ -434,7 +437,7 @@ const ApplicationTemplate = function({ApplicationService}) {
     GUI.closeUserMessage = function() {
       viewport.ViewportService.closeUserMessage();
     };
-
+    
     /* ------------------ */
 
     GUI.notify = {
