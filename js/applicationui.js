@@ -2,7 +2,7 @@ const ApplicationService = require('core/applicationservice');
 const ProjectsRegistry = require('core/project/projectsregistry');
 const uniqueId = require('core/utils/utils').uniqueId;
 const ProjectsMenuComponent = require('./projectsmenu');
-const HeaderLinkComponent = require('./headerlink');
+const HeaderItem = require('./headeritem');
 const GUI = require('sdk/gui/gui');
 const layout = require('./layout');
 const AppUI = Vue.extend({
@@ -14,7 +14,7 @@ const AppUI = Vue.extend({
     }
   },
   components: {
-    'header-link': HeaderLinkComponent
+    HeaderItem
   },
   mounted: function() {
     this.$nextTick(function(){

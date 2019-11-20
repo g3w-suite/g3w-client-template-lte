@@ -1,6 +1,6 @@
-const HeaderLinkComponent = {
+const HeaderItemComponent = {
   props: ['state'],
-  template: require('../html/headerlink.html'),
+  template: require('../html/headeritem.html'),
   methods: {
     showCustomModal(id) {
       this.$emit('show-custom-modal-content', id)
@@ -11,4 +11,4 @@ const HeaderLinkComponent = {
   }
 };
 
-module.exports = HeaderLinkComponent;
+module.exports = HeaderItemComponent;
