@@ -274,25 +274,20 @@ const ApplicationTemplate = function({ApplicationService}) {
     let register = true;
     if (placeholder && ApplicationTemplate.PLACEHOLDERS.indexOf(placeholder) > -1) {
       const placeholderService = ApplicationTemplate.Services[placeholder];
-      if (placeholderService)
-        register = placeholderService.addComponents(components, options);
+      if (placeholderService) register = placeholderService.addComponents(components, options);
     }
     Object.entries(components).forEach(([key, component])=> {
       register && ComponentsRegistry.registerComponent(component);
     })
   };
 
-
   this._removeComponent = function(componentId) {
     ComponentsRegistry.unregisterComponent(componentId);
   };
+
   this._showModalOverlay = function(bool=false, message) {
     const mapService = GUI.getComponent('map').getService();
-    if (bool) {
-      mapService.startDrawGreyCover(message);
-    } else {
-      mapService.stopDrawGreyCover();
-    }
+    bool && mapService.startDrawGreyCover(message) || mapService.stopDrawGreyCover();
   };
 
   this._showSidebar = function() {
@@ -437,7 +432,7 @@ const ApplicationTemplate = function({ApplicationService}) {
     GUI.closeUserMessage = function() {
       viewport.ViewportService.closeUserMessage();
     };
-    
+
     /* ------------------ */
 
     GUI.notify = {
@@ -469,6 +464,10 @@ const ApplicationTemplate = function({ApplicationService}) {
     };
     // proxy  bootbox library
     GUI.dialog = bootbox;
+    //modal dialog//
+    GUI.showModalDialog = function(options={}) {
+      return GUI.dialog.dialog(options);
+    };
     /* spinner */
     GUI.showSpinner = function(options={}){
       const container = options.container || 'body';
