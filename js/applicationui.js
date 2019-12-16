@@ -1,18 +1,20 @@
 const ApplicationService = require('core/applicationservice');
 const ProjectsRegistry = require('core/project/projectsregistry');
+const uniqueId = require('core/utils/utils').uniqueId;
 const ProjectsMenuComponent = require('./projectsmenu');
-const HeaderLinkComponent = require('./headerlink');
+const HeaderItem = require('./headeritem');
 const GUI = require('sdk/gui/gui');
 const layout = require('./layout');
 const AppUI = Vue.extend({
   template: require('../html/app.html'),
   data() {
     return {
-      customcredits: false
+      customcredits: false,
+      current_custom_modal_content: null
     }
   },
   components: {
-    'header-link': HeaderLinkComponent
+    HeaderItem
   },
   mounted: function() {
     this.$nextTick(function(){
@@ -44,11 +46,6 @@ const AppUI = Vue.extend({
     },
     appconfig() {
       return ApplicationService.getConfig();
-    },
-    customlinks() {
-      return Array.isArray(this.appconfig.header_custom_links) ? this.appconfig.header_custom_links.filter((header_link) => {
-        return header_link !== null
-      }): [];
     },
     isIframe() {
       return !!this.appconfig.group.layout.iframe;
@@ -98,6 +95,10 @@ const AppUI = Vue.extend({
     },
   },
   methods: {
+    showCustomModalContent(id){
+      const {content} = this.custom_modals.find(custommodal => custommodal.id === id);
+      this.current_custom_modal_content = content;
+    },
     closePanel: function(){
       sidebarService.closePanel();
     },
@@ -123,6 +124,29 @@ const AppUI = Vue.extend({
     }
   },
   created() {
+    this.custom_modals = [];
+    this.custom_header_items_position = {
+      0: [],
+      1: [],
+      2: [],
+      3: [],
+      4: []
+    };
+    this.customlinks = Array.isArray(this.appconfig.header_custom_links) ? this.appconfig.header_custom_links.filter((customitem) => {
+      if (customitem !== null) {
+        const id = customitem.id = uniqueId();
+        customitem.type === 'modal' && this.custom_modals.push({
+          id,
+          content: customitem.content
+        });
+        let position = 1*(customitem.position || 0);
+        position = position > 4 ? 4 : position < 0 || Number.isNaN(position)? 0 : position;
+        this.custom_header_items_position[position].push(customitem);
+        return true
+      }
+      return false;
+    }): [];
+
     !!this.appconfig.credits && $.get(this.appconfig.credits).then((credits)=> {
       this.customcredits = credits !== 'None' && credits
     });

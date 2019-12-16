@@ -83,8 +83,7 @@
       closeUserMessage(){
         this.$emit('close-usermessage')
       },
-      hideShow() {
-      }
+      hideShow() {}
     },
     created() {
       let [where, alignement] = this.position.split('-');

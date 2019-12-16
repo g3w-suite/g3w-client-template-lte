@@ -24,33 +24,30 @@ const InternalComponent = Vue.extend({
         });
         GUI.setLoadingContent(true);
         item.cbk.apply(item)
-          .then(() => {})
-          .fail(() => {
-            GUI.notify.error("<h4>" + t("error_map_loading") + "</h4>" +
-              "<h5>"+ t("check_internet_connection_or_server_admin") + "</h5>");
+          .then((promise) => {
+            //changeProject is a setter so it return a promise
+            promise
+              .then(()=>{})
+              .fail(() => {
+                GUI.notify.error("<h4>" + t("error_map_loading") + "</h4>" +
+                  "<h5>"+ t("check_internet_connection_or_server_admin") + "</h5>");
+              })
+              .always(() => {
+                GUI.showFullModal({
+                  show: false
+                });
+                GUI.setLoadingContent(false);
+              })
           })
-          .always(() => {
-            GUI.showFullModal({
-              show: false
-            });
-            GUI.setLoadingContent(false);
-          })
       }
-      else if (item.href) {
-        window.open(item.href, '_blank');
-      }
-      else if (item.route) {
-        GUI.goto(item.route);
-      }
-      else {
-        console.log("No action for "+item.title);
-      }
+      else if (item.href) window.open(item.href, '_blank');
+      else if (item.route) GUI.goto(item.route);
+      else console.log("No action for "+item.title);
     },
     logoSrc: function(src) {
-      if (src) {
-        if (src.indexOf('static') === -1 && src.indexOf('media') === -1)
-          src = ProjectsRegistry.config.mediaurl + src;
-      } else
+      if (src)
+        if (src.indexOf('static') === -1 && src.indexOf('media') === -1) src = ProjectsRegistry.config.mediaurl + src;
+      else
         src = '/static/client/images/FakeProjectThumb.png';
       return src
     }
@@ -73,9 +70,7 @@ inherit(MenuComponent, Component);
 
 const proto = MenuComponent.prototype;
 
-proto.trigger = function(item) {
-
-};
+proto.trigger = function(item) {};
 
 module.exports = MenuComponent;
 

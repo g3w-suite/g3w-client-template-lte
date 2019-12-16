@@ -6,6 +6,9 @@ const ComponentsRegistry = require('sdk/gui/componentsregistry');
 const GUI = require('sdk/gui/gui');
 const VueTemplatePlugin = require('./vuetemplateplugin');
 
+// // start to sue composition api
+// Vue.use(vueCompositionApi.default);
+
 // install template information library (es. classes etc..)
 Vue.use(VueTemplatePlugin, {
   font:{
@@ -271,25 +274,20 @@ const ApplicationTemplate = function({ApplicationService}) {
     let register = true;
     if (placeholder && ApplicationTemplate.PLACEHOLDERS.indexOf(placeholder) > -1) {
       const placeholderService = ApplicationTemplate.Services[placeholder];
-      if (placeholderService)
-        register = placeholderService.addComponents(components, options);
+      if (placeholderService) register = placeholderService.addComponents(components, options);
     }
     Object.entries(components).forEach(([key, component])=> {
       register && ComponentsRegistry.registerComponent(component);
     })
   };
 
-
   this._removeComponent = function(componentId) {
     ComponentsRegistry.unregisterComponent(componentId);
   };
+
   this._showModalOverlay = function(bool=false, message) {
     const mapService = GUI.getComponent('map').getService();
-    if (bool) {
-      mapService.startDrawGreyCover(message);
-    } else {
-      mapService.stopDrawGreyCover();
-    }
+    bool && mapService.startDrawGreyCover(message) || mapService.stopDrawGreyCover();
   };
 
   this._showSidebar = function() {
@@ -466,6 +464,10 @@ const ApplicationTemplate = function({ApplicationService}) {
     };
     // proxy  bootbox library
     GUI.dialog = bootbox;
+    //modal dialog//
+    GUI.showModalDialog = function(options={}) {
+      return GUI.dialog.dialog(options);
+    };
     /* spinner */
     GUI.showSpinner = function(options={}){
       const container = options.container || 'body';
@@ -574,6 +576,7 @@ const ApplicationTemplate = function({ApplicationService}) {
     };
 
     GUI._setContent = (options={}) => {
+      GUI.closeUserMessage();
       options.content = options.content || null;
       options.title = options.title || "";
       options.push = _.isBoolean(options.push) ? options.push : false;
