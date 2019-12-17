@@ -224,22 +224,20 @@ Licensed under MIT
 }
 
 #baselayers {
-  ul {
-    display:flex;
-    flex-wrap:wrap;
+  #baselayers-content {
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 5px;
     padding: 0;
-    justify-content: space-around;
-    li {
+    .baselayer {
       cursor: pointer;
-      width: 45%;
-      @media (min-width: 320px) and (max-width: 480px) {
-        width: 35%
-      }
-      div.text-center {
+      .baselayer-name {
         font-weight: bold;
         white-space: pre-line;
+        text-align: center;
       }
     }
+
   }
 }
 

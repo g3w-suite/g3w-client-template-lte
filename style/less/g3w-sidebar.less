@@ -16,6 +16,18 @@
   color: white;
   .g3w-sidebarpanel {
     padding: 10px 15px 10px 15px;
+    .g3w-panel {
+      .g3w-panel-form {
+        &.disabled {
+
+        }
+        button.run_button {
+          margin-top: 5px;
+          font-weight: bold;
+        }
+      }
+
+    }
   }
   .g3w-sidebarpanel-placeholder {
     margin-top: 10px;
@@ -61,7 +73,7 @@
   }
 
 
-  .sidebar-menu > li {
+  .sidebar-menu > li , .sidebar-divider{
     border-bottom: 1px solid #21292d;
     &:last-child {
       border:0;
