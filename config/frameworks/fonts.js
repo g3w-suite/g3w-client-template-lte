@@ -81,7 +81,8 @@ const Fonts = {
         alert: "a fa-exclamation-triangle",
         crosshairs: "fa fa-crosshairs",
         success: "fa fa-check-circle-o",
-        back: "fa fa-chevron-circle-left"
+        back: "fa fa-chevron-circle-left",
+        'file-upload': "fa fa-file-upload"
       },
       '5': {
         'change-map': "fas fa-map-signs",
@@ -159,7 +160,8 @@ const Fonts = {
         alert: "fas fa-exclamation-triangle",
         crosshairs: "fas fa-crosshairs",
         success: "far fa-check-circle",
-        back: "fas fa-chevron-circle-left"
+        back: "fas fa-chevron-circle-left",
+        'file-upload': "fas fa-file-upload"
       }
     }
   }
