@@ -153,11 +153,13 @@ const ApplicationTemplate = function({ApplicationService}) {
           self._setUpTemplateDependencies(this);
           $(document).localize();
           self._setViewport(self.templateConfig.viewport);
-          self.emit('ready');
-          //getSkinColor
           const skinColor = $('.navbar').css('background-color');
           GUI.skinColor = skinColor && `#${skinColor.substr(4, skinColor.indexOf(')') - 4).split(',').map((color) => parseInt(color).toString(16)).join('')}`;
-          GUI.ready();
+          this.$nextTick(()=> {
+            self.emit('ready');
+            //getSkinColor
+            GUI.ready();
+          })
         });
       }
     });

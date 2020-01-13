@@ -132,8 +132,8 @@ proto._setVueContent = function(content, options) {
     // content: componet object
     // options: es. title, perc etc ...
     this.state.contentsdata.push({
-      content: content,
-      options: options
+      content,
+      options
     });
     d.resolve(content);
   });
