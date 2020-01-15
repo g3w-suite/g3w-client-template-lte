@@ -2,6 +2,7 @@ const t = require('sdk/core/i18n/i18n.service').t;
 const inherit = require('sdk/core/utils/utils').inherit;
 const base = require('sdk/core/utils/utils').base;
 const G3WObject = require('sdk/core/g3wobject');
+const ProjectsMenuComponent = require('./projectsmenu');
 const ComponentsRegistry = require('sdk/gui/componentsregistry');
 const GUI = require('sdk/gui/gui');
 const VueTemplatePlugin = require('./vuetemplateplugin');
@@ -608,6 +609,24 @@ const ApplicationTemplate = function({ApplicationService}) {
 
     GUI.setLoadingContent = function(loading = false) {
       ApplicationTemplate.Services.viewport.setLoadingContent(loading);
+    };
+
+    GUI.openProjectsMenu = function() {
+      const contentsComponent = GUI.getComponent('contents');
+      // check if is projectmenucomponent
+      if (contentsComponent.getComponentById('projectsmenu')) {
+        GUI.closeContent();
+      } else {
+        if (this.isMobile()) {
+          GUI.hideSidebar();
+          $('#main-navbar.navbar-collapse').removeClass('in');
+        }
+        GUI.setContent({
+          content: new ProjectsMenuComponent(),
+          title: '',
+          perc:100
+        });
+      }
     }
 
     /* END VIEWPORT */

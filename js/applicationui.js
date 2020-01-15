@@ -1,7 +1,6 @@
 const ApplicationService = require('core/applicationservice');
 const ProjectsRegistry = require('core/project/projectsregistry');
 const uniqueId = require('core/utils/utils').uniqueId;
-const ProjectsMenuComponent = require('./projectsmenu');
 const HeaderItem = require('./headeritem');
 const GUI = require('sdk/gui/gui');
 const layout = require('./layout');
@@ -106,21 +105,7 @@ const AppUI = Vue.extend({
       return this.appconfig.logo_link ? this.appconfig.logo_link: null;
     },
     openProjectsMenu: function() {
-      const contentsComponent = GUI.getComponent('contents');
-      // check if is projectmenucomponent
-      if (contentsComponent.getComponentById('projectsmenu')) {
-        GUI.closeContent();
-      } else {
-        if (this.isMobile()) {
-          GUI.hideSidebar();
-          $('#main-navbar.navbar-collapse').removeClass('in');
-        }
-        GUI.setContent({
-          content: new ProjectsMenuComponent(),
-          title: '',
-          perc:100
-        });
-      }
+      GUI.openProjectsMenu();
     }
   },
   created() {
