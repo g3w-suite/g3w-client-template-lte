@@ -10,18 +10,16 @@ function ProjectsMenuComponent(options) {
   this.state.menuitems = [];
   const ApplicationService = require('core/applicationservice');
   const projects = ProjectRegistry.getListableProjects();
-  projects.forEach((project) => {
-    this.state.menuitems.push({
-      title: project.title,
-      description: project.description,
-      thumbnail: project.thumbnail,
-      cbk: function() {
-        return ApplicationService.changeProject({
-          gid: project.gid
-        })
-      }
-    })
-  });
+  this.state.menuitems = projects.map((project) => ({
+    title: project.title,
+    description: project.description,
+    thumbnail: project.thumbnail,
+    cbk: function() {
+      return ApplicationService.changeProject({
+        gid: project.gid
+      })
+    }
+  }));
 }
 
 inherit(ProjectsMenuComponent, MenuComponent);

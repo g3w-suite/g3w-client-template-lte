@@ -45,11 +45,11 @@ const InternalComponent = Vue.extend({
       else console.log("No action for "+item.title);
     },
     logoSrc: function(src) {
-      if (src)
-        if (src.indexOf('static') === -1 && src.indexOf('media') === -1) src = ProjectsRegistry.config.mediaurl + src;
-      else
-        src = '/static/client/images/FakeProjectThumb.png';
-      return src
+      const fakeImage = '/static/client/images/FakeProjectThumb.png';
+      if (src) {
+        return src.indexOf(ProjectsRegistry.config.mediaurl) !== -1 ? src : (src.indexOf('static') === -1 && src.indexOf('media') === -1) ?
+          `${ProjectsRegistry.config.mediaurl}${src}`: fakeImage;
+      } else return fakeImage;
     }
   },
   mounted(){}

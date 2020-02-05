@@ -290,7 +290,8 @@ const ApplicationTemplate = function({ApplicationService}) {
 
   this._showModalOverlay = function(bool=false, message) {
     const mapService = GUI.getComponent('map').getService();
-    bool && mapService.startDrawGreyCover(message) || mapService.stopDrawGreyCover();
+    if (bool) mapService.startDrawGreyCover(message);
+    else mapService.stopDrawGreyCover();
   };
 
   this._showSidebar = function() {
