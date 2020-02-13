@@ -424,8 +424,8 @@ const ApplicationTemplate = function({ApplicationService}) {
 
     GUI.removeNavBarItem = function() {};
 
-    GUI.showPanel = _.bind(sidebar.SidebarService.showPanel, sidebar.SidebarService);
-    GUI.closePanel = _.bind(sidebar.SidebarService.closePanel, sidebar.SidebarService);
+    GUI.showPanel = sidebar.SidebarService.showPanel.bind(sidebar.SidebarService);
+    GUI.closePanel = sidebar.SidebarService.closePanel.bind(sidebar.SidebarService);
 
     //showusermessage
 
