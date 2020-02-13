@@ -560,13 +560,14 @@ inherit(ViewportService, G3WObject);
 
 //singleton
 const viewportService = new ViewportService;
+const compiledTemplate = Vue.compile(require('../html/viewport.html'));
 
 // COMPONENTE VUE VIEWPORT
 const ViewportComponent = Vue.extend({
   components: {
     userMessage
   },
-  template: require('../html/viewport.html'),
+  ...compiledTemplate,
   data: function() {
     return {
       state: viewportService.state,

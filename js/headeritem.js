@@ -1,6 +1,7 @@
+const compiledTemplate = Vue.compile(require('../html/headeritem.html'));
 const HeaderItemComponent = {
   props: ['state'],
-  template: require('../html/headeritem.html'),
+  ...compiledTemplate,
   methods: {
     showCustomModal(id) {
       this.$emit('show-custom-modal-content', id)

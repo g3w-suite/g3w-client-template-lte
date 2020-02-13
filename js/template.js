@@ -669,9 +669,10 @@ ApplicationTemplate.fail = function({language='en', error }) {
       f5: "Press Ctrl+F5"
     }
   };
+  const compiledTemplate = Vue.compile(require('../html/500.html'));
   const app = new Vue({
     el: '#app',
-    template: require('../html/500.html'),
+    ...compiledTemplate,
     data: {
       messages: error_page[language]
     }

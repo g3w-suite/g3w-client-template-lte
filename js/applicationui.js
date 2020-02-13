@@ -4,8 +4,9 @@ const uniqueId = require('core/utils/utils').uniqueId;
 const HeaderItem = require('./headeritem');
 const GUI = require('sdk/gui/gui');
 const layout = require('./layout');
+const compiledTemplate = Vue.compile(require('../html/app.html'));
 const AppUI = Vue.extend({
-  template: require('../html/app.html'),
+  ...compiledTemplate,
   data() {
     return {
       customcredits: false,

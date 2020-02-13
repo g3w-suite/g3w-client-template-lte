@@ -3,13 +3,14 @@ const inherit = require('sdk/core/utils/utils').inherit;
 const Stack = require('./barstack.js');
 const G3WObject = require('sdk/core/g3wobject');
 const base = require('sdk/core/utils/utils').base;
+const compiledSideBarItemTemplate = Vue.compile(require('../html/sidebar-item.html'));
 
 const SIDEBAREVENTBUS = new Vue();
 
 //sidebar item is a <li> dom element of the sidebar . Where is possible set
 //title, icon type etc ..  is possible to customize component
 const SidebarItem = Vue.extend({
-  template: require('../html/sidebar-item.html'),
+  ...compiledSideBarItemTemplate,
   data: function() {
     return {
         info: this.$options.info || {
@@ -194,9 +195,9 @@ function SidebarService() {
 inherit(SidebarService, G3WObject);
 
 const sidebarService = new SidebarService;
-
+const compiledSideBarTemplate = Vue.compile(require('../html/sidebar.html'));
 const SidebarComponent = Vue.extend({
-    template: require('../html/sidebar.html'),
+    ...compiledSideBarTemplate,
     props: {
       iframe: {
         type: Boolean,

@@ -23,9 +23,10 @@ function navbaritemsService() {
 inherit(navbaritemsService, G3WObject);
 
 const navbaritemsservice = new navbaritemsService();
+const compiledTemplate = Vue.compile(require('../html/navbarleftitems.html'));
 
 const NavbarLeftItemsComponent = Vue.extend({
-  template: require('../html/navbarleftitems.html'),
+  ...compiledTemplate,
   data: function() {
     return {
       items: navbaritemsservice.state.items.left

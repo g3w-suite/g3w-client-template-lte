@@ -5,9 +5,10 @@ const merge = require('core/utils/utils').merge;
 const Component = require('gui/vue/component');
 const GUI = require('gui/gui');
 const ProjectsRegistry = require('core/project/projectsregistry');
+const compiledTemplate = Vue.compile(require('../html/menu.html'));
 
 const InternalComponent = Vue.extend({
-  template: require('../html/menu.html'),
+  ...compiledTemplate,
   data: function() {
     return {
       state: null,
