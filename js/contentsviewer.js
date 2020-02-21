@@ -6,7 +6,7 @@ const compiledTemplate = Vue.compile(require('../html/contentsviewer.html'));
 
 // Internal Component (VUE) of the content of the  viewport
 const InternalComponent = Vue.extend({
-  ...compiledTemplate, //  <div id="contents" class="contents"></div>
+  ...compiledTemplate,
   data: function() {
     return {
       state: null

@@ -399,7 +399,7 @@ const ApplicationTemplate = function({ApplicationService}) {
     };
 
     GUI.closeContent = function() {
-      this.emit('closecontent');
+      this.emit('closecontent', false);
       return viewport.ViewportService.closeContent();
     };
 
