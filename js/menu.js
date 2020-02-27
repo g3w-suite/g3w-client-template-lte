@@ -24,8 +24,10 @@ const InternalComponent = Vue.extend({
           show: true
         });
         GUI.setLoadingContent(true);
-        item.cbk.apply(item)
-          .then((promise) => {
+        const {gid} = item;
+        item.cbk.call(item, {
+          gid
+        }).then((promise) => {
             //changeProject is a setter so it return a promise
             promise
               .then(()=>{})

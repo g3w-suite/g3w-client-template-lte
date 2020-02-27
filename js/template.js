@@ -579,6 +579,16 @@ const ApplicationTemplate = function({ApplicationService}) {
       viewport.ViewportService.collapseContent();
     };
 
+    GUI.getProjectMenuDOM = function({projects, host, cbk}={}) {
+      const options = {
+        projects: projects && Array.isArray(projects) && projects,
+        cbk,
+        host
+      };
+      const projectVueMenuComponent = new ProjectsMenuComponent(options).getInternalComponent();
+      return projectVueMenuComponent.$mount().$el;
+    };
+
     GUI._setContent = (options={}) => {
       GUI.closeUserMessage();
       options.content = options.content || null;
