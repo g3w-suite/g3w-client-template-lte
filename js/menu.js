@@ -6,6 +6,7 @@ const Component = require('gui/vue/component');
 const GUI = require('gui/gui');
 const ProjectsRegistry = require('core/project/projectsregistry');
 const compiledTemplate = Vue.compile(require('../html/menu.html'));
+const fakeImage = '/static/client/images/FakeProjectThumb.png';
 
 const InternalComponent = Vue.extend({
   ...compiledTemplate,
@@ -48,11 +49,13 @@ const InternalComponent = Vue.extend({
       else console.log("No action for "+item.title);
     },
     logoSrc: function(src) {
-      const fakeImage = '/static/client/images/FakeProjectThumb.png';
+      let imageSrc;
       if (src) {
-        return src.indexOf(ProjectsRegistry.config.mediaurl) !== -1 ? src : (src.indexOf('static') === -1 && src.indexOf('media') === -1) ?
+        imageSrc= src.indexOf(ProjectsRegistry.config.mediaurl) !== -1 ? src : (src.indexOf('static') === -1 && src.indexOf('media') === -1) ?
           `${ProjectsRegistry.config.mediaurl}${src}`: fakeImage;
-      } else return fakeImage;
+      } else
+        imageSrc = fakeImage;
+      return this.$options.host && `${this.$options.host}${imageSrc}` || imageSrc;
     }
   },
   mounted(){}
@@ -63,9 +66,11 @@ function MenuComponent(options={}){
   this.title = options.title || "menu";
   this.state.visible = true;
   this.state.menuitems = options.menuitems;
+  const host = options.host;
   merge(this, options);
   this.internalComponent = new InternalComponent({
-    service: this
+    service: this,
+    host
   });
   this.internalComponent.state = this.state;
 }
