@@ -106,7 +106,7 @@
         };
       else {
         where = {
-          [where]: 0
+          [where]: 50
         }
       }
       const position = {
@@ -185,8 +185,8 @@
 
   .usermessage-message {
     width: 100%;
-    padding: 5px;
-    max-height: 70%;
+    padding: 20px 5px 20px 5px;
+    max-height: 150px;
     font-weight: bold;
     font-size: 1.2em;
     align-self: flex-start;

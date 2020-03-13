@@ -163,7 +163,8 @@ const Fonts = {
         crosshairs: "fas fa-crosshairs",
         success: "far fa-check-circle",
         back: "fas fa-chevron-circle-left",
-        'file-upload': "fas fa-file-upload"
+        'file-upload': "fas fa-file-upload",
+        wifi : "fas fa-wifi"
       }
     }
   }
