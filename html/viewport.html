@@ -1,4 +1,5 @@
 <div class="g3w-viewport" style="position:relative">
+  <online-status :online="appState.online"></online-status>
   <transition name="fade" :duration="{ enter: 800, leave: 500 }">
     <user-message
       v-if="usermessage.show"

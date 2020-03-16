@@ -79,7 +79,7 @@
   <sidebar :iframe="isIframe"></sidebar>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" :style="{paddingTop: isIframe ? 0 : null}">
-    <viewport></viewport>
+    <viewport :appState="appState"></viewport>
   </div>
   <!-- /.content-wrapper -->
   <!-- Control Sidebar -->

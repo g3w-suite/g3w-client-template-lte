@@ -10,7 +10,8 @@ const AppUI = Vue.extend({
   data() {
     return {
       customcredits: false,
-      current_custom_modal_content: null
+      current_custom_modal_content: null,
+      appState: ApplicationService.getState()
     }
   },
   components: {

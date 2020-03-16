@@ -1,4 +1,5 @@
 import userMessage from '../components/vue/usermessage.vue';
+import onlineStatus from '../components/vue/OnlineStatus.vue';
 const inherit = require('sdk').core.utils.inherit;
 const t = require('sdk').core.i18n.t;
 const base = require('sdk').core.utils.base;
@@ -564,8 +565,14 @@ const compiledTemplate = Vue.compile(require('../html/viewport.html'));
 
 // COMPONENTE VUE VIEWPORT
 const ViewportComponent = Vue.extend({
+  props: {
+    appState: {
+      type: Object
+    }
+  },
   components: {
-    userMessage
+    userMessage,
+    onlineStatus
   },
   ...compiledTemplate,
   data: function() {
