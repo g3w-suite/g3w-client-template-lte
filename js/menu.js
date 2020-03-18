@@ -31,7 +31,8 @@ const InternalComponent = Vue.extend({
         }).then((promise) => {
             //changeProject is a setter so it return a promise
             promise
-              .then(()=>{})
+              .then((project)=>{
+              })
               .fail(() => {
                 GUI.notify.error("<h4>" + t("error_map_loading") + "</h4>" +
                   "<h5>"+ t("check_internet_connection_or_server_admin") + "</h5>");
