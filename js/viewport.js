@@ -430,7 +430,7 @@ const ViewportService = function() {
   this._layout = function(event=null) {
     const splitClassToAdd = (this.state.split === 'h') ? 'split-h' : 'split-v';
     const splitClassToRemove =  (this.state.split === 'h') ? 'split-v' : 'split-c';
-    const viewportViewElement =$(".g3w-viewport .g3w-view");
+    const viewportViewElement = $(".g3w-viewport .g3w-view");
     viewportViewElement.addClass(splitClassToAdd).removeClass(splitClassToRemove);
     const reducesdSizes = this._getReducedSizes();
     this._setViewSizes(reducesdSizes.reducedWidth,reducesdSizes.reducedHeight);

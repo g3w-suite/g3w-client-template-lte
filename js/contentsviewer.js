@@ -64,16 +64,19 @@ proto.setContent = function(options={}) {
 };
 
 proto.addContent = function(content, options) {
+  const d = $.Deferred();
   // parent element is the internal element
   options.parent = this.internalComponent.$el;
   options.append = true;
-  return this.stack.push(content, options)
-  .then(() => {
+  const promise = this.stack.push(content, options);
+  promise.then(() => {
     // get stack content
     this.contentsdata = this.stack.state.contentsdata;
     // update the visibility of the others components
     this.updateContentVisibility();
-  })
+    d.resolve();
+  });
+  return d.promise();
 };
 
 // remove content from stack
