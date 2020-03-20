@@ -127,7 +127,7 @@ proto._setVueContent = function(content, options) {
   const append = options.append || false;
   content.mount(this._parent, append)
   .then(() => {
-    $(parent).localize();
+    $(this._parent).localize();
     // Insert the content into the array with the followind attributes:
     // content: componet object
     // options: es. title, perc etc ...
@@ -135,6 +135,8 @@ proto._setVueContent = function(content, options) {
       content,
       options
     });
+
+
     d.resolve(content);
   });
   return d.promise();
