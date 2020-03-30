@@ -29,23 +29,24 @@ const SidebarItem = Vue.extend({
       };
   },
   methods: {
-    onClickItem: function() {
+    onClickItem: function(evt) {
       const sidebarService = this.$options.service;
       // force to close
-      if (!this.component.state.open) {
+      this.component.isolate && evt.stopPropagation();
+      if (!this.component.isolate && !this.component.state.open) {
         // set state of opened component
         sidebarService.state.components.forEach((component) => {
-          if (component !== this.component && (this.component.collapsible || !this.component.context)) {
+          if (component !== this.component) {
             if (component.state.open) {
-              !this.component.context ? $(component.getInternalComponent().$el).siblings('a').click() : null;
-              component.setOpen(false);
+            $(component.getInternalComponent().$el).siblings('a').click() ;
+             component.setOpen(component.isolate);
             }
           }
         });
-      }
-      this.component.setOpen(!this.component.state.open);
-      if (!this.component.collapsible && isMobile.any) {
-        SIDEBAREVENTBUS.$emit('sidebaritemclick');
+        this.component.setOpen(!this.component.state.open);
+        if (!this.component.collapsible && isMobile.any) {
+          SIDEBAREVENTBUS.$emit('sidebaritemclick');
+        }
       }
     }
   },
@@ -103,7 +104,7 @@ function SidebarService() {
     sidebarItem.iconColor = component.iconColor;
     sidebarItem.state = component.state || true;
     sidebarItem.collapsible = (typeof component.collapsible === 'boolean') ? component.collapsible : true;
-    sidebarItem.context = (typeof component.context === 'boolean') ? component.context: true;
+    sidebarItem.isolate = (typeof component.isolate === 'boolean') ? component.isolate: false;
     //append component to  g3w-sidebarcomponents (template sidebar.html)
     const DOMComponent = sidebarItem.$mount().$el;
     this.state.components.push(component);

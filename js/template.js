@@ -68,7 +68,6 @@ const ApplicationTemplate = function({ApplicationService}) {
               id: 'metadata',
               open: false,
               collapsible: false,
-              context: false,
               icon: G3WTemplate.getFontClass('file'),
               mobile: true
             }),
@@ -98,6 +97,7 @@ const ApplicationTemplate = function({ApplicationService}) {
               id: 'catalog',
               open: false,
               collapsible: false,
+              isolate: true,
               icon: G3WTemplate.getFontClass('map'),
               mobile: true,
               config: {
