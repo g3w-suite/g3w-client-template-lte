@@ -1,4 +1,4 @@
-<aside class="main-sidebar" :class="{iframe: iframe}">
+<aside class="main-sidebar" :class="{iframe: iframe}" >
   <!-- sidebar: style can be found in sidebar.less -->
   <!-- Sidebar toggle button-->
   <!-- Toggle button on the left side of main sidebar only if not mobile -->
@@ -6,6 +6,7 @@
     <i :class="g3wtemplate.getFontClass('bars')"></i>
   </a>
 	<div id="g3w-sidebar" class="sidebar">
+    <div id="disable-sidebar"></div>
     <div v-show="panelsinstack" class="g3w-sidebarpanel">
       <div style="overflow: hidden;line-height: 14px;margin-top: 4px; font-size:1.5em">
           <h4 style="display: inline-block; font-weight: bold">{{ gui.title }}</h4>
@@ -19,6 +20,6 @@
     <div id="g3w-sidebarcomponents-content">
       <ul id="g3w-sidebarcomponents" v-show="showmainpanel" class="sidebar-menu"></ul>
     </div>
-	</div>
-	<!-- /.sidebar -->
+  </div>
+  <!-- /.sidebar -->
 </aside>

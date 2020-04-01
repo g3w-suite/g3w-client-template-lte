@@ -510,7 +510,11 @@ const ApplicationTemplate = function({ApplicationService}) {
     // MODAL
     GUI.setModal = this._showModalOverlay.bind(this);
     GUI.showFullModal = function({element="#full-screen-modal", show=true} = {}) {
-      show && $(element).modal('show') || $(element).modal('hide')
+      show ? $(element).modal('show') : $(element).modal('hide')
+    };
+
+    GUI.disableSideBar = function(bool=true) {
+      bool ? $('#disable-sidebar').show() : $('#disable-sidebar').hide()
     };
 
     // VIEWPORT //

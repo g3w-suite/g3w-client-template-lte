@@ -12,8 +12,17 @@
     }
 }
 
-.sidebar {
+#g3w-sidebar.sidebar {
   color: white;
+  position:relative !important;
+  #disable-sidebar {
+    display: none;
+    position: absolute;
+    background-color: rgba(0,0,0,0.3);
+    height: 100%;
+    width: 100%;
+    z-index: 10;
+  }
   .g3w-sidebarpanel {
     padding: 10px 15px 10px 15px;
     .g3w-panel {
