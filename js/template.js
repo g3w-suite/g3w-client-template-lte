@@ -68,7 +68,6 @@ const ApplicationTemplate = function({ApplicationService}) {
               id: 'metadata',
               open: false,
               collapsible: false,
-              context: false,
               icon: G3WTemplate.getFontClass('file'),
               mobile: true
             }),
@@ -98,6 +97,7 @@ const ApplicationTemplate = function({ApplicationService}) {
               id: 'catalog',
               open: false,
               collapsible: false,
+              isolate: true,
               icon: G3WTemplate.getFontClass('map'),
               mobile: true,
               config: {
@@ -510,7 +510,11 @@ const ApplicationTemplate = function({ApplicationService}) {
     // MODAL
     GUI.setModal = this._showModalOverlay.bind(this);
     GUI.showFullModal = function({element="#full-screen-modal", show=true} = {}) {
-      show && $(element).modal('show') || $(element).modal('hide')
+      show ? $(element).modal('show') : $(element).modal('hide')
+    };
+
+    GUI.disableSideBar = function(bool=true) {
+      bool ? $('#disable-sidebar').show() : $('#disable-sidebar').hide()
     };
 
     // VIEWPORT //

@@ -32,6 +32,7 @@ const InternalComponent = Vue.extend({
             //changeProject is a setter so it return a promise
             promise
               .then((project)=>{
+                document.title = project.state.html_page_title
               })
               .fail(() => {
                 GUI.notify.error("<h4>" + t("error_map_loading") + "</h4>" +
