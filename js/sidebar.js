@@ -33,7 +33,7 @@ const SidebarItem = Vue.extend({
       const sidebarService = this.$options.service;
       // force to close
       this.component.isolate && evt.stopPropagation();
-      if (!this.component.isolate && !this.component.state.open) {
+      if (!this.component.isolate) {
         // set state of opened component
         sidebarService.state.components.forEach((component) => {
           if (component !== this.component) {
@@ -43,11 +43,11 @@ const SidebarItem = Vue.extend({
             }
           }
         });
-        this.component.setOpen(!this.component.state.open);
         if (!this.component.collapsible && isMobile.any) {
           SIDEBAREVENTBUS.$emit('sidebaritemclick');
         }
       }
+      this.component.setOpen(!this.component.state.open);
     }
   },
   created() {
