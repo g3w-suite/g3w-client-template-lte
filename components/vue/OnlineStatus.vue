@@ -1,7 +1,5 @@
 <template functional>
-  <div id="offline" data-placement="right" v-if="!online"
-       title="OFFLINE"
-       class="skin-tooltip-right">
+  <div id="offline" data-placement="right" v-if="!online" title="OFFLINE" class="skin-tooltip-right">
     <i :class="g3wtemplate.getFontClass('wifi')"></i>
   </div>
 </template>
