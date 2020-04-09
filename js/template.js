@@ -51,6 +51,7 @@ const ApplicationTemplate = function({ApplicationService}) {
     const ContentsComponent = require('./contentsviewer');
     const CatalogComponent = require('sdk/gui/catalog/vue/catalog');
     const SearchComponent = require('sdk/gui/search/vue/search');
+    const QueryBuilderPanel = require('sdk/gui/querybuilder/vue/panel/querybuilderpanel');
     const PrintComponent = require('sdk/gui/print/vue/print');
     const MetadataComponent = require('sdk/gui/metadata/vue/metadata');
     const ToolsComponent = require('sdk/gui/tools/vue/tools');
@@ -83,6 +84,19 @@ const ApplicationTemplate = function({ApplicationService}) {
               open: false,
               collapsible: true,
               icon: G3WTemplate.getFontClass('search'),
+              action: {
+                class: G3WTemplate.getFontClass('calculator'),
+                tooltip: 'Query Builder',
+                fnc:()=>{
+                  const panel = new QueryBuilderPanel();
+                  panel.show();
+                },
+                style: {
+                  color: '#FFFFFF',
+                  padding: '5px',
+                  fontSize: '1.3em'
+                }
+              },
               mobile: true
             }),
             // Component that store plugins

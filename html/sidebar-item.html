@@ -2,7 +2,8 @@
   <a @click.prevent="onClickItem" ref="anchor_click" href="#">
     <i :class="icon" :style="{color: iconColor}"></i>
     <span class="treeview-label">{{title | t}}</span>
-    <span v-if="info.state" style="position: absolute; right: 5px; font-weight: bold" :class="info.class" :style="info.style">{{ info.state }}</span>
+    <span v-if="info.state" style="position: absolute; right: 5px; font-weight: bold" :class="info.class" :style="info.style" :title="info.tooltip">{{ info.state }}</span>
+    <span v-else-if="action" data-placement="right" data-toggle="tooltip" @click.stop="action.fnc" style="position: absolute; right: 5px; font-weight: bold" :class="action.class" class="skin-tooltip-right" :style="action.style" :title="action.tooltip"></span>
     <i v-if="collapsible" :class="g3wtemplate.getFontClass('angle-left')" class="pull-right"></i>
   </a>
   <div id="g3w-sidebarcomponent-placeholder"></div>
