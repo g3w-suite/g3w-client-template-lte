@@ -54,6 +54,10 @@ const SidebarItem = Vue.extend({
     this.component.openClose = () =>{
       this.$refs.anchor_click.click();
     }
+  },
+  async mounted() {
+    await this.$nextTick();
+    $('.sidebaritem .action[data-toggle="tooltip"]').tooltip();
   }
 });
 

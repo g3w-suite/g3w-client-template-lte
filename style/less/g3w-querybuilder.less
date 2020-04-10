@@ -1,0 +1,42 @@
+@flex: flex;
+@content_height: 130px;
+@no_margin: 0;
+
+#query_builder {
+  .bold-message {
+    font-weight: bold
+  }
+  .querybuilder-title {
+    color: #ffffff;
+    font-weight: bold;
+  }
+  .querybuilder-content {
+    max-height: @content_height;
+    min-height: 30px;
+    background-color: @color-white;
+    overflow-y: auto;
+    .content-table {
+      background-color: @color-white;
+      color: #000000;
+      margin-bottom:@no_margin;
+    }
+  }
+  .query_builder_button{
+    margin: 1px;
+    width:95px;
+  }
+  .flex-warp {
+    display: @flex;
+    flex-wrap: wrap
+  }
+  .flex-end {
+    display: @flex;
+    justify-content: flex-end;
+  }
+  .margin-between-element {
+    margin-bottom: 5px;
+  }
+  #query_builder_footer {
+
+  }
+}

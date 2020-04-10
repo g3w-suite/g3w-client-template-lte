@@ -6,11 +6,11 @@
     </div>
     <div>
       <span v-if="info.state" style="position: absolute; right: 5px; font-weight: bold" :class="info.class" :style="info.style" :title="info.tooltip">{{ info.state }}</span>
-      <span v-for="action in actions" :key="action.id" data-placement="right" data-toggle="tooltip"
+      <span v-for="action in actions" :key="action.id" data-placement="left" data-toggle="tooltip"
             @click.stop="action.fnc"
             style="font-weight: bold; padding:3px;"
             :class="action.class"
-            class="action skin-tooltip-right"
+            class="action skin-tooltip-left"
             :style="action.style"
             :title="action.tooltip">
       </span>
