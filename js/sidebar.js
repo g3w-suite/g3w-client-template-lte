@@ -99,7 +99,7 @@ function SidebarService() {
     });
     sidebarItem.title = component.title || sidebarItem.title;
     sidebarItem.info = component.info || sidebarItem.info;
-    sidebarItem.action = component.action || sidebarItem.action;
+    sidebarItem.actions = component.actions || sidebarItem.actions;
     sidebarItem.open = component.state.open;//(component.open === undefined) ? sidebarItem.open : component.open;
     sidebarItem.icon = component.icon || sidebarItem.icon;
     sidebarItem.iconColor = component.iconColor;

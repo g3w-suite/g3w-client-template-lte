@@ -84,7 +84,8 @@ const ApplicationTemplate = function({ApplicationService}) {
               open: false,
               collapsible: true,
               icon: G3WTemplate.getFontClass('search'),
-              action: {
+              actions: [{
+                id:"querybuilder",
                 class: G3WTemplate.getFontClass('calculator'),
                 tooltip: 'Query Builder',
                 fnc:()=>{
@@ -96,7 +97,7 @@ const ApplicationTemplate = function({ApplicationService}) {
                   padding: '5px',
                   fontSize: '1.3em'
                 }
-              },
+              }],
               mobile: true
             }),
             // Component that store plugins
