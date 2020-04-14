@@ -52,6 +52,7 @@ const ApplicationTemplate = function({ApplicationService}) {
     const CatalogComponent = require('sdk/gui/catalog/vue/catalog');
     const SearchComponent = require('sdk/gui/search/vue/search');
     const QueryBuilderPanel = require('sdk/gui/querybuilder/vue/panel/querybuilderpanel');
+    const QueryBuilder = require('sdk/gui/querybuilder/vue/querybuilder');
     const PrintComponent = require('sdk/gui/print/vue/print');
     const MetadataComponent = require('sdk/gui/metadata/vue/metadata');
     const ToolsComponent = require('sdk/gui/tools/vue/tools');
@@ -88,9 +89,18 @@ const ApplicationTemplate = function({ApplicationService}) {
                 id:"querybuilder",
                 class: G3WTemplate.getFontClass('calculator'),
                 tooltip: 'Query Builder',
-                fnc:()=>{
-                  const panel = new QueryBuilderPanel();
-                  panel.show();
+                fnc:()=> {
+                  if (true) {
+                    const queryBuilderDom = new QueryBuilder().$mount().$el;
+                    GUI.showModalDialog({
+                      title: 'Query Builder',
+                      message: queryBuilderDom,
+                      className: "modal-background-dark"
+                    })
+                  } else {
+                    const panel = new QueryBuilderPanel();
+                    panel.show();
+                  }
                 },
                 style: {
                   color: '#FFFFFF',

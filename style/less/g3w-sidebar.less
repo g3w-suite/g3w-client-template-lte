@@ -24,6 +24,7 @@
     z-index: 10;
   }
   .g3w-sidebarpanel {
+    position: relative;
     padding: 10px 15px 10px 15px;
     .g3w-panel {
       .g3w-panel-form {
@@ -37,13 +38,20 @@
       }
 
     }
-  }
-  .g3w-sidebarpanel-placeholder {
-    margin-top: 10px;
-    h3 {
-      margin-top: 0;
+    #g3w-sidebarpanel-header-placeholder {
+      height: 4%;
+      min-height: 35px;
     }
+    .g3w-sidebarpanel-placeholder {
+      height: 95%;
+      margin-top: 10px;
+      h3 {
+        margin-top: 0;
+      }
+    }
+
   }
+
 
   .close-pane-button {
     color: transparent;
