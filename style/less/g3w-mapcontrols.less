@@ -38,16 +38,16 @@
 }
 
 .ol-mouse-position {
-  top: auto;
-  margin: 3px;
+  position: relative !important;
+  padding: 5px;
   height: 20px;
   font-weight: bold;
-  background: rgba(255, 255, 255, 0.8);
-  //padding: 3px;
+  font-size: 0.9em;
+  margin-left: 8px;
 }
 
 .ol-mouse-position-default {
-  right: 10px;
+  right: 50px;
   border-radius: 4px;
   z-index: 100;
 }
@@ -103,7 +103,7 @@
 
 //botton left
 .ol-control-bl {
-  bottom: 30px;
+  bottom: 40px;
   left:7px;
 }
 
@@ -141,6 +141,7 @@
 .ol-scale-line {
   left: auto;
   font-weight: bold;
+  bottom: 35px;
   box-shadow: 0 3px 5px rgba(0,0,0,0.4);
 }
 
@@ -529,11 +530,10 @@
 }
 
 .ol-attribution {
-  left: 0;
   background-color: transparent !important;
-  position: absolute !important;
   text-align: left !important;
   bottom: 5px !important;
+  right: auto !important;
 }
 
 .ol-attribution ul {
