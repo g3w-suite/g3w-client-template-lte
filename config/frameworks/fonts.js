@@ -164,7 +164,8 @@ const Fonts = {
         success: "far fa-check-circle",
         back: "fas fa-chevron-circle-left",
         'file-upload': "fas fa-file-upload",
-        'vector-square': "fas fa-vector-square"
+        'vector-square': "fas fa-vector-square",
+        download: "fas fa-download"
       }
     }
   }
