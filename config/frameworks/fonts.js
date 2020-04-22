@@ -166,7 +166,8 @@ const Fonts = {
         'file-upload': "fas fa-file-upload",
         wifi: "fas fa-wifi",
         'vector-square': "fas fa-vector-square",
-        mouse: "fas fa-mouse"
+        mouse: "fas fa-mouse",
+        'copy-paste': "far fa-copy"
       }
     }
   }
