@@ -165,9 +165,10 @@ const Fonts = {
         back: "fas fa-chevron-circle-left",
         'file-upload': "fas fa-file-upload",
         wifi: "fas fa-wifi",
-        'vector-square': "fas fa-vector-square",
         mouse: "fas fa-mouse",
         'copy-paste': "far fa-copy"
+        'vector-square': "fas fa-vector-square",
+        download: "fas fa-download"
       }
     }
   }
