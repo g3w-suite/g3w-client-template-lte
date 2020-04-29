@@ -11,7 +11,7 @@
   .skin-button {
     background: @red;
     &.lighten {
-      background: lighten(@red, 30%);
+      background: lighten(@red, 30%) !important;
     }
     &.bordered {
       .skin-border-color();
@@ -26,25 +26,25 @@
 
   .skin-tooltip-top + .tooltip.top, .skin-tooltip-left + .tooltip.left, .skin-tooltip-right + .tooltip.right  {
     .tooltip-inner {
-      background-color: @red;
+      background-color: @red !important;
       font-weight: bold;
     }
 
   }
   .skin-tooltip-top + .tooltip.top {
     .tooltip-arrow {
-      border-top-color: @red;
+      border-top-color: @red !important;
     }
   }
   .skin-tooltip-left + .tooltip.left {
     .tooltip-arrow {
-      border-left-color: @red;
+      border-left-color: @red !important;
     }
   }
 
   .skin-tooltip-right + .tooltip.right {
     .tooltip-arrow {
-      border-right-color: @red;
+      border-right-color: @red !important;
     }
   }
 }

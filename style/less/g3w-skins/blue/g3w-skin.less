@@ -3,15 +3,15 @@
     border-color: @light-blue !important;
   }
   .skin-background-color {
-    background-color: @light-blue !important;
+    background-color: @light-blue;
     &.lighten {
-      background-color: lighten(@light-blue, 30%);
+      background-color: lighten(@light-blue, 30%) !important;
     }
   }
   .skin-button {
     background: @light-blue;
     &.lighten {
-      background: lighten(@light-blue, 30%);
+      background: lighten(@light-blue, 30%) !important;
     }
     &.bordered {
       .skin-border-color();
@@ -26,25 +26,25 @@
 
   .skin-tooltip-top + .tooltip.top, .skin-tooltip-left + .tooltip.left, .skin-tooltip-right + .tooltip.right  {
     .tooltip-inner {
-      background-color:@light-blue;
+      background-color:@light-blue !important;
       font-weight: bold;
     }
 
   }
   .skin-tooltip-top + .tooltip.top {
     .tooltip-arrow {
-      border-top-color: @light-blue;
+      border-top-color: @light-blue !important;
     }
   }
   .skin-tooltip-left + .tooltip.left {
     .tooltip-arrow {
-      border-left-color: @light-blue;
+      border-left-color: @light-blue !important;
     }
   }
 
   .skin-tooltip-right + .tooltip.right {
     .tooltip-arrow {
-      border-right-color: @light-blue;
+      border-right-color: @light-blue !important;
     }
   }
 }

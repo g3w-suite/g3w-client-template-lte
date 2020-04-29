@@ -3,15 +3,15 @@
     border-color: @yellow !important;
   }
   .skin-background-color {
-    background-color: @yellow !important;
+    background-color: @yellow;
     &.lighten {
-      background-color: lighten(@yellow, 30%);
+      background-color: lighten(@yellow, 30%) !important;
     }
   }
   .skin-button {
     background: @yellow;
     &.lighten {
-      background: lighten(@yellow, 30%);
+      background: lighten(@yellow, 30%) !important;
     }
     &.bordered {
       .skin-border-color();
@@ -26,25 +26,25 @@
 
   .skin-tooltip-top + .tooltip.top, .skin-tooltip-left + .tooltip.left, .skin-tooltip-right + .tooltip.right  {
     .tooltip-inner {
-      background-color: @yellow;
+      background-color: @yellow !important;
       font-weight: bold;
     }
 
   }
   .skin-tooltip-top + .tooltip.top {
     .tooltip-arrow {
-      border-top-color: @yellow;
+      border-top-color: @yellow !important;
     }
   }
   .skin-tooltip-left + .tooltip.left {
     .tooltip-arrow {
-      border-left-color: @yellow;
+      border-left-color: @yellow !important;
     }
   }
 
   .skin-tooltip-right + .tooltip.right {
     .tooltip-arrow {
-      border-right-color: @yellow;
+      border-right-color: @yellow !important;
     }
   }
 }

@@ -5,13 +5,13 @@
   .skin-background-color {
     background-color: @purple !important;
     &.lighten {
-      background-color: lighten(@purple, 30%);
+      background-color: lighten(@purple, 30%) !important;
     }
   }
   .skin-button {
     background: @purple;
     &.lighten {
-      background: lighten(@purple, 30%);
+      background: lighten(@purple, 30%) !important;
     }
     &.bordered {
       .skin-border-color();
@@ -25,25 +25,25 @@
   }
   .skin-tooltip-top + .tooltip.top, .skin-tooltip-left + .tooltip.left, .skin-tooltip-right + .tooltip.right  {
     .tooltip-inner {
-      background-color: @purple;
+      background-color: @purple !important;
       font-weight: bold;
     }
 
   }
   .skin-tooltip-top + .tooltip.top {
     .tooltip-arrow {
-      border-top-color: @purple;
+      border-top-color: @purple !important;
     }
   }
   .skin-tooltip-left + .tooltip.left {
     .tooltip-arrow {
-      border-left-color: @purple;
+      border-left-color: @purple !important;
     }
   }
 
   .skin-tooltip-right + .tooltip.right {
     .tooltip-arrow {
-      border-right-color: @purple;
+      border-right-color: @purple !important;
     }
   }
 }
