@@ -168,7 +168,8 @@ const Fonts = {
         mouse: "fas fa-mouse",
         'copy-paste': "far fa-copy",
         'vector-square': "fas fa-vector-square",
-        download: "fas fa-download"
+        download: "fas fa-download",
+        credits: "fas fa-euro-sign"
       }
     }
   }

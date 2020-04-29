@@ -11,37 +11,18 @@ const AppUI = Vue.extend({
     return {
       customcredits: false,
       current_custom_modal_content: null,
-      appState: ApplicationService.getState()
+      appState: ApplicationService.getState(),
+      current_custom_modal_content: null,
+      language: null
     }
   },
   components: {
     HeaderItem
   },
-  mounted: function() {
-    this.$nextTick(function(){
-      /* start to render LayoutManager layout */
-      layout.loading(false);
-      layout.setup();
-      //Fix the problem with right sidebar and layout boxed
-      layout.pushMenu.expandOnHover();
-      layout.controlSidebar._fix($(".control-sidebar-bg"));
-      layout.controlSidebar._fix($(".control-sidebar"));
-      const controlsidebarEl = layout.options.controlSidebarOptions.selector;
-      function setFloatBarMaxHeight() {
-        $(controlsidebarEl).css('max-height',$(window).innerHeight());
-        $('.g3w-sidebarpanel').css('height',$(window).height() - $("#main-navbar").height());
-      }
-      setFloatBarMaxHeight();
-      function setModalHeight(){
-        $('#g3w-modal-overlay').css('height',$(window).height());
-      }
-      $(window).resize(function() {
-        setFloatBarMaxHeight();
-        setModalHeight();
-      });
-    })
-  },
   computed: {
+    languages() {
+      return this.appconfig.i18n;
+    },
     currentProject() {
       return ProjectsRegistry.getCurrentProject();
     },
@@ -110,6 +91,11 @@ const AppUI = Vue.extend({
       GUI.openProjectsMenu();
     }
   },
+  watch: {
+    'language'(lng, currentlng) {
+      currentlng && ApplicationService.changeLanguage(lng);
+    }
+  },
   created() {
     this.custom_modals = [];
     this.custom_header_items_position = {
@@ -137,7 +123,32 @@ const AppUI = Vue.extend({
     !!this.appconfig.credits && $.get(this.appconfig.credits).then((credits)=> {
       this.customcredits = credits !== 'None' && credits
     });
-  }
+  },
+  mounted: function() {
+    this.language = this.appconfig.user.i18n;
+    this.$nextTick(function(){
+      /* start to render LayoutManager layout */
+      layout.loading(false);
+      layout.setup();
+      //Fix the problem with right sidebar and layout boxed
+      layout.pushMenu.expandOnHover();
+      layout.controlSidebar._fix($(".control-sidebar-bg"));
+      layout.controlSidebar._fix($(".control-sidebar"));
+      const controlsidebarEl = layout.options.controlSidebarOptions.selector;
+      function setFloatBarMaxHeight() {
+        $(controlsidebarEl).css('max-height',$(window).innerHeight());
+        $('.g3w-sidebarpanel').css('height',$(window).height() - $("#main-navbar").height());
+      }
+      setFloatBarMaxHeight();
+      function setModalHeight(){
+        $('#g3w-modal-overlay').css('height',$(window).height());
+      }
+      $(window).resize(function() {
+        setFloatBarMaxHeight();
+        setModalHeight();
+      });
+    })
+  },
 });
 
 module.exports = AppUI;
