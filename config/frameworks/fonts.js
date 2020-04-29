@@ -165,7 +165,8 @@ const Fonts = {
         back: "fas fa-chevron-circle-left",
         'file-upload': "fas fa-file-upload",
         'vector-square': "fas fa-vector-square",
-        download: "fas fa-download"
+        download: "fas fa-download",
+        credits: "fas fa-euro-sign"
       }
     }
   }
