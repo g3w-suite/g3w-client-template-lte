@@ -145,6 +145,15 @@
   box-shadow: 0 3px 5px rgba(0,0,0,0.4);
 }
 
+#scale-control {
+  .select2-selection__rendered{
+    font-weight: bold !important;
+  }
+  .select2-container--default .select2-selection--single, .select2-selection .select2-selection--single {
+    height: 30px !important;
+  }
+}
+
 .ol-rotate {
   top: 50px;
   left: 0;
@@ -532,8 +541,10 @@
 .ol-attribution {
   background-color: transparent !important;
   text-align: left !important;
-  bottom: 5px !important;
   right: auto !important;
+  position: relative !important;
+  top: 5px !important;
+  max-width: 100% !important;
 }
 
 .ol-attribution ul {

@@ -441,12 +441,12 @@ const ViewportService = function() {
   this._setViewSizes = function() {
     const primaryView = this.state.primaryView;
     const secondaryView = this._otherView(primaryView);
-    const viewportWidth = Math.round(this._viewportWidth()) - 0.5; // remove  for zoom in zoom out issue
+    const viewportWidth = Math.round(this._viewportWidth()); // remove  for zoom in zoom out issue
     //all viewport height
     const viewportHeight = this._viewportHeight();
     // assign all width and height of the view to primary view (map)
-    let primaryWidth = viewportWidth;
-    let primaryHeight = viewportHeight;
+    let primaryWidth;
+    let primaryHeight;
     let secondaryWidth;
     let secondaryHeight;
     // percentage of secondary view (content)
@@ -462,14 +462,14 @@ const ViewportService = function() {
       primaryWidth = viewportWidth;
       primaryHeight = viewportHeight - secondaryHeight;
     }
-    this.state[primaryView].sizes.width = primaryWidth + 0.1;
+    this.state[primaryView].sizes.width = primaryWidth;
     this.state[primaryView].sizes.height = primaryHeight;
     this.state[secondaryView].sizes.width = secondaryWidth;
     this.state[secondaryView].sizes.height = secondaryHeight;
   };
 
   this._viewportHeight = function() {
-    const topHeight = $(".navbar").innerHeight();
+    const topHeight = $('.navbar-header').height();
     return $(window).innerHeight() - topHeight;
   };
 
