@@ -90,12 +90,12 @@ const ApplicationTemplate = function({ApplicationService}) {
                 class: G3WTemplate.getFontClass('calculator'),
                 tooltip: 'Query Builder',
                 fnc:()=> {
-                  if (true) {
+                  if (false) {
                     const queryBuilderDom = new QueryBuilder().$mount().$el;
                     GUI.showModalDialog({
                       title: 'Query Builder',
                       message: queryBuilderDom,
-                      className: "modal-background-dark"
+                      className: "modal-background-dark "
                     })
                   } else {
                     const panel = new QueryBuilderPanel();

@@ -19,13 +19,6 @@ function ContentsViewerComponent(options) {
   this.stack = new Stack();
   this.setService(this);
   this.title = "contents";
-  // parent component state is
-  /*
-   this.state = {
-    visible: options.visible || true,
-    open: options.open || false
-   }
-   */
   this.contentsdata = this.stack.state.contentsdata;
   this.state.visible = true;
   this.setInternalComponent(new InternalComponent({

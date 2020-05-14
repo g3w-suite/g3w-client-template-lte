@@ -614,13 +614,23 @@ const ViewportComponent = Vue.extend({
         return contentsData[contentsData.length - 1].options.title;
       }
     },
+    backOrBackTo(){
+      const contentsData = this.state.content.contentsdata;
+      if (contentsData.length > 1 && this.state.content.showgoback) {
+        if (!contentsData[contentsData.length - 2].options.title) {
+          return 'back';
+        }
+        return 'backto'
+      }
+      return false;
+    },
     previousTitle: function() {
       const contentsData = this.state.content.contentsdata;
       if (contentsData.length > 1 && this.state.content.showgoback) {
         if (!contentsData[contentsData.length - 2].options.title) {
-          return t('back');
+          return false
         }
-        return ` ${t('backto')} ${contentsData[contentsData.length - 2].options.title}`;
+        return ` ${contentsData[contentsData.length - 2].options.title}`;
       }
       return false;
     },
