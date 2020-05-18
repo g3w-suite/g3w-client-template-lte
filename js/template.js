@@ -6,9 +6,10 @@ const ProjectsMenuComponent = require('./projectsmenu');
 const ComponentsRegistry = require('sdk/gui/componentsregistry');
 const GUI = require('sdk/gui/gui');
 const VueTemplatePlugin = require('./vuetemplateplugin');
+const G3wApplicationFilterPlugin = require('sdk/gui/vue/vue.filter');
 
-// // start to sue composition api
-// Vue.use(vueCompositionApi.default);
+// install Application Filter Plugin
+Vue.use(G3wApplicationFilterPlugin);
 
 // install template information library (es. classes etc..)
 Vue.use(VueTemplatePlugin, {
@@ -51,8 +52,9 @@ const ApplicationTemplate = function({ApplicationService}) {
     const ContentsComponent = require('./contentsviewer');
     const CatalogComponent = require('sdk/gui/catalog/vue/catalog');
     const SearchComponent = require('sdk/gui/search/vue/search');
-    const QueryBuilderPanel = require('sdk/gui/querybuilder/vue/panel/querybuilderpanel');
-    const QueryBuilder = require('sdk/gui/querybuilder/vue/querybuilder');
+    //const QueryBuilderPanel = require('sdk/gui/querybuilder/vue/panel/querybuilderpanel');
+    //const QueryBuilder = require('sdk/gui/querybuilder/vue/querybuilder');
+    const QueryBuilderUIFactory = require('sdk/gui/querybuilder/querybuilderuifactory');
     const PrintComponent = require('sdk/gui/print/vue/print');
     const MetadataComponent = require('sdk/gui/metadata/vue/metadata');
     const ToolsComponent = require('sdk/gui/tools/vue/tools');
@@ -90,17 +92,9 @@ const ApplicationTemplate = function({ApplicationService}) {
                 class: G3WTemplate.getFontClass('calculator'),
                 tooltip: 'Query Builder',
                 fnc:()=> {
-                  if (false) {
-                    const queryBuilderDom = new QueryBuilder().$mount().$el;
-                    GUI.showModalDialog({
-                      title: 'Query Builder',
-                      message: queryBuilderDom,
-                      className: "modal-background-dark "
-                    })
-                  } else {
-                    const panel = new QueryBuilderPanel();
-                    panel.show();
-                  }
+                  QueryBuilderUIFactory.show({
+                    type: 'sidebar'
+                  });
                 },
                 style: {
                   color: '#FFFFFF',
@@ -192,10 +186,6 @@ const ApplicationTemplate = function({ApplicationService}) {
   };
 
   this._setupLayout = function(){
-    Vue.filter('t', function (value) {
-      return t(value);
-    });
-
     if (!isMobile.any) {
       // setup map controls
       $("<style type='text/css'> .ol-control-tl {" +

@@ -4,7 +4,8 @@
       <i class="usermessage-header-icontype" :class="g3wtemplate.getFontClass(type)"></i>
       <div class="usermessage-header-title">
         <slot name="header">
-          <h4>{{ title || type.toUpperCase() }}</h4>
+          <h4 v-if="title" v-t="title"></h4>
+          <h4 v-else> {{ type.toUpperCase() }}</h4>
         </slot>
       </div>
       <div class="usermessage-header-right">
@@ -14,7 +15,7 @@
       </div>
     </div>
     <slot name="body">
-      <div class="usermessage-message" v-html="message"></div>
+      <div class="usermessage-message" v-t="message"></div>
     </slot>
     <slot name="footer"></slot>
   </div>
@@ -151,7 +152,7 @@
     flex-wrap: wrap;
     flex-direction: column;
     align-items: center;
-    padding: 5px;
+    padding: 10px;
     min-width: 250px;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
     -moz-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
@@ -185,10 +186,9 @@
 
   .usermessage-message {
     width: 100%;
-    padding: 20px 5px 20px 5px;
-    max-height: 150px;
+    padding: 10px 5px;
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: 1.1em;
     align-self: flex-start;
     overflow-y: auto;
   }

@@ -2,7 +2,7 @@
   <a @click.prevent="onClickItem" ref="anchor_click" href="#" style="display: flex; justify-content: space-between; align-items: center">
     <div>
       <i :class="icon" :style="{color: iconColor}"></i>
-      <span class="treeview-label">{{title | t}}</span>
+      <span class="treeview-label" v-t="title"></span>
     </div>
     <div>
       <span v-if="info.state" style="position: absolute; right: 5px; font-weight: bold" :class="info.class" :style="info.style" :title="info.tooltip">{{ info.state }}</span>
