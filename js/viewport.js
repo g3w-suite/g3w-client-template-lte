@@ -469,8 +469,8 @@ const ViewportService = function() {
   };
 
   this._viewportHeight = function() {
-    const topHeight = $('.navbar-header').height();
-    return $(window).innerHeight() - topHeight;
+    const topHeight = $('.navbar-header').innerHeight();
+    return $(document).innerHeight() - topHeight;
   };
 
   this._viewportWidth = function() {

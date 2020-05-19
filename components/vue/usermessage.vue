@@ -148,10 +148,7 @@
     color: #FFFFFF;
     z-index: 1000;
     position: absolute;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    align-items: center;
+    line-height: normal;
     padding: 10px;
     min-width: 250px;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
@@ -186,7 +183,7 @@
 
   .usermessage-message {
     width: 100%;
-    padding: 10px 5px;
+    padding: 5px;
     font-weight: bold;
     font-size: 1.1em;
     align-self: flex-start;

@@ -1,3 +1,4 @@
+import ApplicationState from 'sdk/core/applicationstate';
 const t = require('sdk/core/i18n/i18n.service').t;
 const inherit = require('sdk/core/utils/utils').inherit;
 const base = require('sdk/core/utils/utils').base;
@@ -150,6 +151,7 @@ const ApplicationTemplate = function({ApplicationService}) {
 
   //Vue app
   this._createApp = function() {
+    this._setDataTableLanguage();
     const self = this;
     if (isMobile.any || this._isIframe) {
       $('body').addClass('sidebar-collapse');
@@ -165,6 +167,10 @@ const ApplicationTemplate = function({ApplicationService}) {
         self._setUpServices();
         // create templateConfig
         self.templateConfig = self._createTemplateConfig();
+        // listen lng change and reset datatable lng
+        this.$watch(()=> ApplicationState.lng, ()=>{
+          self._setDataTableLanguage();
+        });
       },
       mounted: function() {
         this.$nextTick(function() {
@@ -201,9 +207,14 @@ const ApplicationTemplate = function({ApplicationService}) {
     Vue.component('viewport', viewport.ViewportComponent);
     Vue.component('floatbar', floatbar.FloatbarComponent);
     Vue.component('app', AppUI);
-    // dataTable Translations
-    $.extend( true, $.fn.dataTable.defaults, {
+  };
+
+  // dataTable Translations
+  this._setDataTableLanguage = function(dataTable=null) {
+    const lngOptions = {
       "language": {
+        "sSearch": t("dosearch"),
+        "sLengthMenu": t("dataTable.lengthMenu"),
         "paginate": {
           "previous": t("dataTable.previous"),
           "next": t("dataTable.next"),
@@ -212,7 +223,8 @@ const ApplicationTemplate = function({ApplicationService}) {
         "zeroRecords": t("dataTable.nodatafilterd"),
         "infoFiltered": t("dataTable.infoFiltered")
       }
-    });
+    };
+    !dataTable ? $.extend( true, $.fn.dataTable.defaults, lngOptions) : dataTable.dataTable( {"oLanguage": lngOptions});
   };
 
   // route setting att beginning (is an example)
@@ -658,10 +670,6 @@ const ApplicationTemplate = function({ApplicationService}) {
         });
       }
     }
-
-    /* END VIEWPORT */
-    /*  */
-    /* END PUBLIC INTERFACE */
   };
   base(this);
 };
