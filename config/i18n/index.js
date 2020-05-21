@@ -1,7 +1,7 @@
 export default {
   "it": {
     "template": {
-      g3wSuiteFramework: "Applicativo realizzato con il framework OS",
+      g3wSuiteFramework: "Framework sviluppato da",
       productOf: "Prodotto da",
       logout: "Esci",
       no_other_projects: "Non ci sono altri progetti in questo gruppo cartografico",
@@ -16,7 +16,7 @@ export default {
   },
   "en": {
     "template": {
-      g3wSuiteFramework: "Application based on OS framework",
+      g3wSuiteFramework: "Framework developed by",
       productOf: "A product of",
       logout: "Logout",
       no_other_projects: "No more project for this group",
