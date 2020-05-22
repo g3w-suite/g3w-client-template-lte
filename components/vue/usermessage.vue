@@ -15,7 +15,8 @@
       </div>
     </div>
     <slot name="body">
-      <div class="usermessage-message" v-t="message"></div>
+      <div class="usermessage-message" v-if="textMessage">{{ message }}</div>
+      <div v-else class="usermessage-message" v-t="message"></div>
     </slot>
     <slot name="footer"></slot>
   </div>
@@ -65,7 +66,11 @@
       },
       message: {
         type: String,
-        deafult: ''
+        default: ''
+      },
+      textMessage: {
+        type: Boolean,
+        default: false
       },
       autoclose: {
         type: Boolean,

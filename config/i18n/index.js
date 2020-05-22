@@ -1,9 +1,9 @@
 export default {
   "it": {
     "template": {
-      g3wSuiteFramework: "Framework sviluppato da",
-      productOf: "Prodotto da",
-      logout: "Esci",
+      g3wSuiteFramework: "Applicativo realizzato con il framework OS",
+      g3wSuiteDescription: "Pubblica e gestisci i tuoi progetti QGIS sul Web",
+      productOf: "Framework sviluppato da",
       no_other_projects: "Non ci sono altri progetti in questo gruppo cartografico",
       usermessage: {
         info: "Informazioni",
@@ -16,8 +16,9 @@ export default {
   },
   "en": {
     "template": {
-      g3wSuiteFramework: "Framework developed by",
-      productOf: "A product of",
+      g3wSuiteFramework: "Application based on OS framework",
+      g3wSuiteDescription: "Publish and manage your QGIS projects on the web",
+      productOf: "Framework developed by",
       logout: "Logout",
       no_other_projects: "No more project for this group",
       usermessage: {

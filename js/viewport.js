@@ -47,6 +47,7 @@ const ViewportService = function() {
       draggable: null,
       cloasable: null,
       autoclose: null,
+      textMessage: false,
       hooks: {
         header: null,
         body: null,
@@ -78,11 +79,12 @@ const ViewportService = function() {
     this._addComponents(options.components);
   };
 
-  this.showUserMessage = function({title, message, type, position, size, draggable, closable, autoclose, hooks={}}={}) {
+  this.showUserMessage = function({title, message, type, position, size, draggable, textMessage=false, closable, autoclose, hooks={}}={}) {
     this.closeUserMessage();
     requestAnimationFrame(() => {
       this.state.usermessage.show = true;
       this.state.usermessage.message = message;
+      this.state.usermessage.textMessage = textMessage;
       this.state.usermessage.title = title;
       this.state.usermessage.position = position;
       this.state.usermessage.type = type;
