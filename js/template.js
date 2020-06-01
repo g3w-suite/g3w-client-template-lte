@@ -53,8 +53,6 @@ const ApplicationTemplate = function({ApplicationService}) {
     const ContentsComponent = require('./contentsviewer');
     const CatalogComponent = require('sdk/gui/catalog/vue/catalog');
     const SearchComponent = require('sdk/gui/search/vue/search');
-    //const QueryBuilderPanel = require('sdk/gui/querybuilder/vue/panel/querybuilderpanel');
-    //const QueryBuilder = require('sdk/gui/querybuilder/vue/querybuilder');
     const QueryBuilderUIFactory = require('sdk/gui/querybuilder/querybuilderuifactory');
     const PrintComponent = require('sdk/gui/print/vue/print');
     const MetadataComponent = require('sdk/gui/metadata/vue/metadata');
@@ -111,7 +109,7 @@ const ApplicationTemplate = function({ApplicationService}) {
               open: false,
               collapsible: true,
               icon: G3WTemplate.getFontClass('tools'),
-              mobile: false
+              mobile: true
             }),
             new CatalogComponent({
               id: 'catalog',
