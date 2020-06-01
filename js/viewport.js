@@ -306,6 +306,7 @@ const ViewportService = function() {
     contentData.options.perc = options.perc;
     this._showView('content', options);
     this.state.content.collapsed = !this.state.content.collapsed;
+    return this.state.content.collapsed;
   };
 
   this.removeContent = function() {
@@ -657,7 +658,7 @@ const ViewportComponent = Vue.extend({
       GUI.closeContent();
     },
     collapseContent: function() {
-      viewportService.collapseContent();
+      GUI.collapseContent();
     },
     closeMap: function() {
       viewportService.closeMap();

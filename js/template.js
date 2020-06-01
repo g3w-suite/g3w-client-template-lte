@@ -607,7 +607,7 @@ const ApplicationTemplate = function({ApplicationService}) {
     };
 
     GUI.collapseContent = function() {
-      viewport.ViewportService.collapseContent();
+      this.emit('collapsed' , viewport.ViewportService.collapseContent());
     };
 
     GUI.getProjectMenuDOM = function({projects, host, cbk}={}) {
