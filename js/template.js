@@ -599,15 +599,7 @@ const ApplicationTemplate = function({ApplicationService}) {
     GUI.getContentLength = function() {
       return viewport.ViewportService.contentLength();
     };
-
-    GUI.isContentCollapsed = function() {
-      return viewport.ViewportService.getContentState().collapsed;
-    };
-
-    GUI.collapseContent = function() {
-      this.emit('collapsed' , viewport.ViewportService.collapseContent());
-    };
-
+    
     GUI.getProjectMenuDOM = function({projects, host, cbk}={}) {
       const options = {
         projects: projects && Array.isArray(projects) && projects,

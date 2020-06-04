@@ -30,7 +30,6 @@ const ViewportService = function() {
         width: 0,
         height: 0
       },
-      collapsed: false,
       aside: true,
       showgoback: true,
       stack: [], // array elements of  stack contents
@@ -298,17 +297,7 @@ const ViewportService = function() {
     }
     return d.promise()
   };
-
-  this.collapseContent = function({perc = 50} = {}) {
-    const options = this.state.content.collapsed ? {split: 'h', perc: 100} : { split: 'v', perc};
-    const contentData = this.state.content.contentsdata[0];
-    contentData.options.split = options.split;
-    contentData.options.perc = options.perc;
-    this._showView('content', options);
-    this.state.content.collapsed = !this.state.content.collapsed;
-    return this.state.content.collapsed;
-  };
-
+  
   this.removeContent = function() {
     // check if backonclose proprerty is  true o false
     // to remove all content stack or just last component
@@ -605,12 +594,6 @@ const ViewportComponent = Vue.extend({
     showContent: function() {
       return this.state.content.show;
     },
-    collapsedContent: function() {
-      return this.state.content.collapsed;
-    },
-    showCollapseButton() {
-      return this.isMobile() && this.state.content.contentsdata.length === 1 && this.media.matches;
-    },
     contentTitle: function() {
       const contentsData = this.state.content.contentsdata;
       if (contentsData.length) {
@@ -641,24 +624,9 @@ const ViewportComponent = Vue.extend({
       return this.state.secondaryPerc < this.state.content.preferredPerc;
     }
   },
-  watch: {
-    'state.content.contentsdata': function(newContentDataArray, oldContentDataArray) {
-      if (this.isMobile() && !oldContentDataArray.length)
-        this.state.content.collapsed = false;
-    },
-    'media.matches': function(newMatches, oldMatches) {
-      if (this.state.content.contentsdata.length === 1 && (oldMatches != newMatches)) {
-        this.state.content.collapsed = true;
-        viewportService.collapseContent()
-      }
-    }
-  },
   methods: {
     closeContent: function() {
       GUI.closeContent();
-    },
-    collapseContent: function() {
-      GUI.collapseContent();
     },
     closeMap: function() {
       viewportService.closeMap();

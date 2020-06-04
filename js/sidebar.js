@@ -1,3 +1,4 @@
+import ApplicationState from 'sdk/core/applicationstate';
 const t = require('sdk/core/i18n/i18n.service').t;
 const inherit = require('sdk/core/utils/utils').inherit;
 const Stack = require('./barstack.js');
@@ -203,12 +204,6 @@ const sidebarService = new SidebarService;
 const compiledSideBarTemplate = Vue.compile(require('../html/sidebar.html'));
 const SidebarComponent = Vue.extend({
     ...compiledSideBarTemplate,
-    props: {
-      iframe: {
-        type: Boolean,
-        default: false
-      }
-    },
     data: function() {
     	return {
         components: sidebarService.state.components,
@@ -244,6 +239,8 @@ const SidebarComponent = Vue.extend({
       }
     },
     created() {
+      this.iframe = ApplicationState.iframe;
+      //this.ismobile = ApplicationState.ismobile;
       SIDEBAREVENTBUS.$on('sidebaritemclick', ()=> {
         $('.sidebar-toggle').click();
       })
